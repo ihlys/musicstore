@@ -1,4 +1,4 @@
-package com.ihordev;
+package com.ihordev.config;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
