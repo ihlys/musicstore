@@ -22,18 +22,20 @@
 
     <body>
 
-		<div class="container">
+		<div class="container-fluid">
 			<div class="row header">
 				<div class="col-md-3 header__part header__part--left">
 					<form class="form form--search">
 						<div class="form__title-panel">
 							<span class="form__title">Поиск</span>
 						</div>
-						<label class="sr-only" for="search-critera">Search critera</label>
-						<input class="form-control form__input" id="search-critera" placeholder="Введите критерий...">
-						<button type="submit" class="btn btn-primary form__button">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</button>
+						<div class="form__row">
+							<label class="sr-only" for="search-critera">Search critera</label>
+							<input class="form-control form__input" id="search-critera" placeholder="Введите критерий...">
+							<button type="submit" class="btn btn-primary form__button">
+								<i class="fa fa-search" aria-hidden="true"></i>
+							</button>
+						</div>
 					</form>
 				</div>
 				
@@ -55,17 +57,39 @@
 								<i class="fa fa-vk" aria-hidden="true"></i>
 							</a>
 						</div>
-						<div>
+						<div class="form__row">
+							<label class="form__label" for="email">e-mail</label>
 							<input type="email" class="form-control form__input" id="email" placeholder="Enter e-mail address...">
-							<label for="email">e-mail</label>
+							<button type="submit" class="btn btn-primary form__button">
+								<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+							</button>							
 						</div>
 					</form>
 				</div>
 			</div>
 			
-			<div class="row">
-				<div class="col-md-9 panel--main">Column 1</div>
-				<div class="col-md-3 panel--right">Column 2</div>
+			<div class="row row--equal-columns main">
+				<div class="col-md-9 main__center">
+					<div class="row main__content-section">
+						Row 1
+					</div>
+					<div class="row main__comments-section">
+						Row 2
+					</div>
+				</div>
+				<div class="col-md-3 main__right-panel">
+					<h1>Новости</h1>
+					<div class="news-event">
+						Некоторое новостное событие Один
+					</div>
+					<div class="news-event">
+						Некоторое новостное событие Два
+					</div>
+				</div>
+			</div>
+			
+			
+			<div class="row footer">
 			</div>
 		</div>
 
@@ -76,5 +100,6 @@
 		<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"
 				th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}">
 		</script>
+		
     </body>
 </html>
