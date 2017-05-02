@@ -8,35 +8,73 @@
 
         <title>Music store</title>
 
+		<link rel="stylesheet" type="text/css" media="all"
+              href="../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"
+              th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}" />
+		<link rel="stylesheet" type="text/css" media="all"
+              href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css"
+              th:href="@{/lib/font-awesome-4.7.0/css/font-awesome.min.css}" />
         <link rel="stylesheet" type="text/css" media="all"
               href="../static/css/styles.css"
               th:href="@{/css/styles.css}" />
-        <link rel="stylesheet" type="text/css" media="all"
-              href="../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"
-              th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}" />
+			  
     </head>
 
     <body>
-    <p>
 
-    </p>
-    <div class="customBlock">
-        Hello, World!
-    </div>
+		<div class="container">
+			<div class="row header">
+				<div class="col-md-3 header__part header__part--left">
+					<form class="form form--search">
+						<div class="form__title-panel">
+							<span class="form__title">Поиск</span>
+						</div>
+						<label class="sr-only" for="search-critera">Search critera</label>
+						<input class="form-control form__input" id="search-critera" placeholder="Введите критерий...">
+						<button type="submit" class="btn btn-primary form__button">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</button>
+					</form>
+				</div>
+				
+				<div class="col-md-6 header__part header__part--center">
+					<span class="header__title">Music store</span>
+				</div>
+				
+				<div class="col-md-3 header__part header__part--right">
+					<form class="form form--login">
+						<div class="form__title-panel">
+							<span class="form__title">Войти</span>
+							<a class="btn btn-primary form__social-link">
+								<i class="fa fa-facebook" aria-hidden="true"></i>
+							</a>
+							<a class="btn btn-primary form__social-link">
+								<i class="fa fa-google-plus-square" aria-hidden="true"></i>
+							</a>
+							<a class="btn btn-primary form__social-link">
+								<i class="fa fa-vk" aria-hidden="true"></i>
+							</a>
+						</div>
+						<div>
+							<input type="email" class="form-control form__input" id="email" placeholder="Enter e-mail address...">
+							<label for="email">e-mail</label>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-9 panel--main">Column 1</div>
+				<div class="col-md-3 panel--right">Column 2</div>
+			</div>
+		</div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">Column 1</div>
-            <div class="col-md-6">Column 2</div>
-        </div>
-    </div>
 
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"
-            th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}">
-    </script>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"
+				th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}">
+		</script>
     </body>
 </html>

@@ -1,3 +1,96 @@
-.customBlock {
-    background: #a3aa69
+
+
+.header {
+	background: #fff4c6;
+	height: 100px;
+}
+
+.header__part {
+	
+}
+
+.header__part--left {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.header__part--center {
+	text-align: center;
+}
+
+.header__part--center .header__title {
+	line-height: 100px;
+	white-space: nowrap;
+	font-size: 68px;
+}
+
+.header__part--right {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+.main {
+	
+}
+
+.right {
+	
+}
+
+.form--search {
+	width: 100%;
+}
+
+.form--search .form__title {
+	margin-left: 15px;
+	font-size: 24px;
+}
+
+.form--search .form__input {
+	width: 80%;
+	display: inline-block;
+}
+
+.form--search  .form__button {
+	width: 15%;
+	display: inline-block;
+	font-size: 1.4em;
+	padding: 2px;
+	margin-bottom: 1px;
+}
+
+.form--search .form__title-panel {
+	height: 40px;
+}
+
+.form--login {
+	width: 100%;
+}
+
+.form--login .form__title {
+	margin-left: 15px;
+	margin-right: 5px;
+	font-size: 24px;
+}
+
+.form--login .form__input {
+	width: 80%;
+	display: inline;
+}
+
+.form--login .form__social-link {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	font-size: 1.5em;
+	padding: 0px;
+	margin-bottom: 6px;
+}
+
+.form--login .form__title-panel {
+	height: 40px;
 }
