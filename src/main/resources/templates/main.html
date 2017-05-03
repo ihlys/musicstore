@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Music store</title>
-
+		
 		<link rel="stylesheet" type="text/css" media="all"
               href="../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"
               th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}" />
@@ -17,7 +17,7 @@
         <link rel="stylesheet" type="text/css" media="all"
               href="../static/css/styles.css"
               th:href="@{/css/styles.css}" />
-			  
+		
     </head>
 
     <body>
@@ -69,26 +69,8 @@
 			
 			<div class="row row--equal-columns main">
 				<div class="col-md-9 main__center">
-					<div class="row main__content-section">
-						<div class="music-entity-info">
-							<h1 class="music-entity-info__title">Music entity info</h1>
-							<button class="music-entity-info__expand-btn">Прочитать описание</button>
-							<div class="music-entity-info_details">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-							</div>
-						</div>
-						<div class="navigation">
-							return -> Music entity One -> Music entity Two
-						</div>
-						<div class="music-entities">
-							Music entities
-						</div>
-					</div>
-					<div class="row main__comments-section">
-						Row 2
+					<div class="row main__content-section" th:replace="genres">
+						
 					</div>
 				</div>
 				<div class="col-md-3 main__right-panel">
@@ -117,6 +99,11 @@
 		
 		<script src="../static/js/index.js"
 				th:src="@{js/index.js}">
+		</script>
+		
+		<script type="text/javascript" 
+			src="../static/lib/thymol.js-2.x-master/thymol.js" 
+			data-thymol-load="../static/lib/thymol.js-2.x-master/setThPath.js">
 		</script>
 		
     </body>
