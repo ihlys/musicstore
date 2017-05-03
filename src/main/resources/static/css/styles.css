@@ -242,16 +242,6 @@
 
 }
 
-.main__content-section {
-	min-height: 800px;
-	background: #eaffd8;
-}
-
-.main__comments-section {
-	min-height: 400px;
-	background: #dbfcff;
-}
-
 @media (min-width: 992px) {
 	.row--equal-columns {
 		display: flex;
@@ -264,7 +254,7 @@
 }
 
 /**************************************/
-/********* Main content block *********/
+/********** Right panel block *********/
 /**************************************/
 
 .main__right-panel {
@@ -292,24 +282,24 @@
 /******* Music entities expanded ******/
 /********** information block *********/
 /**************************************/
-.music-entity-info {
+.music-info{
 	min-height: 125px;
 	background: #e0baff;
 	padding: 10px 40px;
 }
 
-.music-entity-info__title {
+.music-info__title {
 	text-align: center;
 	margin: 0px;
 	padding: 15px 0px 10px;
 }
 
-.music-entity-info__expand-btn {
+.music-info__expand-btn {
 	margin: 10px auto 5px;
 	display: block;
 }
 
-.music-entity-info__details {
+.music-info__details {
 	display: none;
 	padding: 25px 0px;
 }
@@ -322,10 +312,39 @@
 }
 
 /**************************************/
-/******** Music entities block ********/
+/************ Content block ***********/
 /**************************************/
-.music-entities {
+.content {
 	
+}
+
+.content__controls {
+	
+}
+
+.content__genres{
+	min-height: 800px;
+	background: #eaffd8;
+}
+
+.content__artists {
+	min-height: 800px;
+	background: #eaffd8;
+}
+
+.content__albums {
+	min-height: 800px;
+	background: #eaffd8;
+}
+
+.content__songs {
+	min-height: 800px;
+	background: #eaffd8;
+}
+
+.content__comments {
+	min-height: 400px;
+	background: #dbfcff;
 }
 
 /**************************************/
