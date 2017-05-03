@@ -44,7 +44,7 @@ public class GenreController {
     @GetMapping(value = "/**/genres")
     public String genres(Model model, HttpServletRequest request, Pageable pageRequest) {
         addGenreSubGenresInfoToModel(model, request, null, pageRequest);
-        return "music-content";
+        return "genres";
     }
 
     @GetMapping(value = {"/**/genres/{"+GENRE_ID+"}", "/**/genres/{"+GENRE_ID+"}/{collectionToShow}"})
@@ -56,24 +56,26 @@ public class GenreController {
         if (collectionToShow != null) {
             if (SUBGENRES.name().equalsIgnoreCase(collectionToShow)) {
                 addGenreSubGenresInfoToModel(model, request, genreId, pageRequest);
+                return "genres";
             } else if (ARTISTS.name().equalsIgnoreCase(collectionToShow)) {
                 addGenreArtistsInfoToModel(model, request, genreId, pageRequest);
+                return "artists";
             } else if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
                 addGenreSongsInfoToModel(model, request, genreId, pageRequest);
+                return "songs";
             } else {
                 throw new ResourceNotFoundException("There are no such items in genre resource");
             }
         } else {
             addGenreSubGenresInfoToModel(model, request, genreId, pageRequest);
+            return "genres";
         }
-        return "music-content";
     }
 
     private void addGenreSubGenresInfoToModel(Model model, HttpServletRequest request, Long genreId, Pageable pageRequest) {
         Slice<GenreAsPageItem> genresSubGenresPage = genreService.findSubGenresByParentGenreIdProjectedPaginated(
                 request.getLocale().getLanguage(), genreId, pageRequest);
         model.addAttribute("genresPage", genresSubGenresPage);
-        model.addAttribute("musicEntitiesPageView", "genresPage");
         model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
                 String.valueOf(genresSubGenresPage.getNumber() + 1)));
     }
@@ -82,7 +84,6 @@ public class GenreController {
         Slice<ArtistAsPageItem> genresArtistsPage = artistService.findArtistsByGenreIdProjectedPaginated(
                 request.getLocale().getLanguage(), genresId, pageRequest);
         model.addAttribute("artistsPage", genresArtistsPage);
-        model.addAttribute("musicEntitiesPageView", "artistsPage");
         model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
                 String.valueOf(genresArtistsPage.getNumber() + 1)));
     }
@@ -91,7 +92,6 @@ public class GenreController {
         Slice<SongAsPageItem> genresSongsPage = songService.findSongsByGenreIdProjectedPaginated(
                 request.getLocale().getLanguage(), genresId, pageRequest);
         model.addAttribute("songsPage", genresSongsPage);
-        model.addAttribute("musicEntitiesPageView", "songsPage");
         model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
                 String.valueOf(genresSongsPage.getNumber() + 1)));
     }

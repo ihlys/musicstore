@@ -46,22 +46,23 @@ public class ArtistController {
         if (collectionToShow != null) {
             if (ALBUMS.name().equalsIgnoreCase(collectionToShow)) {
                 addArtistsAlbumsInfoToModel(model, request, artistId, pageRequest);
+                return "albums";
             } else if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
                 addArtistsSongsInfoToModel(model, request, artistId, pageRequest);
+                return "songs";
             } else {
                 throw new ResourceNotFoundException("There are no such items in artist resource");
             }
         } else {
             addArtistsAlbumsInfoToModel(model, request, artistId, pageRequest);
+            return "albums";
         }
-        return "music-content";
     }
 
     private void addArtistsAlbumsInfoToModel(Model model, HttpServletRequest request, Long artistId, Pageable pageRequest) {
         Slice<AlbumAsPageItem> artistsAlbumsPage = albumService.findAlbumsByArtistIdProjectedPaginated(
                 request.getLocale().getLanguage(), artistId, pageRequest);
         model.addAttribute("albumsPage", artistsAlbumsPage);
-        model.addAttribute("musicEntitiesPageView", "albumsPage");
         model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
                 String.valueOf(artistsAlbumsPage.getNumber() + 1)));
     }
@@ -70,7 +71,6 @@ public class ArtistController {
         Slice<SongAsPageItem> artistsSongsPage = songService.findSongsByArtistIdProjectedPaginated(
                 request.getLocale().getLanguage(), artistsId, pageRequest);
         model.addAttribute("songsPage", artistsSongsPage);
-        model.addAttribute("musicEntitiesPageView", "songsPage");
         model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
                         String.valueOf(artistsSongsPage.getNumber() + 1)));
     }

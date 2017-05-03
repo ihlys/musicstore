@@ -1,6 +1,5 @@
 package com.ihordev.web.controllers;
 
-import com.ihordev.domainprojections.AlbumAsPageItem;
 import com.ihordev.domainprojections.ArtistAsPageItem;
 import com.ihordev.domainprojections.GenreAsPageItem;
 import com.ihordev.domainprojections.SongAsPageItem;
@@ -75,25 +74,19 @@ public class GenreControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/genres/1/subgenres").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("genresPage")));
+                .andExpect(view().name("genres"));
 
         configureMockArtistService(defaultPageRequest);
 
         mockMvc.perform(get("/genres/1/artists").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("artistsPage")));
+                .andExpect(view().name("artists"));
 
         configureMockSongService(defaultPageRequest);
 
         mockMvc.perform(get("/genres/1/songs").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")));
+                .andExpect(view().name("songs"));
     }
 
     @Test
@@ -108,9 +101,7 @@ public class GenreControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/genres/1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("genresPage")));
+                .andExpect(view().name("genres"));
     }
 
     @Test
@@ -120,9 +111,7 @@ public class GenreControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/genres/1?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("genresPage")))
+                .andExpect(view().name("genres"))
                 .andExpect(model().attributeExists("genresPage"))
                 .andExpect(model().attribute("genresPage", equalTo(subGenresOfGenreWithId1)));
 
@@ -139,9 +128,7 @@ public class GenreControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/genres/1/artists?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("artistsPage")))
+                .andExpect(view().name("artists"))
                 .andExpect(model().attributeExists("artistsPage"))
                 .andExpect(model().attribute("artistsPage", equalTo(artistsOfGenreWithId1)));
 
@@ -158,9 +145,7 @@ public class GenreControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/genres/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")))
+                .andExpect(view().name("songs"))
                 .andExpect(model().attributeExists("songsPage"))
                 .andExpect(model().attribute("songsPage", equalTo(songsOfGenreWithId1)));
 

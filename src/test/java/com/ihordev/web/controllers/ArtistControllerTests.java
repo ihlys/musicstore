@@ -61,17 +61,13 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/~/artists/1/albums").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("albumsPage")));
+                .andExpect(view().name("albums"));
 
         configureMockSongService(defaultPageRequest);
 
         mockMvc.perform(get("/~/artists/1/songs").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")));
+                .andExpect(view().name("songs"));
     }
 
     @Test
@@ -86,9 +82,7 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/~/artists/1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("albumsPage")));
+                .andExpect(view().name("albums"));
     }
 
     @Test
@@ -98,9 +92,7 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/artists/1/albums?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("albumsPage")))
+                .andExpect(view().name("albums"))
                 .andExpect(model().attributeExists("albumsPage"))
                 .andExpect(model().attribute("albumsPage", equalTo(albumsOfArtistWithId1)));
 
@@ -117,9 +109,7 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/artists/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")))
+                .andExpect(view().name("songs"))
                 .andExpect(model().attributeExists("songsPage"))
                 .andExpect(model().attribute("songsPage", equalTo(songsOfArtistWithId1)));
 

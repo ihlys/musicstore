@@ -39,20 +39,20 @@ public class AlbumController {
         if (collectionToShow != null) {
             if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
                 addAlbumsSongsInfoToModel(model, request, albumId, pageRequest);
+                return "songs";
             } else {
                 throw new ResourceNotFoundException("There are no such items in album resource");
             }
         } else {
             addAlbumsSongsInfoToModel(model, request, albumId, pageRequest);
+            return "songs";
         }
-        return "music-content";
     }
 
     private void addAlbumsSongsInfoToModel(Model model, HttpServletRequest request, Long artistsId, Pageable pageRequest) {
         Slice<SongAsPageItem> albumsSongsPage = songService.findSongsByAlbumIdProjectedPaginated(
                 request.getLocale().getLanguage(), artistsId, pageRequest);
         model.addAttribute("songsPage", albumsSongsPage);
-        model.addAttribute("musicEntitiesPageView", "songsPage");
         model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
                         String.valueOf(albumsSongsPage.getNumber() + 1)));
     }

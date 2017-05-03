@@ -413,17 +413,6 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCo
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/SpaceMusic-lg.png";
 */
 
-var musicEntitiesPageViews = [
-  "genresPage",
-  "artistsPage",
-  "albumsPage",
-  "songsPage",
-  "soundtracksPage",
-  "thematicCompilationsPage"
-];
-
-var musicEntitiesPageView = musicEntitiesPageViews[1];
-
 var newsEvents = [
 	{
 		title: "Новостное событие один",
@@ -480,7 +469,6 @@ var thVars = [
 	["thematicCompilations", thematicCompilations],
 	["currentMusicEntity", currentMusicEntity],
 	["newsEvents", newsEvents],
-	["navigation", navigation],
-  ["musicEntitiesPageView", musicEntitiesPageView]
+	["navigation", navigation]
 	
 ];

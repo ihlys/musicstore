@@ -50,9 +50,7 @@ public class AlbumControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/albums/1/songs"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")));
+                .andExpect(view().name("songs"));
     }
 
     @Test
@@ -67,9 +65,7 @@ public class AlbumControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/albums/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")));
+                .andExpect(view().name("songs"));
     }
 
     @Test
@@ -79,9 +75,7 @@ public class AlbumControllerTests extends AbstractMockMvcTests {
 
         mockMvc.perform(get("/albums/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("music-content"))
-                .andExpect(model().attributeExists("musicEntitiesPageView"))
-                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")))
+                .andExpect(view().name("songs"))
                 .andExpect(model().attributeExists("songsPage"))
                 .andExpect(model().attribute("songsPage", equalTo(songsOfAlbumWithId1)));
 
