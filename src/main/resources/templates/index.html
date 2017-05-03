@@ -24,7 +24,7 @@
 
 		<div class="container-fluid">
 			<div class="row header">
-				<div class="col-md-3 header__part header__part--left">
+				<div class="header__part header__part--left">
 					<form class="form form--search">
 						<div class="form__title-panel">
 							<span class="form__title">Поиск</span>
@@ -38,12 +38,12 @@
 						</div>
 					</form>
 				</div>
-				
-				<div class="col-md-6 header__part header__part--center">
-					<span class="header__title">Music store</span>
-				</div>
-				
-				<div class="col-md-3 header__part header__part--right">
+
+				<div class="header__part header__part--center">
+					<h1 class="header__title">Music online</h1>
+				</div> 
+								
+				<div class="header__part header__part--right">
 					<form class="form form--login">
 						<div class="form__title-panel">
 							<span class="form__title">Войти</span>
@@ -58,7 +58,6 @@
 							</a>
 						</div>
 						<div class="form__row">
-							<label class="form__label" for="email">e-mail</label>
 							<input type="email" class="form-control form__input" id="email" placeholder="Enter e-mail address...">
 							<button type="submit" class="btn btn-primary form__button">
 								<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
@@ -71,14 +70,29 @@
 			<div class="row row--equal-columns main">
 				<div class="col-md-9 main__center">
 					<div class="row main__content-section">
-						Row 1
+						<div class="music-entity-info">
+							<h1 class="music-entity-info__title">Music entity info</h1>
+							<button class="music-entity-info__expand-btn">Прочитать описание</button>
+							<div class="music-entity-info_details">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+							</div>
+						</div>
+						<div class="navigation">
+							return -> Music entity One -> Music entity Two
+						</div>
+						<div class="music-entities">
+							Music entities
+						</div>
 					</div>
 					<div class="row main__comments-section">
 						Row 2
 					</div>
 				</div>
 				<div class="col-md-3 main__right-panel">
-					<h1>Новости</h1>
+					<h1 class="main__title">Новости</h1>
 					<div class="news-event">
 						Некоторое новостное событие Один
 					</div>
@@ -94,11 +108,15 @@
 		</div>
 
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="../static/lib/jquery-3.1.1/jquery-3.1.1.min.js"
+				th:src="@{/lib/jquery-3.1.1/jquery-3.1.1.min.js}">
+		</script>
 		<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"
 				th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}">
+		</script>
+		
+		<script src="../static/js/index.js"
+				th:src="@{js/index.js}">
 		</script>
 		
     </body>

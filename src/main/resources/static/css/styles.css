@@ -1,46 +1,159 @@
 
-/********************************/
-/************ Header ************/
-/********************************/
+/**************************************/
+/*************** Header ***************/
+/**************************************/
 .header {
-	background: #fff4c6;
-	height: 100px;
-	border-bottom: 1px solid black;
+	min-height: 100px;
+	display: flex;
+	flex-wrap: wrap;
+	
+	/* Grey */
+	
+	background: rgb(238,238,238); 
+	background: -moz-linear-gradient(top,  rgba(238,238,238,1) 0%, rgba(204,204,204,1) 100%); 
+	background: -webkit-linear-gradient(top,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); 
+	background: linear-gradient(to bottom,  rgba(238,238,238,1) 0%,rgba(204,204,204,1) 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 );
+	
+
+	/* Yellow */
+	/*
+	background: rgb(254,252,234); 
+	background: -moz-linear-gradient(top,  rgba(254,252,234,1) 0%, rgba(241,218,54,1) 100%); 
+	background: -webkit-linear-gradient(top,  rgba(254,252,234,1) 0%,rgba(241,218,54,1) 100%); 
+	background: linear-gradient(to bottom,  rgba(254,252,234,1) 0%,rgba(241,218,54,1) 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=0 );
+	*/
+	
+	/* Green 1*/
+
+
+
+	
+	
+	/* Green 2*/
+	/*
+	background: rgb(248,255,232); 
+	background: -moz-linear-gradient(top,  rgba(248,255,232,1) 0%, rgba(227,245,171,1) 33%, rgba(183,223,45,1) 100%); 
+	background: -webkit-linear-gradient(top,  rgba(248,255,232,1) 0%,rgba(227,245,171,1) 33%,rgba(183,223,45,1) 100%); 
+	background: linear-gradient(to bottom,  rgba(248,255,232,1) 0%,rgba(227,245,171,1) 33%,rgba(183,223,45,1) 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8ffe8', endColorstr='#b7df2d',GradientType=0 ); 
+	*/
 }
 
 .header__part {
+	height: 140px;
 	
+	/* internal flex layout */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 }
 
 .header__part--left {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
+	flex: 0 0 500px;
+	background-image: url("../images/header_left.png");
+	background-size: cover;
+	padding: 15px 150px 15px 15px;
+	margin-right: -50px;
 }
 
 .header__part--center {
-	text-align: center;
+	flex: 1 1 220px;
 }
 
 .header__part--center .header__title {
-	line-height: 100px;
-	white-space: nowrap;
-	font-size: 68px;
+	
 }
 
 .header__part--right {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
+	flex: 0 0 500px;
+	background-image: url("../images/header_right.png");
+	background-size: cover;
+	padding: 15px 15px 15px 150px;
+	margin-left: -50px;
 }
 
-/********************************/
-/********** Search form *********/
-/********************************/
+@media only screen and (min-width: 1150px) {
+	.header__part--left {
+		order: 1;
+	}
+	
+	.header__part--center {
+		order: 2;
+	}
+	
+	.header__part--right {
+		order: 3;
+	}
+}
+
+@media only screen and (min-width: 1020px) and (max-width: 1149px) {
+	.header__part--left {
+		order: 2;
+		flex-basis: 550px;
+	}
+	
+	.header__part--center {
+		order: 1;
+		flex: 1 1 100%;
+		height: 85px;
+	}
+	
+	.header__part--center .header__title {
+
+	}
+	
+	.header__part--right {
+		order: 3;
+		flex-basis: 550px;
+	}
+	
+	.header {
+		justify-content: space-between;
+	}
+}
+
+@media only screen and (max-width: 1019px) {
+	.header__part--left {
+		order: 2;
+		flex: 0 1 140px;
+		padding-right: 15px;
+		margin-right: 0px;
+	}
+
+	.header__part--center {
+		order: 1;
+		flex: 1 1 80px;
+	}
+	
+	.header__part--center .header__title {
+	}
+	
+	.header__part--right {
+		order: 3;
+		flex: 0 1 140px;
+		padding-left: 15px;
+		margin-left: 0px;
+	}
+
+	.header {
+		flex-direction: column;
+	}
+}
+
+
+/**************************************/
+/************* Search form ************/
+/**************************************/
 .form--search {
 	width: 100%;
+	background: rgba(255, 255, 255, 0.5);
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+	padding: 5px;
 }
 
 .form--search .form__title-panel {
@@ -66,11 +179,16 @@
 	width: 40px;
 }
 
-/********************************/
-/********** Login form **********/
-/********************************/
+/**************************************/
+/************* Login form *************/
+/**************************************/
 .form--login {
 	width: 100%;
+	background: rgba(255, 255, 255, 0.5);
+	border: 2px solid rgba(255, 255, 255, 0.6);
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(255, 255, 255, 1);
+	padding: 5px;
 }
 
 .form--login .form__title-panel {
@@ -113,9 +231,9 @@
 }
 
 
-/********************************/
-/****** Main content block ******/
-/********************************/
+/**************************************/
+/********* Main content block *********/
+/**************************************/
 .main {
 	
 }
@@ -134,18 +252,6 @@
 	background: #dbfcff;
 }
 
-.main__right-panel {
-	border: 1px solid black;
-}
-
-.news-event {
-	border: 1px solid black;
-	margin: 10px auto;
-	padding: 4px 8px;
-	min-height: 50px;
-	width: 90%;
-}
-
 @media (min-width: 992px) {
 	.row--equal-columns {
 		display: flex;
@@ -157,9 +263,74 @@
 	}
 }
 
-/********************************/
-/************ Footer ************/
-/********************************/
+/**************************************/
+/********* Main content block *********/
+/**************************************/
+
+.main__right-panel {
+	border-left: 3px solid rgba(178, 178, 178, 1);
+	background: #fff;
+}
+
+.main__right-panel .main__title {
+	
+}
+
+.news-event {
+	margin: 10px auto;
+	padding: 4px 8px;
+	min-height: 50px;
+	width: 95%;
+	
+	background: rgba(255, 255, 255, 1);
+	border: 1px solid rgba(178, 178, 178, 1);
+	border-radius: 8px;
+	box-shadow: 0 0 8px rgba(178, 178, 178, 1);
+}
+
+/**************************************/
+/******* Music entities expanded ******/
+/********** information block *********/
+/**************************************/
+.music-entity-info {
+	min-height: 125px;
+	background: #e0baff;
+	padding: 10px 40px;
+}
+
+.music-entity-info__title {
+	text-align: center;
+	margin: 0px;
+	padding: 15px 0px 10px;
+}
+
+.music-entity-info__expand-btn {
+	margin: 10px auto 5px;
+	display: block;
+}
+
+.music-entity-info_details {
+	display: none;
+	padding: 25px 0px;
+}
+
+/**************************************/
+/********** Navigation block **********/
+/**************************************/
+.navigation {
+	
+}
+
+/**************************************/
+/******** Music entities block ********/
+/**************************************/
+.music-entities {
+	
+}
+
+/**************************************/
+/*************** Footer ***************/
+/**************************************/
 .footer {
 	min-height: 150px;
 	background: #f7e4d2;
