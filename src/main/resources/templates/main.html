@@ -9,14 +9,11 @@
         <title>Music store</title>
 		
 		<link rel="stylesheet" type="text/css" media="all"
-              href="../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"
-              th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}" />
+              href="../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" 	th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}"  />
 		<link rel="stylesheet" type="text/css" media="all"
-              href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css"
-              th:href="@{/lib/font-awesome-4.7.0/css/font-awesome.min.css}" />
+              href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css" 	th:href="@{/lib/font-awesome-4.7.0/css/font-awesome.min.css}" />
         <link rel="stylesheet" type="text/css" media="all"
-              href="../static/css/styles.css"
-              th:href="@{/css/styles.css}" />
+              href="../static/css/main.css" 									th:href="@{/css/main.css}" />
 		
     </head>
 
@@ -69,29 +66,12 @@
 			
 			<div class="row row--equal-columns main">
 			
-				<div class="col-md-9 main__center">
+				<div class="col-md-9 main__content">
 				
-					<div class="row music-info">
-						<h1 class="music-info__title">Music entity info</h1>
-						<button class="music-info__expand-btn">Прочитать описание</button>
-						<div class="music-info__details">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</div>
+					<div th:replace="main-content">
+					<!-- Content must be loaded asynchronously during runtime -->
 					</div>
-
-					<div class="row navigation">
-						return -> Music entity One -> Music entity Two
-					</div>
-					
-					<div class="row content">
-						
-						<!-- Content must be loaded asynchronously during runtime -->
-						
-					</div>
-					
+				
 				</div>
 				
 				<div class="col-md-3 main__right-panel">
@@ -104,27 +84,19 @@
 					</div>
 				</div>
 				
+				<div class="row footer">
+				</div>
+				
 			</div>
-			
-			
-			<div class="row footer">
-			</div>
-		</div>
 
-		<script src="../static/lib/jquery-3.1.1/jquery-3.1.1.min.js"
-				th:src="@{/lib/jquery-3.1.1/jquery-3.1.1.min.js}">
-		</script>
-		<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"
-				th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}">
-		</script>
-
-		<script type="text/javascript" 
-			src="../static/lib/thymol.js-2.x-master/thymol.js" 
-			data-thymol-load="../static/lib/thymol.js-2.x-master/setThPath.js">
-		</script>
-
-		<script src="../static/js/main.js"
-			th:src="@{js/main.js}">
-		</script>
+		<script src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js" 
+				data-thymol-load="../static/Static prototyping resources/config/setThPath.js, 
+								  ../static/Static prototyping resources/config/setThVars.js"></script>
+		
+		<script src="../static/lib/CSS-Element-Queries/ResizeSensor.js" 		 th:src="@{/lib/CSS-Element-Queries/ResizeSensor.js}"></script>
+		<script src="../static/lib/CSS-Element-Queries/ElementQueries.js"		 th:src="@{/lib/CSS-Element-Queries/ElementQueries.js}"></script>
+		<script src="../static/lib/jquery-3.1.1/jquery-3.1.1.min.js"			 th:src="@{/lib/jquery-3.1.1/jquery-3.1.1.min.js}"></script>
+		<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"	 th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+		
     </body>
 </html>

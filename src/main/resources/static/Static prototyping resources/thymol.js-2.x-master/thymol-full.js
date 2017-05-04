@@ -4631,7 +4631,15 @@ thymol.ThParser = function(scope) {
     thymol.processSpecAttrMod = function(element, thUrlAttr, thAttrObj) {
         var url = thymol.getThAttribute(thUrlAttr.value, element);
         if (!url || !(url instanceof thymol.ThClass) || !url.abort) {
-            element.setAttribute(thAttrObj.suffix, url);
+			
+			// Without file scheme URLs were invalid in Mozilla browser (and maybe in a few more).
+			var checkIfUrlIsExternal = new RegExp('^(?:[a-z]+:)?//', 'i');
+			if (checkIfUrlIsExternal.test(url) == false) {
+				url = "file://" + url;
+			}
+			
+			element.setAttribute(thAttrObj.suffix, url);
+			
         }
         element.removeAttribute(thUrlAttr.name);
     };

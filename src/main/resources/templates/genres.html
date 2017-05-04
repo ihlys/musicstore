@@ -1,5 +1,33 @@
-<div class="content__controls">
+<div class="genres">
+
+	<div class="genre" th:each="genre, iterStat : ${genres}">
+	
+		<div class="container-with-background">
+		
+			<img th:src="@{${genre.image}}">
+			
+			<div class="genre__content container-with-background__foreground-wrapper">
+			
+				<div class="container-with-background">
+					
+					<div class="genre__title-block">
+						<span th:text="${genre.name}"></span>
+					</div>
+					
+					<div class="container-with-background__foreground-wrapper">
+						<a class="genre__show-link genre__show-link--top" 	  href="#">Показать</a>
+						<a class="genre__show-link genre__show-link--bottom"  href="#">Выбрать поджанры</a>
+					</div>
+					
+				</div>
+			
+			</div>
+		
+		</div>
+			
+	</div>
+	
 </div>
 
-<div class="content__genres">
-</div>
+
+<script src="../static/js/genres.js" th:src="@{/js/genres.js}"></script>

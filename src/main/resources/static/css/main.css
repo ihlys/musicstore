@@ -3,7 +3,8 @@
 /*************** Header ***************/
 /**************************************/
 .header {
-	min-height: 100px;
+	min-height: 140px;
+	
 	display: flex;
 	flex-wrap: wrap;
 	
@@ -42,36 +43,43 @@
 }
 
 .header__part {
+	width: 100%;
 	height: 140px;
 	
-	/* internal flex layout */
+	/* internal flex layout to center content vertically */
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
-	align-items: center;
-
 }
 
 .header__part--left {
-	flex: 0 0 500px;
+	flex: 0 0 500px; 	/* this flex attributes belongs to container */
+						/* with class 'header' (not 'header__part')  */
+						
 	background-image: url("../images/header_left.png");
 	background-size: cover;
-	padding: 15px 150px 15px 15px;
+	padding-left: 15px;
+	padding-right: 150px;
 	margin-right: -50px;
 }
 
 .header__part--center {
-	flex: 1 1 220px;
+	flex: 1 1 220px; 	/* this flex attributes belongs to container */
+	align-self: center; /* with class 'header' (not 'header__part')  */
 }
 
-.header__part--center .header__title {
-	
+.header__part--center  .header__title {
+	text-align: center;
 }
 
 .header__part--right {
-	flex: 0 0 500px;
+	flex: 0 0 500px; 	/* this flex attributes belongs to container */
+						/* with class 'header' (not 'header__part')  */	
+						
 	background-image: url("../images/header_right.png");
 	background-size: cover;
-	padding: 15px 15px 15px 150px;
+	padding-left: 150px;
+	padding-right: 15px;
 	margin-left: -50px;
 }
 
@@ -101,7 +109,7 @@
 		height: 85px;
 	}
 	
-	.header__part--center .header__title {
+	.header__part--center  .header__title {
 
 	}
 	
@@ -128,7 +136,7 @@
 		flex: 1 1 80px;
 	}
 	
-	.header__part--center .header__title {
+	.header__part--center  .header__title {
 	}
 	
 	.header__part--right {
@@ -149,6 +157,7 @@
 /**************************************/
 .form--search {
 	width: 100%;
+	
 	background: rgba(255, 255, 255, 0.5);
 	border: 2px solid rgba(255, 255, 255, 0.6);
 	border-radius: 8px;
@@ -156,20 +165,20 @@
 	padding: 5px;
 }
 
-.form--search .form__title-panel {
+.form--search  .form__title-panel {
 	height: 40px;
 }
 
-.form--search .form__title {
+.form--search  .form__title {
 	margin-left: 15px;
 	font-size: 24px;
 }
 
-.form--search .form__row {
+.form--search  .form__row {
 	display: flex;
 }
 
-.form--search .form__input {
+.form--search  .form__input {
 	flex: 1;
 }
 
@@ -178,6 +187,7 @@
 	padding: 2px;
 	width: 40px;
 }
+
 
 /**************************************/
 /************* Login form *************/
@@ -191,18 +201,18 @@
 	padding: 5px;
 }
 
-.form--login .form__title-panel {
+.form--login  .form__title-panel {
 	height: 40px;
 	display: flex;
 }
 
-.form--login .form__title {
+.form--login  .form__title {
 	margin-left: 15px;
 	margin-right: 5px;
 	font-size: 24px;
 }
 
-.form--login .form__social-link {
+.form--login  .form__social-link {
 	width: 30px;
 	height: 30px;
 	font-size: 1.5em;
@@ -210,7 +220,7 @@
 	margin-left: 5px;
 }
 
-.form--login .form__row {
+.form--login  .form__row {
 	display: flex;
 	align-items: center;
 }
@@ -220,7 +230,7 @@
 	font-size: 16px;
 }
 
-.form--login .form__input {
+.form--login  .form__input {
 	flex: 1;
 }
 
@@ -238,7 +248,7 @@
 	
 }
 
-.main__center {
+.main__content {
 
 }
 
@@ -253,6 +263,7 @@
 	}
 }
 
+
 /**************************************/
 /********** Right panel block *********/
 /**************************************/
@@ -262,7 +273,7 @@
 	background: #fff;
 }
 
-.main__right-panel .main__title {
+.main__right-panel  .main__title {
 	
 }
 
@@ -277,6 +288,7 @@
 	border-radius: 8px;
 	box-shadow: 0 0 8px rgba(178, 178, 178, 1);
 }
+
 
 /**************************************/
 /******* Music entities expanded ******/
@@ -304,6 +316,7 @@
 	padding: 25px 0px;
 }
 
+
 /**************************************/
 /********** Navigation block **********/
 /**************************************/
@@ -311,41 +324,6 @@
 	
 }
 
-/**************************************/
-/************ Content block ***********/
-/**************************************/
-.content {
-	
-}
-
-.content__controls {
-	
-}
-
-.content__genres{
-	min-height: 800px;
-	background: #eaffd8;
-}
-
-.content__artists {
-	min-height: 800px;
-	background: #eaffd8;
-}
-
-.content__albums {
-	min-height: 800px;
-	background: #eaffd8;
-}
-
-.content__songs {
-	min-height: 800px;
-	background: #eaffd8;
-}
-
-.content__comments {
-	min-height: 400px;
-	background: #dbfcff;
-}
 
 /**************************************/
 /*************** Footer ***************/
@@ -353,4 +331,171 @@
 .footer {
 	min-height: 150px;
 	background: #f7e4d2;
+}
+
+
+/**************************************/
+/************ Genres block ************/
+/**************************************/
+.genres {
+	min-height: 800px;
+	
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-content: flex-start;
+}
+
+.genre {
+	flex: 0 1 260px;
+	height: 150px;
+	
+	margin: 10px;
+	
+	overflow: hidden;
+	border: 0px solid rgba(178, 178, 178, 1);
+	border-radius: 8px;
+	box-shadow: 0 0 8px rgba(178, 178, 178, 1);
+}
+
+.genre__content {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.genre__title-block {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+	color: white;
+	font-size: 36px;
+}
+
+.genre__title-block:before, .genre__title-block:after  {
+	content: "";
+	display: inline-block;
+    height: 1px;
+	width: 50%;
+	margin: 10px;
+	
+	background: rgba(255, 255, 255, 0.5);
+	box-shadow: 0 0 3px rgba(255, 255, 255, 0.5),
+				0 0 8px rgba(255, 255, 255, 1),
+				0 0 16px rgba(255, 255, 255, 1);
+				
+}
+
+
+.genre__show-link {
+	text-decoration: none;
+	color: white;
+	font-size: 16px;
+	
+	display: flex;
+	width: 100%;
+	height: 50%;
+	justify-content: center;
+    align-items: center;
+}
+
+.genre__show-link--top {
+	padding-bottom: 10px;
+}
+
+.genre__show-link--bottom {
+	padding-top: 10px;
+}
+
+.genre__show-link:visited {
+	text-decoration: none;
+    color: white;
+}
+
+@keyframes show-genre-link-hover {
+    from {font-size: 16px;}
+    to {font-size: 18px;}
+}
+
+.genre__show-link:hover {
+	text-decoration: none;
+    color: white;
+	text-shadow: 0 0 50px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 35px rgb(255, 255, 255);
+	
+	animation-name: show-genre-link-hover;
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
+}
+
+.genre__show-link:focus {
+	text-decoration: none;
+    color: white;
+}
+
+.genre__show-link:active {
+	text-decoration: none;
+    color: #cccccc;
+	text-shadow: 0 0 50px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 35px rgb(255, 255, 255);
+}
+
+
+/**************************************/
+/************ Artists block ***********/
+/**************************************/
+.artists {
+	min-height: 800px;
+	background: #eaffd8;
+}
+
+
+/**************************************/
+/************ Albums block ************/
+/**************************************/
+.albums {
+	min-height: 800px;
+	background: #eaffd8;
+}
+
+
+/**************************************/
+/************* Songs block ************/
+/**************************************/
+.songs {
+	min-height: 800px;
+	background: #eaffd8;
+}
+
+
+/**************************************/
+/*********** Comments block ***********/
+/**************************************/
+.comments {
+	min-height: 400px;
+	background: #dbfcff;
+}
+
+
+/**************************************/
+/*************** Others ***************/
+/**************************************/
+.container-with-background {
+	position: relative;
+	width: inherit;
+	height: inherit;
+}
+
+.container-with-background__foreground-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.controls {
+	
 }
