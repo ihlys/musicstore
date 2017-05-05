@@ -1,2 +1,15 @@
-<div class="artists">
+<div class="artists" th:fragment="artists">
+
+	<div class="artist" th:each="artist : ${artists}">
+	
+		<div class="artist__cover">
+			<img th:src="@{${artist.image}}">
+		</div>
+		
+		<span class="artist__name" th:text="${artist.name}"></span>
+			
+	</div>
+
 </div>
+
+<script src="../static/js/artists.js" th:src="@{/js/artists.js}"></script>

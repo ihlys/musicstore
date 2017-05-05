@@ -1,6 +1,6 @@
-<div class="genres">
+<div class="genres" th:fragment="genres">
 
-	<div class="genre" th:each="genre, iterStat : ${genres}">
+	<div class="genre" th:each="genre : ${genres}">
 	
 		<div class="container-with-background">
 			

@@ -3,13 +3,13 @@
 
 		<div class="container-with-background__background-wrapper">
 			<div class="music-info__background-img-wrapper">
-				<img th:src="@{${currentGenre.imageLg}}">
+				<img th:src="@{${currentMusicEntity.imageLg}}">
 				<div class="fade-edge fade-edge--bottom fade-edge--black"></div>
 			</div>
 		</div>
 		
 		<div class="container-with-background__foreground-wrapper music-info__content ">
-			<h1 class="music-info__title">Music entity info</h1>
+			<h1 class="music-info__title" th:text="currentMusicEntity.name"></h1>
 			
 			<div class="music-info__details" th:replace="music-details">
 				<!-- content -->
@@ -34,7 +34,7 @@
 </div>
 
 <div class="row">
-	<div class="genres" th:replace="genres">
+	<div class="genres" th:replace="artists">
 	</div>
 </div>
 
