@@ -611,6 +611,82 @@
 
 
 /**************************************/
+/***** Thematic collections block *****/
+/**************************************/
+.thematic-collections {
+	min-height: 800px;
+	
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-content: flex-start;
+}
+
+.thematic-collection {
+	flex: 0 1 260px;
+	height: 150px;
+	
+	margin: 10px;
+	
+	overflow: hidden;
+	border-radius: 8px;
+	box-shadow: 0 0 8px rgb(178, 178, 178);
+}
+
+.thematic-collection__content {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.thematic-collection__show-link {
+	text-decoration: none;
+	color: white;
+	font-size: 24px;
+	
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+    align-items: center;
+}
+
+.thematic-collection__show-link:visited {
+	text-decoration: none;
+    color: white;
+}
+
+@keyframes show-thematic-collection-link-hover {
+    from {font-size: 22px;}
+    to {font-size: 26px;}
+}
+
+.thematic-collection__show-link:hover {
+	text-decoration: none;
+    color: white;
+	text-shadow: 0 0 50px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 35px rgb(255, 255, 255);
+	
+	animation-name: show-thematic-collection-link-hover;
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
+}
+
+.thematic-collection__show-link:focus {
+	text-decoration: none;
+    color: white;
+}
+
+.thematic-collection__show-link:active {
+	text-decoration: none;
+    color: #cccccc;
+	text-shadow: 0 0 50px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 35px rgb(255, 255, 255);
+}
+
+
+/**************************************/
 /*********** Comments block ***********/
 /**************************************/
 .comments {
@@ -639,22 +715,6 @@
 /**************************************/
 /*************** Others ***************/
 /**************************************/
-/*
-.container-with-background {
-	position: relative;
-	width: inherit;
-	height: inherit;
-}
-
-.container-with-background__foreground-wrapper {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-*/
-
 .container-with-background {
 	width: 100%;
 	height: 100%;
