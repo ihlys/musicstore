@@ -22,6 +22,10 @@ var genres = [
 	}
 ];
 
+var currentGenre = genres[3]; // Rock
+currentGenre.imageLg = "/Static prototyping resources/images/RockMusic-lg.png";
+
 var thVars = [
-	["genres", genres]
+	["genres", genres],
+	["currentGenre", currentGenre]
 ];

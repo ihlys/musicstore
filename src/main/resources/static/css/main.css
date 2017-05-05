@@ -294,26 +294,132 @@
 /******* Music entities expanded ******/
 /********** information block *********/
 /**************************************/
-.music-info{
-	min-height: 125px;
-	background: #e0baff;
-	padding: 10px 40px;
+.music-info {
+	overflow: hidden;
+	background: black;
+}
+
+.music-info  .fade-edge.fade-edge--bottom.fade-edge--white {
+	height: 3px;
+}
+
+.music-info__background-img-wrapper  {
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+
+.music-info__background-img-wrapper img {
+	width: 100%;
+	height: auto;
+}
+
+.music-info__background-img-wrapper  .fade-edge.fade-edge--bottom.fade-edge--black {
+	height: 100px;
+}
+
+.music-info__content {
+	min-height: 150px;
+	background: rgba(0, 0, 0, 0.5);
 }
 
 .music-info__title {
 	text-align: center;
 	margin: 0px;
-	padding: 15px 0px 10px;
+	padding: 25px 0px 5px;
+	color: white;
 }
 
 .music-info__expand-btn {
-	margin: 10px auto 5px;
+	margin: 4px auto 4px;
+	
+	padding: 5px 15px;
+	height: 35px;
+	
+	display: block;
+	
+	border: none;
+	color: white;
+	background: rgba(0, 0, 0, 0);
+	
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	box-shadow: 	  0 0 8px rgba(255, 255, 255, 0.2),
+				inset 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.music-info__expand-btn-wrapper {
+	padding: 10px 0px;
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.music-info__expand-btn-wrapper:before, .music-info__expand-btn-wrapper:after {
+	width:  0;
+	height: 0;
+	
+	content: "";
+	
+	display: block;
+
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+}
+
+.music-info__expand-btn-wrapper:before {
+	border-bottom: 20px solid rgba(255, 255, 255, 0.3);
+	display: none;
+}
+
+.music-info__expand-btn-wrapper:after {
+	border-top: 20px solid rgba(255, 255, 255, 0.3);
+	display: none;
+}
+
+.music-info__expand-btn-wrapper--show-before:before {
 	display: block;
 }
 
+.music-info__expand-btn-wrapper--show-after:after {
+	display: block;
+}
+
+@keyframes expand-music-info-btn {
+    from {font-size: 16px;}
+    to {font-size: 17px;}
+}
+
+.music-info__expand-btn:hover {
+	background: rgba(0, 0, 0, 0);
+	text-shadow: 0 0 50px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 35px rgb(255, 255, 255);
+				 
+	animation-name: expand-music-info-btn;
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
+}
+
+.music-info__expand-btn:focus {
+	outline: none;
+}
+
+.music-info__expand-btn:active {
+	text-decoration: none;
+    color: #cccccc;
+	text-shadow: 0 0 50px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 35px rgb(255, 255, 255);
+}
+
 .music-info__details {
+	color: white;
+	padding: 25px 15px 10px;
 	display: none;
-	padding: 25px 0px;
 }
 
 
@@ -322,15 +428,6 @@
 /**************************************/
 .navigation {
 	
-}
-
-
-/**************************************/
-/*************** Footer ***************/
-/**************************************/
-.footer {
-	min-height: 150px;
-	background: #f7e4d2;
 }
 
 
@@ -362,7 +459,7 @@
 	background: rgba(0, 0, 0, 0.5);
 }
 
-.genre__title-block {
+.genre__title-wrapper {
 	height: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -371,7 +468,7 @@
 	font-size: 36px;
 }
 
-.genre__title-block:before, .genre__title-block:after  {
+.genre__title-wrapper:before, .genre__title-wrapper:after  {
 	content: "";
 	display: inline-block;
     height: 1px;
@@ -382,7 +479,6 @@
 	box-shadow: 0 0 3px rgba(255, 255, 255, 0.5),
 				0 0 8px rgba(255, 255, 255, 1),
 				0 0 16px rgba(255, 255, 255, 1);
-				
 }
 
 
@@ -480,8 +576,25 @@
 
 
 /**************************************/
+/*********** Controls block ***********/
+/**************************************/
+.controls {
+	
+}
+
+
+/**************************************/
+/*************** Footer ***************/
+/**************************************/
+.footer {
+	min-height: 150px;
+	background: #f7e4d2;
+}
+
+/**************************************/
 /*************** Others ***************/
 /**************************************/
+/*
 .container-with-background {
 	position: relative;
 	width: inherit;
@@ -495,7 +608,44 @@
 	width: 100%;
 	height: 100%;
 }
+*/
 
-.controls {
+.container-with-background {
+	width: 100%;
+	height: 100%;
 	
+	position: relative;
+}
+
+.container-with-background__background-wrapper {
+	width: 100%;
+	height: 100%;
+	
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.container-with-background__foreground-wrapper {
+	width: 100%;
+	height: 100%;
+	
+	position: relative;
+}
+
+.fade-edge { /* Container must have position: relative; */
+	position: absolute;
+}
+
+.fade-edge--bottom {
+	bottom: 0;
+	width: 100%;
+}
+
+.fade-edge--black {
+	background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+}
+
+.fade-edge--white {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
 }

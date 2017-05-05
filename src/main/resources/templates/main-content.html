@@ -1,11 +1,25 @@
 <div class="row music-info">
-	<h1 class="music-info__title">Music entity info</h1>
-	<button class="music-info__expand-btn">Прочитать описание</button>
-	<div class="music-info__details">
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+	<div class="container-with-background">
+
+		<div class="container-with-background__background-wrapper">
+			<div class="music-info__background-img-wrapper">
+				<img th:src="@{${currentGenre.imageLg}}">
+				<div class="fade-edge fade-edge--bottom fade-edge--black"></div>
+			</div>
+		</div>
+		
+		<div class="container-with-background__foreground-wrapper music-info__content ">
+			<h1 class="music-info__title">Music entity info</h1>
+			
+			<div class="music-info__details" th:replace="music-details">
+				<!-- content -->
+			</div>
+			
+			<div class="music-info__expand-btn-wrapper music-info__expand-btn-wrapper--show-after"><button class="music-info__expand-btn">Прочитать описание</button></div>
+		</div>
+		
+		<div class="fade-edge fade-edge--bottom fade-edge--white"></div>
+		
 	</div>
 </div>
 
