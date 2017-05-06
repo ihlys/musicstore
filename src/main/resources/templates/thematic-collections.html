@@ -1,6 +1,6 @@
-<div class="thematic-collections" th:fragment="thematic-collections">
+<div class="thematic-collections object-collection" th:fragment="thematic-collections">
 
-	<div class="thematic-collection" th:each="thematicCollection : ${thematicCollections}">
+	<div class="thematic-collection object-collection__item" th:each="thematicCollection : ${thematicCollections}">
 	
 		<div class="container-with-background">
 			
@@ -9,7 +9,7 @@
 			</div>
 			
 			<div class="container-with-background__foreground-wrapper thematic-collection__content">
-				<a class="thematic-collection__show-link" href="#"><span th:text="${thematicCollection.name}"></span></a>
+				<a class="show-link show-link--thematic-collection" href="#"><span th:text="${thematicCollection.name}"></span></a>
 			</div>
 			
 		</div>
@@ -18,4 +18,4 @@
 
 </div>
 
-<script src="../static/js/thematic-collections.js" th:src="@{/js/thematic-collections.js}"></script>
+<script src="../static/js/thematic-collection.js" th:src="@{/js/thematic-collection.js}"></script>

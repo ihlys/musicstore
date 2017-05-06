@@ -1,6 +1,6 @@
-<div class="genres" th:fragment="genres">
+<div class="genres object-collection" th:fragment="genres">
 
-	<div class="genre" th:each="genre : ${genres}">
+	<div class="genre object-collection__item" th:each="genre : ${genres}">
 	
 		<div class="container-with-background">
 			
@@ -16,8 +16,8 @@
 					</div>
 				
 					<div class="container-with-background__foreground-wrapper">
-						<a class="genre__show-link genre__show-link--top" 	  href="#">Показать</a>
-						<a class="genre__show-link genre__show-link--bottom"  href="#">Выбрать поджанры</a>
+						<a class="show-link show-link--genre-songs" 	  href="#">Показать</a>
+						<a class="show-link show-link--genre-subgenres"  href="#">Выбрать поджанры</a>
 					</div>
 
 				</div>

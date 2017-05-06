@@ -15,7 +15,9 @@
 				<!-- content -->
 			</div>
 			
-			<div class="music-info__expand-btn-wrapper music-info__expand-btn-wrapper--show-after"><button class="music-info__expand-btn">Прочитать описание</button></div>
+			<div class="music-info__expand-btn-wrapper music-info__expand-btn-wrapper--show-after">
+				<button class="music-info__expand-btn show-link">Прочитать описание</button>
+			</div>
 		</div>
 		
 		<div class="fade-edge fade-edge--bottom fade-edge--white"></div>
@@ -25,7 +27,7 @@
 
 <div class="row navigation">
 	return -> Music entity One -> Music entity Two
-</div>
+</div>	
 
 <!-- Load if present, otherwise throw this tag away -->
 <div class="row">
@@ -34,7 +36,7 @@
 </div>
 
 <div class="row">
-	<div class="genres" th:replace="thematic-collections">
+	<div class="genres" th:replace="albums">
 	</div>
 </div>
 

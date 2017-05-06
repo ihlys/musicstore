@@ -65,6 +65,48 @@ var thematicCollections = [
 	{
 		name: "Positive music",
 		image: "/Static prototyping resources/images/sm/ThematicCollections/PositiveMusic-sm.png"
+	},
+	{
+		name: "Space music",
+		image: "/Static prototyping resources/images/sm/ThematicCollections/SpaceMusic-sm.png"
+	}
+];
+
+var albums = [
+	{
+		name: "Angels fall first",
+		released: 1997,
+		image: "/Static prototyping resources/images/sm/Albums/Nightwish/Angels_fall_first-sm.png"
+	},
+	{
+		name: "Ocean born",
+		released: 1998,
+		image: "/Static prototyping resources/images/sm/Albums/Nightwish/Oceanborn-sm.png"
+	},	
+	{
+		name: "Wishmaster",
+		released: 2000,
+		image: "/Static prototyping resources/images/sm/Albums/Nightwish/Wishmaster-sm.png"
+	},
+	{
+		name: "Once",
+		released: 2004,
+		image: "/Static prototyping resources/images/sm/Albums/Nightwish/Once-sm.png"
+	},
+	{
+		name: "Dark Passion Play",
+		released: 2007,
+		image: "/Static prototyping resources/images/sm/Albums/Nightwish/Dark_Passion_Play-sm.png"
+	},
+	{
+		name: "Imaginaerum",
+		released: 2011,
+		image: "/Static prototyping resources/images/sm/Albums/Nightwish/Imaginaerum-sm.png"
+	},
+	{
+		name: "Endless forms most beautiful",
+		released: 2015,
+		image: "/Static prototyping resources/images/sm/Albums/Nightwish/Endless_forms_most_beautiful-sm.png"
 	}
 ];
 
@@ -89,15 +131,17 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Di
 
 var currentMusicEntity = thematicCollections[0]; // Sport
 currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SportMusic-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/System_of_a_down-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/Korn-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/Disturbed-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/Raise_against_the_machine-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/RelaxMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/HolidayMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SoulMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/PositiveMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SpaceMusic-lg.png";
 
 var thVars = [
 
 	["genres", genres],
 	["artists", artists],
+	["albums", albums],
 	["thematicCollections", thematicCollections],
 	["currentMusicEntity", currentMusicEntity],
 	

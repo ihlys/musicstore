@@ -394,9 +394,6 @@
 
 .music-info__expand-btn:hover {
 	background: rgba(0, 0, 0, 0);
-	text-shadow: 0 0 50px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 35px rgb(255, 255, 255);
 				 
 	animation-name: expand-music-info-btn;
 	animation-duration: 0.2s;
@@ -405,15 +402,6 @@
 
 .music-info__expand-btn:focus {
 	outline: none;
-}
-
-.music-info__expand-btn:active {
-	text-decoration: none;
-    color: #cccccc;
-	text-shadow: 0 0 50px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 35px rgb(255, 255, 255);
 }
 
 .music-info__details {
@@ -435,23 +423,12 @@
 /************ Genres block ************/
 /**************************************/
 .genres {
-	min-height: 800px;
-	
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-content: flex-start;
+
 }
 
 .genre {
 	flex: 0 1 260px;
 	height: 150px;
-	
-	margin: 10px;
-	
-	overflow: hidden;
-	border-radius: 8px;
-	box-shadow: 0 0 8px rgb(178, 178, 178);
 }
 
 .genre__content {
@@ -480,61 +457,30 @@
 				0 0 16px rgba(255, 255, 255, 1);
 }
 
-
-.genre__show-link {
-	text-decoration: none;
-	color: white;
+.show-link--genre-songs, .show-link--genre-subgenres {
 	font-size: 16px;
 	
-	display: flex;
 	width: 100%;
 	height: 50%;
-	justify-content: center;
-    align-items: center;
 }
 
-.genre__show-link--top {
+.show-link--genre-songs {
 	padding-bottom: 10px;
 }
 
-.genre__show-link--bottom {
+.show-link--genre-subgenres {
 	padding-top: 10px;
 }
 
-.genre__show-link:visited {
-	text-decoration: none;
-    color: white;
-}
-
-@keyframes show-genre-link-hover {
+@keyframes show-link--genre-hover {
     from {font-size: 16px;}
     to {font-size: 18px;}
 }
 
-.genre__show-link:hover {
-	text-decoration: none;
-    color: white;
-	text-shadow: 0 0 50px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 35px rgb(255, 255, 255);
-	
-	animation-name: show-genre-link-hover;
+.show-link--genre-songs:hover, .show-link--genre-subgenres:hover {
+	animation-name: show-link--genre-hover;
 	animation-duration: 0.2s;
 	animation-fill-mode: forwards;
-}
-
-.genre__show-link:focus {
-	text-decoration: none;
-    color: white;
-}
-
-.genre__show-link:active {
-	text-decoration: none;
-    color: #cccccc;
-	text-shadow: 0 0 50px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 35px rgb(255, 255, 255);
 }
 
 
@@ -542,25 +488,12 @@
 /************ Artists block ***********/
 /**************************************/
 .artists {
-	min-height: 800px;
-	
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-content: flex-start;
+
 }
 
 .artist {
 	flex: 0 1 180px;
 	height: 140px;
-	
-	margin: 10px;
-	
-	overflow: hidden;
-
-	border-radius: 8px;
-	border-radius: 8px;
-	box-shadow: 0 0 8px rgb(178, 178, 178);
 	
 	display: flex;
 	flex-direction: column;
@@ -568,18 +501,16 @@
 	align-content: center;
 }
 
-.artist:hover {
-	border-radius: 8px;
-	box-shadow: 0 0 2px rgb(35, 94, 255),
-				0 0 8px rgb(40, 151, 255);
-}
-
-
 .artist__cover {
 	width: 100%;
 	flex-grow: 1;
 	
 	overflow: hidden;
+}
+
+.artist__cover img {
+	width: 100%;
+	height: auto;
 }
 
 .artist__name {
@@ -596,8 +527,37 @@
 /************ Albums block ************/
 /**************************************/
 .albums {
-	min-height: 800px;
-	background: #eaffd8;
+
+}
+
+.album {
+	flex: 0 1 280px;
+	height: 330px;
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+}
+
+.album__cover {
+	width: 100%;
+	flex-grow: 1;
+	
+	overflow: hidden;
+}
+
+.album__cover img {
+	width: 100%;
+	height: auto;
+}
+
+.album__short-info {
+	width: 100%;
+	padding: 5px 5px;
+	
+	text-align: left;
+	font-weight: bold;
 }
 
 
@@ -614,75 +574,34 @@
 /***** Thematic collections block *****/
 /**************************************/
 .thematic-collections {
-	min-height: 800px;
 	
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-content: flex-start;
 }
 
 .thematic-collection {
 	flex: 0 1 260px;
 	height: 150px;
-	
-	margin: 10px;
-	
-	overflow: hidden;
-	border-radius: 8px;
-	box-shadow: 0 0 8px rgb(178, 178, 178);
 }
 
 .thematic-collection__content {
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.4);
 }
 
-.thematic-collection__show-link {
-	text-decoration: none;
-	color: white;
+.show-link--thematic-collection {
 	font-size: 24px;
-	
-	display: flex;
+
 	width: 100%;
 	height: 100%;
-	justify-content: center;
-    align-items: center;
 }
 
-.thematic-collection__show-link:visited {
-	text-decoration: none;
-    color: white;
-}
-
-@keyframes show-thematic-collection-link-hover {
+@keyframes show-link--thematic-collection-hover {
     from {font-size: 22px;}
     to {font-size: 26px;}
 }
 
-.thematic-collection__show-link:hover {
-	text-decoration: none;
-    color: white;
-	text-shadow: 0 0 50px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 35px rgb(255, 255, 255);
-	
-	animation-name: show-thematic-collection-link-hover;
+.show-link--thematic-collection:hover {	
+	animation-name: show-link--thematic-collection-hover;
 	animation-duration: 0.2s;
 	animation-fill-mode: forwards;
-}
-
-.thematic-collection__show-link:focus {
-	text-decoration: none;
-    color: white;
-}
-
-.thematic-collection__show-link:active {
-	text-decoration: none;
-    color: #cccccc;
-	text-shadow: 0 0 50px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 40px rgb(255, 255, 255),
-				 0 0 35px rgb(255, 255, 255);
 }
 
 
@@ -736,6 +655,65 @@
 	height: 100%;
 	
 	position: relative;
+}
+
+.object-collection {
+	min-height: 800px;
+	
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-content: flex-start;
+}
+
+.object-collection__item {	
+	margin: 10px;
+	
+	overflow: hidden;
+	border-radius: 8px;
+	box-shadow: 0 0 8px rgb(178, 178, 178);	
+}
+
+.show-link {
+	text-decoration: none;
+	color: white;
+	
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
+.show-link:visited {
+	text-decoration: none;
+    color: white;
+}
+
+.show-link:hover {
+	text-decoration: none;
+    color: white;
+	text-shadow: 0 0 50px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 35px rgb(255, 255, 255);
+}
+
+.show-link:focus {
+	text-decoration: none;
+    color: white;
+}
+
+.show-link:active {
+	text-decoration: none;
+    color: #cccccc;
+	text-shadow: 0 0 50px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 40px rgb(255, 255, 255),
+				 0 0 35px rgb(255, 255, 255);
+}
+
+.border--hover-fade-blue:hover {
+	border-radius: 8px;
+	box-shadow: 0 0 2px rgb(35, 94, 255),
+				0 0 8px rgb(40, 151, 255);
 }
 
 .fade-edge { /* Container must have position: relative; */
