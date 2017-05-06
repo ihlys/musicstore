@@ -110,6 +110,14 @@ var albums = [
 	}
 ];
 
+var soundtracks = [
+	{
+		name: "Queen of the damned",
+		released: 2002,
+		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Queen_of_the_damned-sm.png"
+	}
+];
+
 
 /*
 var currentMusicEntity = genres[3]; // Rock
@@ -120,15 +128,16 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Genres/Roc
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Genres/RnBMusic-lg.png";
 */
 
-/*
-var currentMusicEntity = artists[3]; // Korn
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Nightwish-lg.png";
+
+var currentMusicEntity = artists[0]; // Nightwish
+currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Nightwish-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/System_of_a_down-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Korn-lg.png";
-currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Disturbed-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Disturbed-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Raise_against_the_machine-lg.png";
-*/
 
+
+/*
 var currentMusicEntity = thematicCollections[0]; // Sport
 currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SportMusic-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/RelaxMusic-lg.png";
@@ -136,12 +145,14 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCo
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SoulMusic-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/PositiveMusic-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SpaceMusic-lg.png";
+*/
 
 var thVars = [
 
 	["genres", genres],
 	["artists", artists],
 	["albums", albums],
+	["soundtracks", soundtracks],
 	["thematicCollections", thematicCollections],
 	["currentMusicEntity", currentMusicEntity],
 	
