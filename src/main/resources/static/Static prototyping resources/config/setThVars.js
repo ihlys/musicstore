@@ -118,6 +118,68 @@ var soundtracks = [
 	}
 ];
 
+var songs = [
+	{
+		name: "Stargazers",
+		duration: "4:28",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Gethsemane",
+		duration: "5:22",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Devil & the Deep Dark Ocean",
+		duration: "4:46",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Sacrament of Wilderness",
+		duration: "4:12",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Passion and the Opera",
+		duration: "4:50",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Swanheart",
+		duration: "4:44",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Moondance",
+		duration: "3:31",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "The Riddler",
+		duration: "5:16",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "The Pharao Sails to Orion",
+		duration: "6:26",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Walkin in the Air",
+		duration: "5:31",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Sleeping sun",
+		duration: "4:05",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Nightquest",
+		duration: "4:16",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	}
+];
 
 /*
 var currentMusicEntity = genres[3]; // Rock
@@ -152,6 +214,7 @@ var thVars = [
 	["genres", genres],
 	["artists", artists],
 	["albums", albums],
+	["songs", songs],
 	["soundtracks", soundtracks],
 	["thematicCollections", thematicCollections],
 	["currentMusicEntity", currentMusicEntity],
