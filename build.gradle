@@ -36,4 +36,5 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 
 	compile('net.sourceforge.nekohtml:nekohtml:1.9.21')
+	compile 'org.springframework.boot:spring-boot-starter-actuator'
 }
