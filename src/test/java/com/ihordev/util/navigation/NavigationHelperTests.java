@@ -46,6 +46,8 @@ public class NavigationHelperTests {
 
         NavigationHelper navigationHelper = new NavigationHelper.Builder(messageSource)
                 .addHierarchicalSegment("genres", navigableHierarchyService)
+                .addCollectionSegment("artists")
+                .addCollectionSegment("albums")
             .build();
 
         List<PathNavigation> createdNavPaths = navigationHelper.createNavigationPaths(urlWithinApplication, Locale.ENGLISH);

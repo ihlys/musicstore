@@ -3,13 +3,12 @@ package com.ihordev.util.navigation;
 import java.util.List;
 
 
-public class HierarchicalSegment {
+public class HierarchicalSegment extends CollectionSegment {
 
-    private String hierarchyParentSegment;
     private NavigableHierarchyService navigableHierarchyService;
 
     public HierarchicalSegment(String hierarchyParentSegment, NavigableHierarchyService navigableHierarchyService) {
-        this.hierarchyParentSegment = hierarchyParentSegment;
+        super(hierarchyParentSegment);
         this.navigableHierarchyService = navigableHierarchyService;
     }
 
@@ -17,12 +16,8 @@ public class HierarchicalSegment {
         return navigableHierarchyService.getHierarchyLine(hierarchyItemSegment);
     }
 
-    public String getSegment() {
-        return hierarchyParentSegment;
-    }
-
     @Override
     public String toString() {
-        return "HierarchicalSegment{" + hierarchyParentSegment + "}";
+        return "HierarchicalSegment{" + getSegment() + "}";
     }
 }

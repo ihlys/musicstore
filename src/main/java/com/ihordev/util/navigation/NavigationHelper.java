@@ -21,14 +21,10 @@ public class NavigationHelper {
     private static final String PATTERN_FORMAT_SIMPLE_SEGMENT = "([^\\/]+)";
 
     private NavigationTextLocalizer localizer;
-    private List<HierarchicalSegment> hierarchicalSegments = new ArrayList<>();
-    private List<String> collectionSegments = new ArrayList<>();
+    private List<CollectionSegment> collectionSegments = new ArrayList<>();
     private Pattern segmentsPattern;
 
-    private NavigationHelper(MessageSource messageSource,
-                             List<HierarchicalSegment> hierarchicalSegments,
-                             List<String> collectionSegments) {
-        this.hierarchicalSegments = hierarchicalSegments;
+    private NavigationHelper(MessageSource messageSource, List<CollectionSegment> collectionSegments) {
         this.collectionSegments = collectionSegments;
         this.segmentsPattern = createRegularExpressionPattern();
         this.localizer = new NavigationTextLocalizer(messageSource);
@@ -56,7 +52,7 @@ public class NavigationHelper {
 
         StringBuilder pathAccumulator = new StringBuilder();
 
-        int simpleSegmentGroup = hierarchicalSegments.size() + 1; // this group is appended always last in expression
+        int simpleSegmentGroup = collectionSegments.size() + 1; // this group is appended always last in expression
 
         while(matcher.find()) {
             String simpleSegment = matcher.group(simpleSegmentGroup);
@@ -64,80 +60,71 @@ public class NavigationHelper {
                 processSimpleSegment(simpleSegment, pathAccumulator, navPaths);
             }
 
-            if (!hierarchicalSegments.isEmpty()) {
-                int hierarchicalSegmentGroup = 1;
-                do {
-                    String hierarchicalSegmentPath = matcher.group(hierarchicalSegmentGroup);
-                    if (hierarchicalSegmentPath != null) {
-                        processHierarchicalSegment(hierarchicalSegmentPath, hierarchicalSegmentGroup, pathAccumulator, navPaths);
-                    }
-                } while (hierarchicalSegmentGroup++ < hierarchicalSegments.size());
-            }
-/*
-            // collection segment group always follows after hierarchical
             if (!collectionSegments.isEmpty()) {
-                int collectionSegmentGroup = 1 + hierarchicalSegments.size();
+                int collectionSegmentGroup = 1;
                 do {
                     String collectionSegmentPath = matcher.group(collectionSegmentGroup);
                     if (collectionSegmentPath != null) {
-                        processHierarchicalSegment(hierarchicalSegmentPath, hierarchicalSegmentGroup, pathAccumulator, navPaths);
+                        processCollectionSegment(collectionSegmentPath, collectionSegmentGroup, pathAccumulator, navPaths);
                     }
-                } while (collectionSegmentGroup++ < collectionSegments.size() + hierarchicalSegments.size());
-            }*/
+                } while (collectionSegmentGroup++ < collectionSegments.size());
+            }
         }
 
         return navPaths;
     }
 
     private void processSimpleSegment(String simpleSegment, StringBuilder pathAccumulator, List<PathNavigation> navPaths) {
-        System.out.println("processSimpleSegment() <- " + simpleSegment);
         pathAccumulator.append("/").append(simpleSegment);
-        String navPath = localizer.getNavTextForSimpleSegment(simpleSegment);
-        String navText = pathAccumulator.toString();
-        navPaths.add(new PathNavigation(navPath, navText));
+        String navText = localizer.getNavTextForSimpleSegment(simpleSegment);
+        String navPath = pathAccumulator.toString();
+        navPaths.add(new PathNavigation(navText, navPath));
     }
 
-    private void processHierarchicalSegment(String hierarchicalSegmentPath, int hierarchicalSegmentGroup,
-                                            StringBuilder pathAccumulator, List<PathNavigation> navPaths) {
-        int slashIdx = hierarchicalSegmentPath.indexOf("/");
-        String hierarchyParentSegment = hierarchicalSegmentPath.substring(0, slashIdx);
-        String hierarchyItemSegment = hierarchicalSegmentPath.substring(slashIdx + 1);
+    private void processCollectionSegment(String collectionSegmentPath, int collectionSegmentGroup,
+                                         StringBuilder pathAccumulator, List<PathNavigation> navPaths) {
+        int slashIdx = collectionSegmentPath.indexOf("/");
+        String collectionParentSegment = collectionSegmentPath.substring(0, slashIdx);
+        String collectionItemSegment = collectionSegmentPath.substring(slashIdx + 1);
 
-        // add hierarchy parent
-        processSimpleSegment(hierarchyParentSegment, pathAccumulator, navPaths);
+        // add collection parent
+        processSimpleSegment(collectionParentSegment, pathAccumulator, navPaths);
 
-        // add hierarchy line of items                  // regex groups starts from 1, segments in list from 0
-        HierarchicalSegment segmentForCurrentGroup = hierarchicalSegments.get(hierarchicalSegmentGroup - 1);
-        List<String> hierarchyLine = segmentForCurrentGroup.getHierarchyLine(hierarchyItemSegment);
-        for (ListIterator<String> iter = hierarchyLine.listIterator(); iter.hasNext(); ) {
-            String hierarchyLineItem = iter.next();
-            String itemNavText = localizer.getNavTextForHierarchicalSegment(hierarchyParentSegment, hierarchyLineItem);
-            String itemNavPath = pathAccumulator.toString() + "/" + hierarchyLineItem;
-            navPaths.add(new PathNavigation(itemNavText, itemNavPath));
-            if (!iter.hasNext()) {
-                pathAccumulator.append("/").append(hierarchyLineItem); // hierarchy top accumulate
+                                                // regex groups starts from 1, segments in list starts from 0
+        CollectionSegment segmentForCurrentGroup = collectionSegments.get(collectionSegmentGroup - 1);
+        if (segmentForCurrentGroup instanceof HierarchicalSegment) {
+            HierarchicalSegment hierarchicalSegment = (HierarchicalSegment) segmentForCurrentGroup;
+
+            // add hierarchy line of items
+            List<String> hierarchyLine = hierarchicalSegment.getHierarchyLine(collectionItemSegment);
+            for (ListIterator<String> iter = hierarchyLine.listIterator(); iter.hasNext(); ) {
+                String hierarchyLineItem = iter.next();
+                String itemNavText = localizer.getNavTextForCollectionSegment(collectionParentSegment, hierarchyLineItem);
+                String itemNavPath = pathAccumulator.toString() + "/" + hierarchyLineItem;
+                navPaths.add(new PathNavigation(itemNavText, itemNavPath));
+                if (!iter.hasNext()) {
+                    pathAccumulator.append("/").append(hierarchyLineItem); // hierarchy top accumulate
+                }
             }
+        } else {
+            pathAccumulator.append("/").append(collectionItemSegment);
+            String itemNavText = localizer.getNavTextForCollectionSegment(collectionParentSegment, collectionItemSegment);
+            String itemNavPath = pathAccumulator.toString();
+            navPaths.add(new PathNavigation(itemNavText, itemNavPath));
         }
-    }
 
-/*    private void processCollectionSegment(String collectionSegment, StringBuilder pathAccumulator, List<PathNavigation> navPaths) {
-        System.out.println("processCollectionSegment() <- " + collectionSegment);
-        pathAccumulator.append("/").append(collectionSegment);
-        String navPath = localizer.getNavTextForSimpleSegment(simpleSegment);
-        String navText = pathAccumulator.toString();
-        navPaths.add(new PathNavigation(navPath, navText));
-    }*/
+    }
 
     private Pattern createRegularExpressionPattern() {
         // regular expression has composite structure like this:
-        //      - group 1 -                 - group N -             - group N+1 -
-        // (hierarchical_segment1) | (hierarchical_segmentN) | (all simple segments)
+        //      - group 1 -            - group N -            - group N+1 -
+        // (collection_segment1) | (collection_segmentN) | (all simple segments)
         String patternString;
-        if (hierarchicalSegments.isEmpty()) {
+        if (collectionSegments.isEmpty()) {
             patternString = PATTERN_FORMAT_SIMPLE_SEGMENT;
         } else {
-            patternString = hierarchicalSegments.stream()
-                    .map(HierarchicalSegment::getSegment)
+            patternString = collectionSegments.stream()
+                    .map(CollectionSegment::getSegment)
                     .map(segment -> String.format(PATTERN_FORMAT_HIERARCHY_LINE, segment))
                     .collect(collectingAndThen(joining("|"), rs -> rs.concat("|" + PATTERN_FORMAT_SIMPLE_SEGMENT)));
         }
@@ -151,25 +138,24 @@ public class NavigationHelper {
     public static class Builder {
 
         private final MessageSource messageSource;
-        private List<HierarchicalSegment> hierarchicalSegments = new ArrayList<>();
-        private List<String> collectionSegments = new ArrayList<>();
+        private List<CollectionSegment> collectionSegments = new ArrayList<>();
 
         public Builder(MessageSource messageSource) {
             this.messageSource = messageSource;
         }
 
         public Builder addHierarchicalSegment(String segment, NavigableHierarchyService navigableHierarchyService) {
-            hierarchicalSegments.add(new HierarchicalSegment(segment, navigableHierarchyService));
+            collectionSegments.add(new HierarchicalSegment(segment, navigableHierarchyService));
             return this;
         }
 
         public Builder addCollectionSegment(String collectionSegment) {
-            collectionSegments.add(collectionSegment);
+            collectionSegments.add(new CollectionSegment(collectionSegment));
             return this;
         }
 
         public NavigationHelper build() {
-            return new NavigationHelper(messageSource, hierarchicalSegments, collectionSegments);
+            return new NavigationHelper(messageSource, collectionSegments);
         }
     }
 }

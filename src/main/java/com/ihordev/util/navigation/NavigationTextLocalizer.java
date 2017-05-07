@@ -24,7 +24,7 @@ public class NavigationTextLocalizer {
         return messageSource.getMessage(NAVIGATION_PREFIX + segment, null, locale);
     }
 
-    public String getNavTextForHierarchicalSegment(String parent, String item) {
+    public String getNavTextForCollectionSegment(String parent, String item) {
         return "temp";
     }
 }
