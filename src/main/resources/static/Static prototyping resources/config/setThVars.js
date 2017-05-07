@@ -209,6 +209,21 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCo
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SpaceMusic-lg.png";
 */
 
+var newsEvents = [
+	{
+		title: "Новостное событие один",
+		text: "Текст новостного события один (TEXT TEXT TEXT TEXT TEXT TEXT TEXT )"
+	},
+	{
+		title: "Новостное событие два",
+		text: "Текст новостного события два (TEXT TEXT TEXT TEXT TEXT TEXT TEXT )"
+	},
+	{
+		title: "Новостное событие три",
+		text: "Текст новостного события три (TEXT TEXT TEXT TEXT TEXT TEXT TEXT )"
+	}
+];
+
 var thVars = [
 
 	["genres", genres],
@@ -218,5 +233,6 @@ var thVars = [
 	["soundtracks", soundtracks],
 	["thematicCollections", thematicCollections],
 	["currentMusicEntity", currentMusicEntity],
+	["newsEvents", newsEvents]
 	
 ];

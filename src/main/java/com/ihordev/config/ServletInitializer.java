@@ -1,5 +1,6 @@
 package com.ihordev.config;
 
+import com.ihordev.MusicstoreApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 

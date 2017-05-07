@@ -1,4 +1,4 @@
-package com.ihordev.config;
+package com.ihordev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
