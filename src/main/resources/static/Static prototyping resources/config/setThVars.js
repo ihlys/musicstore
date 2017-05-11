@@ -224,6 +224,37 @@ var newsEvents = [
 	}
 ];
 
+var navigation = [
+	{
+		navPath: "/",
+		navLabel: "Main"
+	},
+	{
+		navPath: "/genres",
+		navLabel: "Genres"
+	},
+	{
+		navPath: "/genres/25",
+		navLabel: "Rock"
+	},
+	{
+		navPath: "/genres/31",
+		navLabel: "Metal"
+	},
+	{
+		navPath: "/genres/42/artists",
+		navLabel: "Symphonic metal"
+	},
+	{
+		navPath: "/genres/31/artists/15/albums",
+		navLabel: "Nightwish"
+	},
+	{
+		navPath: "/genres/31/artists/15/albums/7",
+		navLabel: "Wishmaster"
+	}
+];
+
 var thVars = [
 
 	["genres", genres],
@@ -232,7 +263,8 @@ var thVars = [
 	["songs", songs],
 	["soundtracks", soundtracks],
 	["thematicCollections", thematicCollections],
-	["currentMusicEntity", currentMusicEntity],
-	["newsEvents", newsEvents]
+	//["currentMusicEntity", currentMusicEntity],
+	["newsEvents", newsEvents],
+	["navigation", navigation]
 	
 ];

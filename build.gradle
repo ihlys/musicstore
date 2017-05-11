@@ -25,16 +25,73 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+    aspectjVersion = '1.8.10'
+    mockitoVersion = '2.0.1'
+
+    targetJavaVersion = JavaVersion.VERSION_1_8
+    checkerFrameworkVersion = '2.1.10'
+   	jdkVersion = JavaVersion.current().isJava7() ? 'jdk7' : 'jdk8'
+}
+
 configurations {
 	providedRuntime
+
+    // ***** Checker framework configurations *****
+   	checkerFrameworkAnnotatedJDK {
+   		description = 'a copy of JDK classes with Checker Framework type qualifers inserted'
+   	}
+
+   	checkerFramework {
+   		description = 'The Checker Framework: custom pluggable types for Java'
+   	}
+
+    all {
+        resolutionStrategy {
+            dependencySubstitution {
+                substitute module('org.mockito:mockito-core') with module('org.mockito:mockito-core:2.2.5')
+            }
+        }
+    }
 }
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.boot:spring-boot-starter-tomcat')
+	compile('org.springframework.boot:spring-boot-starter-test')
 
 	compile('net.sourceforge.nekohtml:nekohtml:1.9.21')
-	compile 'org.springframework.boot:spring-boot-starter-actuator'
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+
+	compile("info.solidsoft.mockito:mockito-java8:$mockitoVersion")
+	compile("org.aspectj:aspectjrt:$aspectjVersion")
+	compile("org.aspectj:aspectjweaver:$aspectjVersion")
+
+    // ***** Checker framework dependencies *****
+   	checkerFrameworkAnnotatedJDK "org.checkerframework:${jdkVersion}:${checkerFrameworkVersion}"
+   	checkerFramework "org.checkerframework:checker:${checkerFrameworkVersion}"
+   	compile "org.checkerframework:checker-qual:${checkerFrameworkVersion}"
 }
+
+/*allprojects {
+	tasks.withType(JavaCompile).all { JavaCompile compile ->
+
+		System.setProperty("line.separator", "\n")
+
+		compile.options.compilerArgs = [
+			'-processor', 'org.checkerframework.checker.nullness.NullnessChecker',
+			'-processorpath', "${configurations.checkerFramework.asPath}",
+			"-Xbootclasspath/p:${configurations.checkerFrameworkAnnotatedJDK.asPath}"
+		]
+	}
+}*/
+
+
+import com.ihordev.CheckedCompile
+
+task checkedCompile() {
+    finalizedBy CheckedCompile.getHookTask(project)
+}
+
+

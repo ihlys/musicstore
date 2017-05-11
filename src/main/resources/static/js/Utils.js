@@ -9,11 +9,7 @@ Utils.FlexSpaceAroundHelper = function FlexSpaceAroundHelper(div) {
 	var divHorizontalSpace 	= parseInt(lastDiv.css("width")) + divMarginRight + 
 									parseInt(lastDiv.css("marginLeft"));
 	
-	console.log(divMarginRight);
-	
 	this.squeezeDivsToLeftInLastRow = function() {
-		
-		// simple long form
 		
 		var divWidth = div.width();
 		var divsInOneRow = Math.floor(divWidth / divHorizontalSpace);
@@ -25,15 +21,12 @@ Utils.FlexSpaceAroundHelper = function FlexSpaceAroundHelper(div) {
 			lastDiv.css("margin-right", freeSpaceLeft + divMarginRight);
 		}
 		
-		
-		console.log("divWidth = " + divWidth);
-		console.log("divHorizontalSpace = " + divHorizontalSpace);
-		console.log("divsInOneRow = " + divsInOneRow);
-		console.log("gapsExtraSpacePerDiv = " + gapsExtraSpacePerDiv);
-		console.log("missingDivsInLastRow = " + missingDivsInLastRow);
-		console.log("freeSpaceLeft = " + freeSpaceLeft);
-		
-
+		console.log("Utils.FlexSpaceAroundHelper: divWidth = " + divWidth + 
+												"; divHorizontalSpace = " + divHorizontalSpace +
+												"; divsInOneRow = " + divsInOneRow +
+												"; gapsExtraSpacePerDiv = " + gapsExtraSpacePerDiv +
+												"; missingDivsInLastRow = " + missingDivsInLastRow +
+												"; freeSpaceLeft = " + freeSpaceLeft);
 	}
-
+	
 }

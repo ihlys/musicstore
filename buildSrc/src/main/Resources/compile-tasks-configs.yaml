@@ -1,0 +1,13 @@
+
+compileTasksConfigs:
+    - name         : Container managed classes
+      compilerArgs :
+          -AassumeAssertionsAreEnabled :
+          -AsuppressWarnings   : uninitialized
+          -AonlyDefs           : &container_managed |-
+                Controller|Interceptor|^com.ihordev.domain\..+|^com.ihordev.config\..+
+
+    - name         : All others
+      compilerArgs :
+          -AassumeAssertionsAreEnabled :
+          -AskipDefs    : *container_managed

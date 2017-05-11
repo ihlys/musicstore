@@ -8,6 +8,10 @@
 
         <title>Music store</title>
 		
+		<script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
+				data-thymol-load="../static/Static prototyping resources/config/setThPath.js,
+								  ../static/Static prototyping resources/config/setThVars.js"></script>
+		
 		<link rel="stylesheet" type="text/css" media="all"
               href="../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css" 	th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}"  />
 		<link rel="stylesheet" type="text/css" media="all"
@@ -82,19 +86,12 @@
 					</div>
 				</div>
 
-				<div class="row footer">
-				</div>
-
+			</div>
+			
+			<div class="row footer">
 			</div>
 
 		</div>
-
-		<!-- Uncomment to enable templates static processing with Thymol.js -->
-		
-		<script src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
-				data-thymol-load="../static/Static prototyping resources/config/setThPath.js,
-								  ../static/Static prototyping resources/config/setThVars.js"></script>
-		
 
 		<script src="../static/js/Utils.js" 		 							 th:src="@{/js/Utils.js}"></script>
 		<script src="../static/js/flex-box-last-row-fix.js" 					 th:src="@{/js/flex-box-last-row-fix.js}"></script>

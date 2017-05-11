@@ -261,14 +261,17 @@
 
 }
 
+.main__top-panel {
+	min-height: 150px;
+}
+
+.main__top-panel .fade-edge.fade-edge--bottom.fade-edge--white {
+	height: 3px;
+}
+
 @media (min-width: 992px) {
 	.row--equal-columns {
 		display: flex;
-	}
-
-	.row--equal-columns > div[class*='col-'] {  
-		display: flex;
-		flex-direction: column;
 	}
 }
 
@@ -298,16 +301,73 @@
 
 
 /**************************************/
+/************* Menu block *************/
+/**************************************/
+.menu {
+	color: grey;
+	height: 100%;
+}
+
+.menu--center {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.menu--left {
+	color: grey;
+	height: 100%;
+}
+
+.menu__background {
+	/* background-image: url("../images/Main-content__menu-background.png"); */
+	background: rgb(197, 247, 229);
+	width: 100%;
+	height: 150px;
+}
+
+.menu__link:link,
+.menu__link:visited,
+.menu__link:hover,
+.menu__link:active,
+.menu__link:focus {
+	text-decoration: none;
+}
+
+.menu__link:hover {
+	background: rgba(255, 255, 255, 0.9);
+	border: 1px solid rgba(225, 225, 225, 0.9);
+}
+
+.menu__link {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+	
+	width: 200px;
+	height: 65px;
+	
+	margin: 15px;
+	padding: 5px;
+	
+	background: rgba(255, 255, 255, 0.9);
+	border: 1px solid rgba(255, 255, 255, 0.9);
+	border-radius: 30px;
+	
+	font-size: 20px;
+	color: rgb(102, 122, 155);
+	
+}
+
+
+/**************************************/
 /******* Music entities expanded ******/
 /********** information block *********/
 /**************************************/
 .music-info {
 	overflow: hidden;
 	background: black;
-}
-
-.music-info  .fade-edge.fade-edge--bottom.fade-edge--white {
-	height: 3px;
 }
 
 .music-info__background-img-wrapper  {
@@ -345,10 +405,8 @@
 	
 	display: block;
 	
-	border: none;
 	color: white;
 	background: rgba(0, 0, 0, 0);
-	
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.3);
 	box-shadow: 	  0 0 8px rgba(255, 255, 255, 0.2),
@@ -422,9 +480,55 @@
 /********** Navigation block **********/
 /**************************************/
 .navigation {
-	
+	margin: 5px 0px;
 }
 
+.navigation__divider {
+	padding: 0 3px;
+}
+
+.navigation__link:link, 
+.navigation__link:visited, 
+.navigation__link:hover, 
+.navigation__link:active,
+.navigation__link:focus {
+	text-decoration: none;
+}
+
+.navigation__link:link,
+.navigation__link:visited,
+.navigation__link:focus {
+	color: grey;
+}
+
+.navigation__link:hover {
+	color: black;
+}
+
+.navigation__link:active {
+	color: rgb(200, 200, 200);
+}
+
+.navigation__link {
+	font-size: 14px;
+}
+
+
+/**************************************/
+/*********** Greetings block **********/
+/**************************************/
+.greetings {
+	padding: 15px;
+}
+
+.greetings__header {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.greetings__text {
+	font-size: 16px;
+}
 
 /**************************************/
 /************ Genres block ************/
@@ -605,6 +709,7 @@
 	font-weight: bold;
 }
 
+
 /**************************************/
 /************* Songs block ************/
 /**************************************/
@@ -653,15 +758,12 @@
 	background: rgba(0, 0, 0, 0.06);
 }
 
-.song__btn-purchase:hover, 
+.song__btn-purchase:link, 
+.song__btn-purchase:visited, 
+.song__btn-purchase:hover,
 .song__btn-purchase:active, 
-.song__btn-purchase:focus, 
-.song__btn-purchase:visited   {
-	text-decoration: none;
-}
-
 .song__btn-purchase:focus {
-	color: rgb(75, 75, 75);
+	text-decoration: none;
 }
 
 .song__btn-purchase:hover {
@@ -674,6 +776,9 @@
 	background: rgba(0, 0, 0, 0.18);
 }
 
+.song__btn-purchase:focus {
+	color: rgb(75, 75, 75);
+}
 
 
 /**************************************/
@@ -763,6 +868,16 @@
 	position: relative;
 }
 
+.container-with-foreground {
+	position: relative;
+}
+
+.container-with-foreground__foreground-wrapper {
+	position: absolute;
+	top: 0;
+	z-index: 1;
+}
+
 .object-collection {
 	min-height: 800px;
 	
@@ -789,16 +904,17 @@
     align-items: center;
 }
 
+.show-link:link, 
+.show-link:visited, 
 .show-link:hover, 
-.show-link:focus, 
-.show-link:active, 
-.show-link:visited  {
+.show-link:active,
+.show-link:focus  {
 	text-decoration: none;
 }
 
-.show-link:hover, 
-.show-link:focus, 
-.show-link:visited  {
+.show-link:link, 
+.show-link:visited, 
+.show-link:focus  {
 	color: white;
 }
 

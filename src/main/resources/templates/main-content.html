@@ -1,33 +1,56 @@
-<div class="row music-info">
-	<div class="container-with-background">
+<div class="row">
 
-		<div class="container-with-background__background-wrapper">
-			<div class="music-info__background-img-wrapper">
-				<img th:src="@{${currentMusicEntity.imageLg}}">
-				<div class="fade-edge fade-edge--bottom fade-edge--black"></div>
-			</div>
-		</div>
+	<div class="main__top-panel container-with-foreground">
 		
-		<div class="container-with-background__foreground-wrapper music-info__content ">
-			<h1 class="music-info__title" th:text="currentMusicEntity.name"></h1>
+			<div class="container-with-foreground__foreground-wrapper menu menu--center">
+				<a class="menu__link" href="#"><span>Жанры</span></a>
+				<a class="menu__link" href="#"><span>Подборки песен</span></a>
+				<a class="menu__link" href="#"><span>Саундтреки</span></a>
+			</div>
+		
+			<th:block th:switch="${currentMusicEntity != null}">
+				<div class="music-info" th:case="true">
+					<div class="container-with-background">
+
+						<div class="container-with-background__background-wrapper">
+							<div class="music-info__background-img-wrapper">
+								<img th:src="@{${currentMusicEntity.imageLg}}">
+								<div class="fade-edge fade-edge--bottom fade-edge--black"></div>
+							</div>
+						</div>
+						
+						<div class="container-with-background__foreground-wrapper music-info__content">
+							<h1 class="music-info__title" th:text="currentMusicEntity.name"></h1>
+							
+							<div class="music-info__details" th:replace="music-details">
+								<!-- content -->
+							</div>
+							
+							<div class="music-info__expand-btn-wrapper music-info__expand-btn-wrapper--show-after">
+								<button class="music-info__expand-btn show-link">Прочитать описание</button>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				<div class="menu__background" th:case="*">
+				</div>
+			</th:block>
 			
-			<div class="music-info__details" th:replace="music-details">
-				<!-- content -->
-			</div>
+			<div class="fade-edge fade-edge--bottom fade-edge--white"></div>
 			
-			<div class="music-info__expand-btn-wrapper music-info__expand-btn-wrapper--show-after">
-				<button class="music-info__expand-btn show-link">Прочитать описание</button>
-			</div>
 		</div>
-		
-		<div class="fade-edge fade-edge--bottom fade-edge--white"></div>
-		
 	</div>
 </div>
 
 <div class="row navigation">
-	return -> Music entity One -> Music entity Two
-</div>	
+	<th:block th:each="navigationPoint : ${navigation}">
+		<a class="navigation__link" th:href="${navigationPoint.navPath}">
+			<span th:text="${navigationPoint.navLabel}"></span>
+		</a>
+		<span class="navigation__divider"><i class="fa fa-caret-right"></i></span>
+	</th:block>
+</div>
 
 <!-- Load if present, otherwise throw this tag away -->
 <div class="row">
@@ -36,7 +59,7 @@
 </div>
 
 <div class="row">
-	<div class="genres" th:replace="genres">
+	<div class="greetings" th:replace="greetings">
 	</div>
 </div>
 

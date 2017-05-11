@@ -1,4 +1,5 @@
-var	thRoot="D:/MyData/Игорек/DocumentsAll/Studies/Java/Projects/MusicStore/musicstore/src/main/resources/static";
-var	thPath="";
+var	thRelativeRootPath="../../..";
+var	thPath="templates";
+var thResourcePath="static"
 var	thProtocol="";
 var thDebug = true;
