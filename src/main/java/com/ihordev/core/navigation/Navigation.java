@@ -95,7 +95,7 @@ public class Navigation {
             return new NavigationLink(matchedRequestInfo.getRequestURL(), album.getName());
         } else if (matchedPathParams.containsKey(ARTISTS_ID)) {
             Artist artist = artistService.findById(parseLong(matchedPathParams.get(ARTISTS_ID)));
-            return new NavigationLink(matchedRequestInfo.getRequestURL(), artist.getName());
+            return new NavigationLink(matchedRequestInfo.getRequestURL(), "asd"/*artist.getName()*/);
         } else if (matchedPathParams.containsKey(GENRES_ID)) {
             throw new AssertionError("not implemented yet");
         } else {

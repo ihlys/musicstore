@@ -23,11 +23,18 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+
+    flatDir {
+       dirs 'libs'
+    }
 }
 
 ext {
     aspectjVersion = '1.8.10'
     mockitoVersion = '2.0.1'
+	nekohtmlVersion = '1.9.21'
+	reflectionsVersion = '0.9.10'
+    fastClasspathScannerVersion = '2.0.19'
 
     targetJavaVersion = JavaVersion.VERSION_1_8
     checkerFrameworkVersion = '2.1.10'
@@ -58,35 +65,27 @@ configurations {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile('org.springframework.boot:spring-boot-starter-web')
-	testCompile('org.springframework.boot:spring-boot-starter-tomcat')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-test')
-
-	compile('net.sourceforge.nekohtml:nekohtml:1.9.21')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
 
+	testCompile('org.springframework.boot:spring-boot-starter-tomcat')
+	testCompile('com.h2database:h2')
+
+	compile("net.sourceforge.nekohtml:nekohtml:$nekohtmlVersion")
 	compile("info.solidsoft.mockito:mockito-java8:$mockitoVersion")
 	compile("org.aspectj:aspectjrt:$aspectjVersion")
 	compile("org.aspectj:aspectjweaver:$aspectjVersion")
+	compile("org.reflections:reflections:$reflectionsVersion")
+
+    // ***** local libraries dependencies *****
+    compile("io.github.lukehutch:fast-classpath-scanner:${fastClasspathScannerVersion}")
 
     // ***** Checker framework dependencies *****
    	checkerFrameworkAnnotatedJDK "org.checkerframework:${jdkVersion}:${checkerFrameworkVersion}"
    	checkerFramework "org.checkerframework:checker:${checkerFrameworkVersion}"
    	compile "org.checkerframework:checker-qual:${checkerFrameworkVersion}"
 }
-
-/*allprojects {
-	tasks.withType(JavaCompile).all { JavaCompile compile ->
-
-		System.setProperty("line.separator", "\n")
-
-		compile.options.compilerArgs = [
-			'-processor', 'org.checkerframework.checker.nullness.NullnessChecker',
-			'-processorpath', "${configurations.checkerFramework.asPath}",
-			"-Xbootclasspath/p:${configurations.checkerFrameworkAnnotatedJDK.asPath}"
-		]
-	}
-}*/
-
 
 import com.ihordev.CheckedCompile
 

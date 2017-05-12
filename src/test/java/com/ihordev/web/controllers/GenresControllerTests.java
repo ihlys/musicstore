@@ -84,7 +84,8 @@ public class GenresControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowSubGenresOfConcreteGenre() throws Exception  {
-        List<Genre> subGenresOfGenreWithId1 = asList(new Genre());
+        //List<Genre> subGenresOfGenreWithId1 = asList(new Genre());
+        List<Genre> subGenresOfGenreWithId1 = null;
 
         given(genreService.findSubgenres(eq(1L))).willReturn(subGenresOfGenreWithId1);
 
@@ -99,7 +100,8 @@ public class GenresControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowArtistsOfConcreteGenre() throws Exception  {
-        List<Artist> artistsOfGenreWithId1 = asList(new Artist());
+        //List<Artist> artistsOfGenreWithId1 = asList(new Artist());
+        List<Artist> artistsOfGenreWithId1 = null;
 
         given(artistService.findByGenre(eq(1L))).willReturn(artistsOfGenreWithId1);
 

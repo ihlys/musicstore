@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 
 public interface SpringBeansPrinter {
@@ -12,10 +13,8 @@ public interface SpringBeansPrinter {
     default void print(ApplicationContext ctx) {
         System.out.println("Current beans loaded in Spring Boot Container: ");
 
-		String[] beanNames = ctx.getBeanDefinitionNames();
-        Arrays.sort(beanNames);
-        for (String beanName : beanNames) {
-            System.out.println(beanName);
-        }
+        Stream.of(ctx.getBeanDefinitionNames())
+                .sorted()
+                .forEach(System.out::println);
     }
 }
