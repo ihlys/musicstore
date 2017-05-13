@@ -1,67 +1,29 @@
 package com.ihordev.domain;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Table(
     uniqueConstraints = {
-            @UniqueConstraint(name = "UNQ_NAME_DESCRIPTION", columnNames = {"NAME", "DESCRIPTION"})
+        @UniqueConstraint(name = "UNQ_NAME_DESCRIPTION", columnNames = {"NAME", "DESCRIPTION"})
     }
 )
 public class ThematicCollectionLocalizedData {
 
-    private static final String THEMATIC_COLLECTION_ID_FK_COLUMN = "THEMATIC_COLLECTION_ID";
-    private static final String LANGUAGE_ID_FK_COLUMN = "LANGUAGE_ID";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Embeddable
-    public static class Id implements Serializable {
-
-        @Column(name = THEMATIC_COLLECTION_ID_FK_COLUMN)
-        private Long thematicCollectionId;
-
-        @Column(name = LANGUAGE_ID_FK_COLUMN)
-        private Long languageId;
-
-        protected Id() {}
-
-        public Id(Long thematicCollectionId, Long languageId) {
-            this.thematicCollectionId = thematicCollectionId;
-            this.languageId = languageId;
-        }
-
-        @Override
-        public boolean equals(@Nullable Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Id)) return false;
-
-            Id id = (Id) o;
-
-            if (!thematicCollectionId.equals(id.thematicCollectionId)) return false;
-            return languageId.equals(id.languageId);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = thematicCollectionId.hashCode();
-            result = 31 * result + languageId.hashCode();
-            return result;
-        }
-    }
-
-    @EmbeddedId
-    private Id id = new Id();
-
-    @ManyToOne
-    @JoinColumn(name = THEMATIC_COLLECTION_ID_FK_COLUMN, insertable = false, updatable = false)
+    @NotNull
+    @ManyToOne(optional = false)
     private ThematicCollection thematicCollection;
 
-    @ManyToOne
-    @JoinColumn(name = LANGUAGE_ID_FK_COLUMN, insertable = false, updatable = false)
+    @NotNull
+    @ManyToOne(optional = false)
     private Language language;
 
     @NotEmpty
@@ -72,7 +34,7 @@ public class ThematicCollectionLocalizedData {
     @Column(nullable = false)
     private String description;
 
-    public Id getId() {
+    public Long getId() {
         return id;
     }
 
@@ -102,16 +64,12 @@ public class ThematicCollectionLocalizedData {
 
     protected ThematicCollectionLocalizedData() {}
 
-    public ThematicCollectionLocalizedData(String name, String description,
-                                           ThematicCollection thematicCollection,
-                                           Language language) {
+    public ThematicCollectionLocalizedData(String name, String description, Language language,
+                                           ThematicCollection thematicCollection) {
         this.name = name;
         this.description = description;
-
-        this.thematicCollection = thematicCollection;
         this.language = language;
-        this.id.thematicCollectionId = thematicCollection.getId();
-        this.id.languageId = language.getId();
+        this.thematicCollection = thematicCollection;
     }
 
     @Override
@@ -121,12 +79,15 @@ public class ThematicCollectionLocalizedData {
 
         ThematicCollectionLocalizedData that = (ThematicCollectionLocalizedData) o;
 
-        return getId().equals(that.getId());
+        if (!getName().equals(that.getName())) return false;
+        return getDescription().equals(that.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        int result = getName().hashCode();
+        result = 31 * result + getDescription().hashCode();
+        return result;
     }
 
     @Override

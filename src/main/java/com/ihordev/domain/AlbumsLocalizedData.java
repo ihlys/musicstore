@@ -4,64 +4,28 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
 
 @Entity
 @Table(
     uniqueConstraints = {
-            @UniqueConstraint(name = "UNQ_NAME_DESCRIPTION", columnNames = {"NAME", "DESCRIPTION"})
+        @UniqueConstraint(name = "UNQ_LANGUAGE_ALBUM",   columnNames = {"LANGUAGE", "ALBUM"}),
+        @UniqueConstraint(name = "UNQ_NAME_DESCRIPTION", columnNames = {"NAME", "DESCRIPTION"})
     }
 )
 public class AlbumsLocalizedData {
 
-    private static final String ALBUM_ID_FK_COLUMN = "ALBUM_ID";
-    private static final String LANGUAGE_ID_FK_COLUMN = "LANGUAGE_ID";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Embeddable
-    public static class Id implements Serializable {
-
-        @Column(name = ALBUM_ID_FK_COLUMN)
-        private Long albumId;
-
-        @Column(name = LANGUAGE_ID_FK_COLUMN)
-        private Long languageId;
-
-        protected Id() {}
-
-        public Id(Long albumId, Long languageId) {
-            this.albumId = albumId;
-            this.languageId = languageId;
-        }
-
-        @Override
-        public boolean equals(@Nullable Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Id)) return false;
-
-            Id id = (Id) o;
-
-            if (!albumId.equals(id.albumId)) return false;
-            return languageId.equals(id.languageId);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = albumId.hashCode();
-            result = 31 * result + languageId.hashCode();
-            return result;
-        }
-    }
-
-    @EmbeddedId
-    private Id id = new Id();
-
-    @ManyToOne
-    @JoinColumn(name = LANGUAGE_ID_FK_COLUMN, insertable = false, updatable = false)
+    @NotNull
+    @ManyToOne(optional = false)
     private Language language;
 
-    @ManyToOne
-    @JoinColumn(name = ALBUM_ID_FK_COLUMN, insertable = false, updatable = false)
+    @NotNull
+    @ManyToOne(optional = false)
     private Album album;
 
     @NotEmpty
@@ -72,7 +36,7 @@ public class AlbumsLocalizedData {
     @Column(nullable = false)
     private String description;
 
-    public Id getId() {
+    public Long getId() {
         return id;
     }
 
@@ -105,26 +69,26 @@ public class AlbumsLocalizedData {
     public AlbumsLocalizedData(String name, String description, Album album, Language language) {
         this.name = name;
         this.description = description;
-
         this.album = album;
         this.language = language;
-        this.id.albumId = album.getId();
-        this.id.languageId = language.getId();
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (!(o instanceof AlbumsLocalizedData)) return false;
 
         AlbumsLocalizedData that = (AlbumsLocalizedData) o;
 
-        return getId().equals(that.getId());
+        if (!getName().equals(that.getName())) return false;
+        return getDescription().equals(that.getDescription());
     }
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        int result = getName().hashCode();
+        result = 31 * result + getDescription().hashCode();
+        return result;
     }
 
     @Override

@@ -1,70 +1,37 @@
 package com.ihordev.domain;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
 
 
 @Entity
+@Table(
+    uniqueConstraints = {
+        @UniqueConstraint(name = "UNQ_LANGUAGE_SONG", columnNames = {"LANGUAGE", "SONG"}),
+    }
+)
 public class SongsLocalizedData {
 
-    private static final String SONGS_ID_FK_COLUMN = "SONGS_ID";
-    private static final String LANGUAGE_ID_FK_COLUMN = "LANGUAGE_ID";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Embeddable
-    public static class Id implements Serializable {
-
-        @Column(name = SONGS_ID_FK_COLUMN)
-        private Long songId;
-
-        @Column(name = LANGUAGE_ID_FK_COLUMN)
-        private Long languageId;
-
-        protected Id() {}
-
-        public Id(Long songId, Long languageId) {
-            this.songId = songId;
-            this.languageId = languageId;
-        }
-
-        @Override
-        public boolean equals(@Nullable Object o) {
-            if (this == o) return true;
-            if (!(o instanceof Id)) return false;
-
-            Id id = (Id) o;
-
-            if (!songId.equals(id.songId)) return false;
-            return languageId.equals(id.languageId);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = songId.hashCode();
-            result = 31 * result + languageId.hashCode();
-            return result;
-        }
-    }
-
-    @EmbeddedId
-    private Id id = new Id();
-
-    @ManyToOne
-    @JoinColumn(name = SONGS_ID_FK_COLUMN, insertable = false, updatable = false)
+    @NotNull
+    @ManyToOne(optional = false)
     private Song song;
 
-    @ManyToOne
-    @JoinColumn(name = LANGUAGE_ID_FK_COLUMN, insertable = false, updatable = false)
+    @NotNull
+    @ManyToOne(optional = false)
     private Language language;
 
     @NotEmpty
     @Column(nullable = false)
     private String name;
 
-    public Id getId() {
+    public Long getId() {
         return id;
     }
 
@@ -88,11 +55,8 @@ public class SongsLocalizedData {
 
     public SongsLocalizedData(String name, Song song, Language language) {
         this.name = name;
-
         this.song = song;
         this.language = language;
-        this.id.songId = song.getId();
-        this.id.languageId = language.getId();
     }
 
     @Override
@@ -102,12 +66,15 @@ public class SongsLocalizedData {
 
         SongsLocalizedData that = (SongsLocalizedData) o;
 
-        return getId().equals(that.getId());
+        if (!getLanguage().equals(that.getLanguage())) return false;
+        return getName().equals(that.getName());
     }
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        int result = getLanguage().hashCode();
+        result = 31 * result + getName().hashCode();
+        return result;
     }
 
     @Override
