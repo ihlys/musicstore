@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(
     uniqueConstraints = {
-        @UniqueConstraint(name = "UNQ_LANGUAGE_GENRE", columnNames = {"LANGUAGE", "GENRE"}),
+        @UniqueConstraint(name = "UNQ_LANGUAGE_GENRE", columnNames = {"LANGUAGE_ID", "GENRE_ID"}),
         @UniqueConstraint(name = "UNQ_NAME_DESCRIPTION", columnNames = {"NAME", "DESCRIPTION"})
     }
 )

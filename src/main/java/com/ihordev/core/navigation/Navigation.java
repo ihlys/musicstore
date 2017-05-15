@@ -92,7 +92,7 @@ public class Navigation {
         Map<String, String> matchedPathParams = matchedRequestInfo.getMatchedPathParams();
         if (matchedPathParams.containsKey(ALBUMS_ID)) {
             Album album = albumService.findById(parseLong(matchedPathParams.get(ALBUMS_ID)));
-            return new NavigationLink(matchedRequestInfo.getRequestURL(), album.getName());
+            return new NavigationLink(matchedRequestInfo.getRequestURL(), "asd"/*album.getName()*/);
         } else if (matchedPathParams.containsKey(ARTISTS_ID)) {
             Artist artist = artistService.findById(parseLong(matchedPathParams.get(ARTISTS_ID)));
             return new NavigationLink(matchedRequestInfo.getRequestURL(), "asd"/*artist.getName()*/);

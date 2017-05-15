@@ -16,7 +16,7 @@ import static com.ihordev.repository.ArtistRepository.FIND_ALL_PAGINATED;
     @NamedQuery(name = FIND_ALL_PAGINATED,
                 query = " SELECT                                              " +
                         "       artist.id AS id,                              " +
-                        "       artist.imageSml AS imageSml,                  " +
+                        "       artist.imageSmlUrl AS imageSmlUrl,            " +
                         "       localizedData.name AS name,                   " +
                         "       localizedData.description AS description      " +
                         " FROM Artist artist                                  " +

@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
         @UniqueConstraint(name = "UNQ_NAME_DESCRIPTION", columnNames = {"NAME", "DESCRIPTION"})
     }
 )
-public class ThematicCollectionLocalizedData {
+public class ThematicCollectionsLocalizedData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,10 +62,10 @@ public class ThematicCollectionLocalizedData {
         this.description = description;
     }
 
-    protected ThematicCollectionLocalizedData() {}
+    protected ThematicCollectionsLocalizedData() {}
 
-    public ThematicCollectionLocalizedData(String name, String description, Language language,
-                                           ThematicCollection thematicCollection) {
+    public ThematicCollectionsLocalizedData(String name, String description, Language language,
+                                            ThematicCollection thematicCollection) {
         this.name = name;
         this.description = description;
         this.language = language;
@@ -75,9 +75,9 @@ public class ThematicCollectionLocalizedData {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ThematicCollectionLocalizedData)) return false;
+        if (!(o instanceof ThematicCollectionsLocalizedData)) return false;
 
-        ThematicCollectionLocalizedData that = (ThematicCollectionLocalizedData) o;
+        ThematicCollectionsLocalizedData that = (ThematicCollectionsLocalizedData) o;
 
         if (!getName().equals(that.getName())) return false;
         return getDescription().equals(that.getDescription());

@@ -19,7 +19,7 @@ public class Genre {
 
     private String imageLgUrl;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
     private Collection<Artist> artists;
 
     @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)

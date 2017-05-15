@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com test-data-schema.xsd">
+
+    <GENRE id="1" />
+        <ARTIST id="1" genre_id="1"/>
+            <ALBUM id="1" artist_id="1"/>
+                <SONG id="1" album_id="1" />
+                <SONG id="2" album_id="1" />
+                <SONG id="3" album_id="1" />
+            <ALBUM id="2" artist_id="1"/>
+                <SONG id="4" album_id="2" />
+                <SONG id="5" album_id="2" />
+                <SONG id="6" album_id="2" />
+        <ARTIST id="2" genre_id="1"/>
+            <ALBUM id="3" artist_id="2"/>
+                <SONG id="7" album_id="3" />
+                <SONG id="8" album_id="3" />
+                <SONG id="9" album_id="3" />
+            <ALBUM id="4" artist_id="2"/>
+                <SONG id="10" album_id="4" />
+                <SONG id="11" album_id="4" />
+                <SONG id="12" album_id="4" />
+
+    <LANGUAGE id="1" name="EN" />
+    <LANGUAGE id="2" name="RU" />
+
+    <GENRES_LOCALIZED_DATA id="1" genre_id="1" language_id="1"
+                           name="Rock" description="This is rock music"/>
+    <GENRES_LOCALIZED_DATA id="2" genre_id="1" language_id="2"
+                           name="Рок" description="Это рок музыка"/>
+
+    <ARTISTS_LOCALIZED_DATA id="1" artist_id="1" language_id="1"
+                            name="Nightwish" description="This is Nightwish band"/>
+    <ARTISTS_LOCALIZED_DATA id="2" artist_id="1" language_id="2"
+                            name="Nightwish" description="Это группа Nightwish"/>
+    <ARTISTS_LOCALIZED_DATA id="3" artist_id="2" language_id="1"
+                            name="Disturbed" description="This is Disturbed band"/>
+    <ARTISTS_LOCALIZED_DATA id="4" artist_id="2" language_id="2"
+                            name="Disturbed" description="Это группа Disturbed"/>
+
+    <ALBUMS_LOCALIZED_DATA id="1" album_id="1" language_id="1"
+                           name="Oceanborn" description="This is Oceanborn album"/>
+    <ALBUMS_LOCALIZED_DATA id="2" album_id="1" language_id="2"
+                           name="Oceanborn" description="Это альбом Oceanborn"/>
+    <ALBUMS_LOCALIZED_DATA id="3" album_id="2" language_id="1"
+                           name="Wishmaster" description="This is Wishmaster album"/>
+    <ALBUMS_LOCALIZED_DATA id="4" album_id="2" language_id="2"
+                           name="Wishmaster" description="Это альбом Wishmaster"/>
+    <ALBUMS_LOCALIZED_DATA id="5" album_id="3" language_id="1"
+                           name="Indestructible" description="This is Indestructible album"/>
+    <ALBUMS_LOCALIZED_DATA id="6" album_id="3" language_id="2"
+                           name="Indestructible" description="Это альбом Indestructible"/>
+    <ALBUMS_LOCALIZED_DATA id="7" album_id="4" language_id="1"
+                           name="Asylum" description="This is Asylum album"/>
+    <ALBUMS_LOCALIZED_DATA id="8" album_id="4" language_id="2"
+                           name="Asylum" description="Это альбом Asylum"/>
+
+    <SONGS_LOCALIZED_DATA id="1"  song_id="1"  language_id="1" name="The Pharao Sails to Orion"/>
+    <SONGS_LOCALIZED_DATA id="2"  song_id="2"  language_id="1" name="Devil &amp; the Deep Dark Ocean"/>
+    <SONGS_LOCALIZED_DATA id="3"  song_id="3"  language_id="1" name="Moondance"/>
+    <SONGS_LOCALIZED_DATA id="4"  song_id="4"  language_id="1" name="Wishmaster"/>
+    <SONGS_LOCALIZED_DATA id="5"  song_id="5"  language_id="1" name="The Kinslayer"/>
+    <SONGS_LOCALIZED_DATA id="6"  song_id="6"  language_id="1" name="Wanderlust"/>
+    <SONGS_LOCALIZED_DATA id="7"  song_id="7"  language_id="1" name="Indestructible"/>
+    <SONGS_LOCALIZED_DATA id="8"  song_id="8"  language_id="1" name="Inside the Fire"/>
+    <SONGS_LOCALIZED_DATA id="9"  song_id="9"  language_id="1" name="The Night"/>
+    <SONGS_LOCALIZED_DATA id="10" song_id="10" language_id="1" name="Asylum"/>
+    <SONGS_LOCALIZED_DATA id="11" song_id="11" language_id="1" name="The Animal"/>
+    <SONGS_LOCALIZED_DATA id="12" song_id="12" language_id="1" name="The Infection"/>
+
+</dataset>

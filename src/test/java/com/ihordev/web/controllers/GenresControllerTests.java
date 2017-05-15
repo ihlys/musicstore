@@ -116,7 +116,7 @@ public class GenresControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowSongsOfConcreteGenre() throws Exception  {
-        List<Song> songsOfGenreWithId1 = asList(new Song());
+        List<Song> songsOfGenreWithId1 = asList(null);
 
         given(songService.findByGenre(eq(1L))).willReturn(songsOfGenreWithId1);
 

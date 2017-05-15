@@ -52,7 +52,7 @@ public class AlbumsControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowSongsOfConcreteAlbum() throws Exception  {
-        List<Song> songsOfAlbumWithId1 = asList(new Song());
+        List<Song> songsOfAlbumWithId1 = null;
 
         given(songService.findByAlbum(eq(1L))).willReturn(songsOfAlbumWithId1);
 

@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://www.musicstore.com"
+           xmlns="https://www.musicstore.com"
+           elementFormDefault="qualified">
+
+    <xs:complexType name="Language">
+        <xs:attribute name="id"     type="xs:long" use="required"/>
+        <xs:attribute name="name"   type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="Song">
+        <xs:attribute name="id"       type="xs:long" use="required"/>
+        <xs:attribute name="album_id" type="xs:long" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="SongsLocalizedData">
+        <xs:attribute name="id"          type="xs:long" use="required"/>
+        <xs:attribute name="song_id"     type="xs:long" use="required"/>
+        <xs:attribute name="language_id" type="xs:long" use="required"/>
+        <xs:attribute name="name"        type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="Album">
+        <xs:attribute name="id"          type="xs:long" use="required"/>
+        <xs:attribute name="imageSmlUrl" type="xs:string"/>
+        <xs:attribute name="imageSmlLg"  type="xs:string"/>
+        <xs:attribute name="artist_id"   type="xs:long" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="AlbumsLocalizedData">
+        <xs:attribute name="id"          type="xs:long" use="required"/>
+        <xs:attribute name="album_id"    type="xs:long" use="required"/>
+        <xs:attribute name="language_id" type="xs:long" use="required"/>
+        <xs:attribute name="name"        type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="Artist">
+        <xs:attribute name="id"          type="xs:long" use="required"/>
+        <xs:attribute name="imageSmlUrl" type="xs:string"/>
+        <xs:attribute name="imageSmlLg"  type="xs:string"/>
+        <xs:attribute name="genre_id"    type="xs:long" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="ArtistsLocalizedData">
+        <xs:attribute name="id"          type="xs:long" use="required"/>
+        <xs:attribute name="artist_id"   type="xs:long" use="required"/>
+        <xs:attribute name="language_id" type="xs:long" use="required"/>
+        <xs:attribute name="name"        type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="Genre">
+        <xs:attribute name="id"          type="xs:long" use="required"/>
+        <xs:attribute name="imageSmlUrl" type="xs:string"/>
+        <xs:attribute name="imageSmlLg"  type="xs:string"/>
+        <!-- TODO: add recursive self reference -->
+    </xs:complexType>
+
+    <xs:complexType name="GenresLocalizedData">
+        <xs:attribute name="id"          type="xs:long" use="required"/>
+        <xs:attribute name="genre_id"    type="xs:long" use="required"/>
+        <xs:attribute name="language_id" type="xs:long" use="required"/>
+        <xs:attribute name="name"        type="xs:string"/>
+        <xs:attribute name="description" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="ThematicCollection">
+        <xs:attribute name="id"          type="xs:long" use="required"/>
+        <xs:attribute name="imageSmlUrl" type="xs:string"/>
+        <xs:attribute name="imageSmlLg"  type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="ThematicCollectionsLocalizedData">
+        <xs:attribute name="id"                    type="xs:long" use="required"/>
+        <xs:attribute name="thematicCollection_id" type="xs:long" use="required"/>
+        <xs:attribute name="language_id"           type="xs:long" use="required"/>
+        <xs:attribute name="name"                  type="xs:string"/>
+        <xs:attribute name="description"           type="xs:string"/>
+    </xs:complexType>
+
+    <xs:element name="dataset">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="LANGUAGE" type="Language"/>
+
+                <xs:element name="SONG" type="Song"/>
+                <xs:element name="SONGS_LOCALIZED_DATA" type="SongsLocalizedData"/>
+                <xs:element name="ALBUM" type="Album"/>
+                <xs:element name="ALBUMS_LOCALIZED_DATA" type="AlbumsLocalizedData"/>
+                <xs:element name="ARTIST" type="Artist"/>
+                <xs:element name="ARTISTS_LOCALIZED_DATA" type="ArtistsLocalizedData"/>
+                <xs:element name="GENRE" type="Genre"/>
+                <xs:element name="GENRES_LOCALIZED_DATA" type="GenresLocalizedData"/>
+                <xs:element name="THEMATIC_COLLECTION" type="ThematicCollection"/>
+                <xs:element name="THEMATIC_COLLECTIONS_LOCALIZED_DATA" type="ThematicCollectionsLocalizedData"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+

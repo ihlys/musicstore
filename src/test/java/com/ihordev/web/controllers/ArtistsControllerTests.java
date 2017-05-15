@@ -61,7 +61,7 @@ public class ArtistsControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowAlbumsOfConcreteArtist() throws Exception  {
-        List<Album> albumsOfArtistWithId1 = asList(new Album());
+        List<Album> albumsOfArtistWithId1 = asList(null);
 
         given(albumService.findByArtist(eq(1L))).willReturn(albumsOfArtistWithId1);
 
@@ -76,7 +76,7 @@ public class ArtistsControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowSongsOfConcreteArtist() throws Exception  {
-        List<Song> songsOfArtistWithId1 = asList(new Song());
+        List<Song> songsOfArtistWithId1 = asList(null);
 
         given(songService.findByArtist(eq(1L))).willReturn(songsOfArtistWithId1);
 

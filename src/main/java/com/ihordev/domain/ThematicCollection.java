@@ -19,7 +19,7 @@ public class ThematicCollection {
     private String imageLgUrl;
 
     @OneToMany(mappedBy = "thematicCollection", cascade = CascadeType.ALL)
-    private Set<ThematicCollectionLocalizedData> localizedDataSet = new HashSet<>();
+    private Set<ThematicCollectionsLocalizedData> localizedDataSet = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -41,11 +41,11 @@ public class ThematicCollection {
         this.imageLgUrl = imageLgUrl;
     }
 
-    public Set<ThematicCollectionLocalizedData> getLocalizedDataSet() {
+    public Set<ThematicCollectionsLocalizedData> getLocalizedDataSet() {
         return localizedDataSet;
     }
 
-    public void setLocalizedDataSet(Set<ThematicCollectionLocalizedData> localizedDataSet) {
+    public void setLocalizedDataSet(Set<ThematicCollectionsLocalizedData> localizedDataSet) {
         this.localizedDataSet = localizedDataSet;
     }
 
@@ -57,7 +57,7 @@ public class ThematicCollection {
     }
 
     public ThematicCollection(String imageSmlUrl, String imageLgUrl,
-                              Set<ThematicCollectionLocalizedData> localizedDataSet) {
+                              Set<ThematicCollectionsLocalizedData> localizedDataSet) {
         this.imageSmlUrl = imageSmlUrl;
         this.imageLgUrl = imageLgUrl;
         this.localizedDataSet = localizedDataSet;
@@ -72,7 +72,7 @@ public class ThematicCollection {
                 ", imageSmlUrl='" + imageSmlUrl + '\'' +
                 ", imageLgUrl='" + imageLgUrl + '\'' +
                 ", localizedDataSet=" + localizedDataSet.stream()
-                    .map(ThematicCollectionLocalizedData::getLanguage)
+                    .map(ThematicCollectionsLocalizedData::getLanguage)
                     .map(Language::getName)
                     .collect(toList()) +
                 '}';
