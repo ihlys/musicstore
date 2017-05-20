@@ -1,4 +1,4 @@
-package com.ihordev.core.util;
+package com.ihordev.core.jpa.namedqueries;
 
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import io.github.lukehutch.fastclasspathscanner.scanner.ScanResult;

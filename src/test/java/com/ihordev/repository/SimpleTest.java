@@ -30,6 +30,7 @@ public class SimpleTest {
     @Autowired
     private ArtistService artistService;
 
+
 /*    @Test
     public void test() {
         init();

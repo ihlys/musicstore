@@ -99,7 +99,7 @@ public class Navigation {
         } else if (matchedPathParams.containsKey(GENRES_ID)) {
             throw new AssertionError("not implemented yet");
         } else {
-            String errMsg = format("Cannot create navigation link for dynamic resource: " +
+            String errMsg = format("Cannot createForClass navigation link for dynamic resource: " +
                     "there is no handling for request with path variables: %s",
                     matchedPathParams.keySet());
             throw new NavigationException(errMsg);

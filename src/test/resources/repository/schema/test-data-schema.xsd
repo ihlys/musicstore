@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://www.musicstore.com"
+           xmlns="https://www.musicstore.com"
+           elementFormDefault="qualified">
+
+    <xs:include schemaLocation="test-data-types-schema.xsd"/>
+
+    <xs:element name="dataset">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element name="LANGUAGE" type="Language"/>
+
+                <xs:element name="SONG" type="Song"/>
+                <xs:element name="SONGS_LOCALIZED_DATA" type="SongsLocalizedData"/>
+                <xs:element name="ALBUM" type="Album"/>
+                <xs:element name="ALBUMS_LOCALIZED_DATA" type="AlbumsLocalizedData"/>
+                <xs:element name="ARTIST" type="Artist"/>
+                <xs:element name="ARTISTS_LOCALIZED_DATA" type="ArtistsLocalizedData"/>
+                <xs:element name="GENRE" type="Genre"/>
+                <xs:element name="GENRES_LOCALIZED_DATA" type="GenresLocalizedData"/>
+                <xs:element name="THEMATIC_COLLECTION" type="ThematicCollection"/>
+                <xs:element name="THEMATIC_COLLECTIONS_LOCALIZED_DATA" type="ThematicCollectionsLocalizedData"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

@@ -21,6 +21,7 @@ public final class UrlUtils {
         return requestUrl.toString();
     }
 
+    // TODO: looks like very specific method, should it be private in the class that uses it?
     @SideEffectFree
     public static String cutSegmentFromEnd(String fromUrlString) {
         int segmentIdx = fromUrlString.lastIndexOf('/', fromUrlString.length());

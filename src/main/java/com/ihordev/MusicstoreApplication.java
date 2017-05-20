@@ -1,11 +1,10 @@
 package com.ihordev;
 
-import com.ihordev.core.util.NamedQueriesAddingPostProcessor;
-import com.ihordev.core.util.NamedQueriesHelper;
+import com.ihordev.core.jpa.namedqueries.NamedQueriesAddingPostProcessor;
+import com.ihordev.core.jpa.namedqueries.NamedQueriesHelper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.NamedQuery;
 import java.util.Set;

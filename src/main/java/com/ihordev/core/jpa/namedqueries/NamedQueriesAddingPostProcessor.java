@@ -1,4 +1,4 @@
-package com.ihordev.core.util;
+package com.ihordev.core.jpa.namedqueries;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;

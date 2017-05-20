@@ -263,7 +263,7 @@ var thVars = [
 	["songs", songs],
 	["soundtracks", soundtracks],
 	["thematicCollections", thematicCollections],
-	//["currentMusicEntity", currentMusicEntity],
+	["currentMusicEntity", currentMusicEntity],
 	["newsEvents", newsEvents],
 	["navigation", navigation]
 	

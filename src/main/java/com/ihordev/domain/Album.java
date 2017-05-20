@@ -88,7 +88,8 @@ public class Album {
         this.localizedDataSet = localizedDataSet;
     }
 
-    //TODO: should this entity have equals and hashcode?
+    //TODO: should this entity have areEqual and hashcode?
+
 
     @Override
     public String toString() {

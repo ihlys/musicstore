@@ -1,5 +1,7 @@
-package com.ihordev.core.util;
+package com.ihordev.core.jpa.namedqueires;
 
+import com.ihordev.core.jpa.namedqueries.NamedQueriesAddingPostProcessor;
+import com.ihordev.core.jpa.namedqueries.NamedQueriesHelper;
 import info.solidsoft.mockito.java8.api.WithBDDMockito;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="https://www.musicstore.com"
+           xmlns="https://www.musicstore.com"
+           elementFormDefault="qualified">
+    <xs:include schemaLocation="test-data-types-schema.xsd" />
+
+    <!-- This schema inherits standard database schema types but has no required restrictions -->
+    <!-- for convenient use in expected data definitions -->
+
+    <xs:complexType name="LanguageNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="Language">
+                <xs:attribute name="id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SongNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="Song">
+                <xs:attribute name="id"       type="xs:long"/>
+                <xs:attribute name="album_id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="SongsLocalizedDataNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="SongsLocalizedData">
+                <xs:attribute name="id"          type="xs:long"/>
+                <xs:attribute name="song_id"     type="xs:long"/>
+                <xs:attribute name="language_id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AlbumNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="Album">
+                <xs:attribute name="id"        type="xs:long"/>
+                <xs:attribute name="artist_id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="AlbumsLocalizedDataNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="AlbumsLocalizedData">
+                <xs:attribute name="id"          type="xs:long"/>
+                <xs:attribute name="album_id"    type="xs:long"/>
+                <xs:attribute name="language_id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ArtistNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="Artist">
+                <xs:attribute name="id"       type="xs:long"/>
+                <xs:attribute name="genre_id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ArtistsLocalizedDataNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="ArtistsLocalizedData">
+                <xs:attribute name="id"          type="xs:long"/>
+                <xs:attribute name="artist_id"   type="xs:long"/>
+                <xs:attribute name="language_id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="GenreNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="Genre">
+                <xs:attribute name="id"       type="xs:long"/>
+                <xs:attribute name="genre_id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="GenresLocalizedDataNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="GenresLocalizedData">
+                <xs:attribute name="id"          type="xs:long"/>
+                <xs:attribute name="genre_id"    type="xs:long"/>
+                <xs:attribute name="language_id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ThematicCollectionNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="ThematicCollection">
+                <xs:attribute name="id" type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ThematicCollectionsLocalizedDataNoRestrictions">
+        <xs:complexContent>
+            <xs:restriction base="ThematicCollectionsLocalizedData">
+                <xs:attribute name="id"                    type="xs:long"/>
+                <xs:attribute name="thematicCollection_id" type="xs:long"/>
+                <xs:attribute name="language_id"           type="xs:long"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="dataset">
+        <xs:complexType>
+            <xs:choice minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="LANGUAGE" type="LanguageNoRestrictions"/>
+
+                <xs:element name="SONG" type="SongNoRestrictions"/>
+                <xs:element name="SONGS_LOCALIZED_DATA" type="SongsLocalizedDataNoRestrictions"/>
+                <xs:element name="ALBUM" type="AlbumNoRestrictions"/>
+                <xs:element name="ALBUMS_LOCALIZED_DATA" type="AlbumsLocalizedDataNoRestrictions"/>
+                <xs:element name="ARTIST" type="ArtistNoRestrictions"/>
+                <xs:element name="ARTISTS_LOCALIZED_DATA" type="ArtistsLocalizedDataNoRestrictions"/>
+                <xs:element name="GENRE" type="GenreNoRestrictions"/>
+                <xs:element name="GENRES_LOCALIZED_DATA" type="GenresLocalizedDataNoRestrictions"/>
+                <xs:element name="THEMATIC_COLLECTION" type="ThematicCollectionNoRestrictions"/>
+                <xs:element name="THEMATIC_COLLECTIONS_LOCALIZED_DATA" type="ThematicCollectionsLocalizedDataNoRestrictions"/>
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

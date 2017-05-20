@@ -2,11 +2,12 @@
 
 	<div class="main__top-panel container-with-foreground">
 		
+			<!--
 			<div class="container-with-foreground__foreground-wrapper menu menu--center">
 				<a class="menu__link" href="#"><span>Жанры</span></a>
 				<a class="menu__link" href="#"><span>Подборки песен</span></a>
 				<a class="menu__link" href="#"><span>Саундтреки</span></a>
-			</div>
+			</div> -->
 		
 			<th:block th:switch="${currentMusicEntity != null}">
 				<div class="music-info" th:case="true">
@@ -59,7 +60,7 @@
 </div>
 
 <div class="row">
-	<div class="greetings" th:replace="greetings">
+	<div class="artists" th:replace="artists">
 	</div>
 </div>
 
