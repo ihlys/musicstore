@@ -3,25 +3,28 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://www.musicstore.com ../schema/test-data-schema.xsd">
 
-    <GENRE id="1" />
-        <ARTIST id="1" genre_id="1"/>
-            <ALBUM id="1" artist_id="1"/>
-                <SONG id="1" album_id="1" />
-                <SONG id="2" album_id="1" />
-                <SONG id="3" album_id="1" />
-            <ALBUM id="2" artist_id="1"/>
-                <SONG id="4" album_id="2" />
-                <SONG id="5" album_id="2" />
-                <SONG id="6" album_id="2" />
-        <ARTIST id="2" genre_id="1"/>
-            <ALBUM id="3" artist_id="2"/>
-                <SONG id="7" album_id="3" />
-                <SONG id="8" album_id="3" />
-                <SONG id="9" album_id="3" />
-            <ALBUM id="4" artist_id="2"/>
-                <SONG id="10" album_id="4" />
-                <SONG id="11" album_id="4" />
-                <SONG id="12" album_id="4" />
+    <GENRE id="1"/>
+        <GENRE id="2"/>
+            <GENRE id="3"/>
+                <ARTIST id="1" genre_id="3"/>
+                    <ALBUM id="1" artist_id="1"/>
+                        <SONG id="1" album_id="1"/>
+                        <SONG id="2" album_id="1"/>
+                        <SONG id="3" album_id="1"/>
+                    <ALBUM id="2" artist_id="1"/>
+                        <SONG id="4" album_id="2"/>
+                        <SONG id="5" album_id="2"/>
+                        <SONG id="6" album_id="2"/>
+            <GENRE id="4"/>
+                <ARTIST id="2" genre_id="4"/>
+                    <ALBUM id="3" artist_id="2"/>
+                        <SONG id="7" album_id="3"/>
+                        <SONG id="8" album_id="3"/>
+                        <SONG id="9" album_id="3"/>
+                    <ALBUM id="4" artist_id="2"/>
+                        <SONG id="10" album_id="4"/>
+                        <SONG id="11" album_id="4"/>
+                        <SONG id="12" album_id="4"/>
 
     <LANGUAGE id="1" name="EN" />
     <LANGUAGE id="2" name="RU" />
@@ -30,6 +33,18 @@
                            name="Rock" description="This is rock music"/>
     <GENRES_LOCALIZED_DATA id="2" genre_id="1" language_id="2"
                            name="Рок" description="Это рок музыка"/>
+    <GENRES_LOCALIZED_DATA id="3" genre_id="2" language_id="1"
+                           name="Metal" description="This is metal-rock music"/>
+    <GENRES_LOCALIZED_DATA id="4" genre_id="2" language_id="2"
+                           name="Метал" description="Это метал-рок музыка"/>
+    <GENRES_LOCALIZED_DATA id="5" genre_id="3" language_id="1"
+                           name="Symphonic metal" description="This is symphonic metal music"/>
+    <GENRES_LOCALIZED_DATA id="6" genre_id="3" language_id="2"
+                           name="Симфоник метал" description="Это симфоник метал музыка"/>
+    <GENRES_LOCALIZED_DATA id="7" genre_id="4" language_id="1"
+                           name="Alternative metal" description="This is alternative metal"/>
+    <GENRES_LOCALIZED_DATA id="8" genre_id="4" language_id="2"
+                           name="Альтернативный метал" description="Это альтернативный метал"/>
 
     <ARTISTS_LOCALIZED_DATA id="1" artist_id="1" language_id="1"
                             name="Nightwish" description="This is Nightwish band"/>

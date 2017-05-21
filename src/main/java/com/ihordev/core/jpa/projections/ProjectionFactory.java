@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static com.ihordev.core.util.ReflectionsUtils.getGetterMethodsFromClass;
+import static com.ihordev.core.util.ReflectionsUtils.getPropertyGettersMethodsFromClass;
+import static com.ihordev.core.util.ReflectionsUtils.getMethodReturnType;
 import static com.ihordev.core.util.ReflectionsUtils.getPropertyName;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
@@ -24,8 +25,8 @@ public class ProjectionFactory<T> {
 
     public ProjectionFactory(Class<T> interfaceClass) {
         this.interfaceClass = interfaceClass;
-        this.properties = getGetterMethodsFromClass(interfaceClass).stream()
-                .map(Property::new)
+        this.properties = getPropertyGettersMethodsFromClass(interfaceClass).stream()
+                .map(method -> new Property(method, getMethodReturnType(method)))
                 .collect(toList());
         if (properties.isEmpty()) {
             throw new IllegalArgumentException("Cannot create projection factory for interface without properties.");

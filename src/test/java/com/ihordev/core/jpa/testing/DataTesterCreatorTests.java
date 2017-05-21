@@ -4,8 +4,6 @@ import com.ihordev.core.util.GenericClass;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Collection;
-
 
 public class DataTesterCreatorTests {
 
@@ -24,18 +22,15 @@ public class DataTesterCreatorTests {
 
     static class CustomDataTester extends AbstractDataTester<CustomType> {
 
-        public CustomDataTester(GenericClass<CustomType> objectsClass, DataTesterCreator dataTesterCreator) {
-            super(objectsClass, dataTesterCreator);
-        }
 
-        public CustomDataTester(Options options, GenericClass<CustomType> objectsClass,
-                                DataTesterCreator dataTesterCreator) {
-            super(options, objectsClass, dataTesterCreator);
+        public CustomDataTester(GenericClass<CustomType> objectsClass, DataTesterCreator dataTesterCreator,
+                                Options options, int depth) {
+            super(objectsClass, dataTesterCreator, options, depth);
         }
 
         @Override
-        protected void init(GenericClass<CustomType> objectsClass, DataTesterCreator dataTesterCreator) {
-
+        protected void init(GenericClass<CustomType> objectsClass, DataTesterCreator dataTesterCreator,
+                            Options options, int depth) {
         }
 
         @Override

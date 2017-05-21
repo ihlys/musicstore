@@ -4,7 +4,9 @@ import com.ihordev.core.util.GenericClass;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
+import static com.ihordev.core.util.GenericClass.createForClassMemberType;
 import static com.ihordev.core.util.ReflectionsUtils.getPropertyName;
 
 
@@ -14,10 +16,10 @@ public class Property {
     private Method method;
     private String name;
 
-    public Property(Method method) {
+    public Property(Method method, GenericClass<?> propertyClass) {
         this.method = method;
         this.name = getPropertyName(method);
-        this.propertyClass = new GenericClass<>(method.getGenericReturnType());
+        this.propertyClass = propertyClass;
     }
 
     public Object get(Object propertyOwner) {

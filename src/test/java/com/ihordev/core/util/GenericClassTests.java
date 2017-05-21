@@ -4,27 +4,32 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import sun.net.www.content.text.Generic;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import static java.util.Arrays.asList;
-import static org.hamcrest.Matchers.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.*;
 
 
 public class GenericClassTests {
 
+
     @Test
-    public void shouldRepresentGenericInformationAboutTypeCorrectly() {
+    public void shouldCaptureGenericParametersArgumentsCorrectly() {
+        GenericClass<Date> genericDateParameter = new GenericClass<>(Date.class);
 
-        GenericClass<Map> secondLevelGenericDateParameter = new GenericClass<>(Date.class);
+        GenericClass<Map> genericStringParameter = new GenericClass<>(String.class);
 
-        GenericClass<Map> firstLevelGenericStringParameter = new GenericClass<>(String.class);
-        GenericClass<Map> firstLevelGenericListParameter = new GenericClass<>(List.class, asList(secondLevelGenericDateParameter));
+        LinkedHashMap<String, GenericClass<?>> listGenericParametersClasses = new LinkedHashMap<>();
+        listGenericParametersClasses.put("E", genericDateParameter);
+        GenericClass<Map> genericListParameter = new GenericClass<>(List.class, listGenericParametersClasses);
 
-        GenericClass<Map> expectedGenericClass = new GenericClass<>(Map.class, asList(firstLevelGenericStringParameter,
-                firstLevelGenericListParameter));
+        LinkedHashMap<String, GenericClass<?>> mapGenericParametersClasses = new LinkedHashMap<>();
+        mapGenericParametersClasses.put("K", genericStringParameter);
+        mapGenericParametersClasses.put("V", genericListParameter);
+        GenericClass<Map<String, List<Date>>> expectedGenericClass = new GenericClass<>(Map.class, mapGenericParametersClasses);
+
         GenericClass<Map<String, List<Date>>> actualGenericClass = new GenericClass<Map<String, List<Date>>>(){};
 
         Assert.assertEquals(expectedGenericClass, actualGenericClass);
@@ -33,7 +38,7 @@ public class GenericClassTests {
     @Test
     public void shouldConvertSelfToStringCorrectly() {
 
-        String expectedStringRepresentation = "Map<String, List<Date>>";
+        String expectedStringRepresentation = "Map<K:String, V:List<E:Date>>";
 
         GenericClass<Map<String, List<Date>>> actualGenericClass = new GenericClass<Map<String, List<Date>>>(){};
         String actualStringRepresentation = actualGenericClass.toString();
@@ -76,5 +81,27 @@ public class GenericClassTests {
 
     private <T> void createGenericClassWithTypeVariableAsGenericParameter() {
         new GenericClass<List<T>>(){};
+    }
+
+    @Test
+    public void shouldCaptureGenericParametersArgumentsInClassMemberCorrectly() throws NoSuchFieldException {
+        GenericClass<Map<String, List<Set<String>>>> expectedFieldGenericClass =
+                new GenericClass<Map<String, List<Set<String>>>>(){};
+
+        GenericClass<ClassWithGenericsAndMember<Set<String>>> classWithMemberGenericClass =
+                new GenericClass<ClassWithGenericsAndMember<Set<String>>>(){};
+
+        Field classWithMemberField = ClassWithGenericsAndMember.class.getField("field");
+        Type classWithMemberFieldGenericType = classWithMemberField.getGenericType();
+
+        GenericClass<?> actualFieldGenericClass = GenericClass.createForClassMemberType(
+                (ParameterizedType) classWithMemberFieldGenericType, classWithMemberGenericClass);
+
+        Assert.assertEquals(expectedFieldGenericClass, actualFieldGenericClass);
+    }
+
+    static class ClassWithGenericsAndMember<T> {
+
+        public Map<String, List<T>> field;
     }
 }

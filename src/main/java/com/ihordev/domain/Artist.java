@@ -86,7 +86,20 @@ public class Artist {
         this.localizedDataSet = localizedDataSet;
     }
 
-    //TODO: should this entity have areEqual and hashcode?
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Artist)) return false;
+
+        Artist artist = (Artist) o;
+
+        return getLocalizedDataSet().equals(artist.getLocalizedDataSet());
+    }
+
+    @Override
+    public int hashCode() {
+        return getLocalizedDataSet().hashCode();
+    }
 
     @Override
     public String toString() {

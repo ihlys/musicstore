@@ -55,7 +55,7 @@
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="imageSmlUrl" type="xs:string"/>
         <xs:attribute name="imageSmlLg"  type="xs:string"/>
-        <!-- TODO: add recursive self reference -->
+        <xs:attribute name="genre_id"    type="xs:long"/>
     </xs:complexType>
 
     <xs:complexType name="GenresLocalizedData">

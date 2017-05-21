@@ -3,6 +3,8 @@ package com.ihordev.core.util;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -25,8 +27,9 @@ public final class ReflectionsUtils {
         }
     }
 
-    public static List<Method> getGetterMethodsFromClass(Class<?> targetClass) {
+    public static List<Method> getPropertyGettersMethodsFromClass(Class<?> targetClass) {
         return Stream.of(targetClass.getDeclaredMethods())
+            .filter(method -> method.getParameterTypes().length == 0)
             .filter(method -> method.getName().startsWith("get"))
             .collect(toList());
     }
@@ -39,6 +42,22 @@ public final class ReflectionsUtils {
             String errMsg = format("Cannot get property name from method with name %s," +
                     " method is not property getter.", methodName);
             throw new IllegalArgumentException(errMsg);
+        }
+    }
+
+    public static GenericClass<?> getMethodReturnType(Method method) {
+        return new GenericClass<>(method.getReturnType());
+    }
+
+    public static GenericClass<?> getMethodGenericReturnType(Method method, GenericClass<?> methodOwner) {
+        Type returnType = method.getGenericReturnType();
+        if (returnType instanceof ParameterizedType) {
+            return GenericClass.createForClassMemberType((ParameterizedType) returnType, methodOwner);
+        } if (returnType instanceof Class) {
+            return new GenericClass<>((Class<?>) returnType);
+        } else {
+            String errMsg = format("Cannot get method return type: return type %s is not a class.", returnType);
+            throw new RuntimeException(errMsg);
         }
     }
 }

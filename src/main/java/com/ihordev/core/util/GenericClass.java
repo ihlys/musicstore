@@ -2,8 +2,9 @@ package com.ihordev.core.util;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.TypeVariable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
@@ -12,47 +13,39 @@ import static java.util.stream.Collectors.joining;
 public class GenericClass<T> {
 
     private Class<?> rawClass;
-    private List<GenericClass<?>> genericParametersClasses;
+    private LinkedHashMap<String, GenericClass<?>> typeVariablesGenericsMap = new LinkedHashMap<>();
 
     public Class<?> getRawClass() {
         return rawClass;
     }
 
-    public List<GenericClass<?>> getGenericParametersClasses() {
-        return genericParametersClasses;
+    public Map<String, GenericClass<?>> getTypeVariablesGenericsMap() {
+        return typeVariablesGenericsMap;
     }
 
     public GenericClass(Class<?> rawClass) {
         this.rawClass = rawClass;
     }
 
-    public GenericClass(Class<?> rawClass, List<GenericClass<?>> genericParametersClasses) {
+    GenericClass(Class<?> rawClass, LinkedHashMap<String, GenericClass<?>> typeVariablesGenericsMap) {
         this.rawClass = rawClass;
-        this.genericParametersClasses = genericParametersClasses;
+        this.typeVariablesGenericsMap = typeVariablesGenericsMap;
     }
 
     public GenericClass() {
-        Type instanceType = getInstanceType();
-        initForType(instanceType);
-    }
-
-    public GenericClass(Type type) {
-        initForType(type);
-    }
-
-    private void initForType(Type type) {
-        if (type instanceof ParameterizedType) {
-            ParameterizedType instanceParametrizedType = (ParameterizedType) type;
-            this.rawClass = (Class<?>) instanceParametrizedType.getRawType();
-            this.genericParametersClasses = getGenerics(instanceParametrizedType);
+        Type classType = getClassType();
+        if (classType instanceof ParameterizedType) {
+            ParameterizedType classParametrizedType = (ParameterizedType) classType;
+            this.rawClass = (Class<?>) classParametrizedType.getRawType();
+            this.typeVariablesGenericsMap = getTypeVariablesGenericsMap(classParametrizedType, null);
         } else {
-            throwExceptionIfNotAClass(type);
-            this.rawClass = (Class<?>) type;
+            throwExceptionIfNotAClass(classType);
+            this.rawClass = (Class<?>) classType;
         }
     }
 
     // return <T> part in any GenericClass<T> declaration
-    private Type getInstanceType() {
+    private Type getClassType() {
         Type superclassType = this.getClass().getGenericSuperclass();
         if (superclassType instanceof ParameterizedType) {
             return ((ParameterizedType) superclassType).getActualTypeArguments()[0];
@@ -61,27 +54,50 @@ public class GenericClass<T> {
         }
     }
 
-    private List<GenericClass<?>> getGenerics(ParameterizedType type) {
-        Type[] typeGenerics = type.getActualTypeArguments();
+    public static GenericClass<?> createForClassMemberType(ParameterizedType memberType, GenericClass<?> memberOwner) {
+        return new GenericClass<>(memberType, memberOwner.typeVariablesGenericsMap);
+    }
 
-        List<GenericClass<?>> typeGenericsClasses = new ArrayList<>();
-        for (Type typeGeneric : typeGenerics) {
-            if (typeGeneric instanceof ParameterizedType) {
-                ParameterizedType typeParametrizedGeneric = (ParameterizedType) typeGeneric;
-                Type typeParametrizedGenericRawType = typeParametrizedGeneric.getRawType();
-                List<GenericClass<?>> typeParametrizedGenericInnerGenerics = getGenerics(typeParametrizedGeneric);
-                typeGenericsClasses.add(new GenericClass<>((Class<?>) typeParametrizedGenericRawType,
-                        typeParametrizedGenericInnerGenerics));
+    public static GenericClass<?> createForType(ParameterizedType type) {
+        return new GenericClass<>(type, null);
+    }
+
+    private GenericClass(ParameterizedType type, LinkedHashMap<String, GenericClass<?>> resolvedTypeVariables) {
+        this.rawClass = (Class<?>) type.getRawType();
+        this.typeVariablesGenericsMap = getTypeVariablesGenericsMap(type, resolvedTypeVariables);
+    }
+
+    private static LinkedHashMap<String, GenericClass<?>> getTypeVariablesGenericsMap(ParameterizedType type,
+                                                      LinkedHashMap<String, GenericClass<?>> resolvedTypeVariables) {
+        TypeVariable<?>[] typeVariables = getRawClassTypeVariables(type);
+        Type[] typeValues = type.getActualTypeArguments();
+
+        LinkedHashMap<String, GenericClass<?>> typeVariablesGenericsMap = new LinkedHashMap<>();
+
+        for (int i = 0; i < typeValues.length; i++) {
+            String typeVariableName = typeVariables[i].getName();
+            Type typeVariableValue = typeValues[i];
+            if (typeVariableValue instanceof ParameterizedType) {
+                typeVariablesGenericsMap.put(typeVariableName,
+                        new GenericClass<>((ParameterizedType) typeVariableValue, resolvedTypeVariables));
+            } else if (typeVariableValue instanceof TypeVariable &&
+                    resolvedTypeVariables != null &&
+                    resolvedTypeVariables.containsKey(typeVariableValue.getTypeName())) {
+                typeVariablesGenericsMap.put(typeVariableName, resolvedTypeVariables.get(typeVariableValue.getTypeName()));
             } else {
-                throwExceptionIfNotAClass(typeGeneric);
-                typeGenericsClasses.add(new GenericClass<>((Class<?>) typeGeneric));
+                throwExceptionIfNotAClass(typeVariableValue);
+                typeVariablesGenericsMap.put(typeVariableName, new GenericClass<>((Class<?>) typeVariableValue));
             }
         }
 
-        return typeGenericsClasses;
+        return typeVariablesGenericsMap;
     }
 
-    private  void throwExceptionIfNotAClass(Type type) {
+    private static TypeVariable<?>[] getRawClassTypeVariables(ParameterizedType type) {
+        return ((Class<?>) type.getRawType()).getTypeParameters();
+    }
+
+    private static void throwExceptionIfNotAClass(Type type) {
         if (!(type instanceof Class)) {
             String errMsg = format("Cannot create GenericClass instance: declared generic parameter %s is not a class.",
                     type.getTypeName());
@@ -96,14 +112,14 @@ public class GenericClass<T> {
 
         GenericClass<?> that = (GenericClass<?>) o;
 
-        if (!getRawClass().equals(that.getRawClass())) return false;
-        return getGenericParametersClasses() != null ? getGenericParametersClasses().equals(that.getGenericParametersClasses()) : that.getGenericParametersClasses() == null;
+        if (!rawClass.equals(that.rawClass)) return false;
+        return typeVariablesGenericsMap.equals(that.typeVariablesGenericsMap);
     }
 
     @Override
     public int hashCode() {
-        int result = getRawClass().hashCode();
-        result = 31 * result + (getGenericParametersClasses() != null ? getGenericParametersClasses().hashCode() : 0);
+        int result = rawClass.hashCode();
+        result = 31 * result + typeVariablesGenericsMap.hashCode();
         return result;
     }
 
@@ -111,9 +127,9 @@ public class GenericClass<T> {
     public String toString() {
         String baseString = rawClass.getSimpleName();
 
-        if (genericParametersClasses != null) {
-            String genericsString = genericParametersClasses.stream()
-                    .map(GenericClass::toString)
+        if (!typeVariablesGenericsMap.isEmpty()) {
+            String genericsString = typeVariablesGenericsMap.entrySet().stream()
+                    .map(entry -> entry.getKey() + ":" + entry.getValue().toString())
                     .collect(joining(", "));
             baseString += "<%s>";
             return format(baseString, genericsString);
@@ -121,4 +137,5 @@ public class GenericClass<T> {
             return baseString;
         }
     }
+
 }

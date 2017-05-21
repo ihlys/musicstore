@@ -2,8 +2,7 @@ package com.ihordev.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,12 +20,11 @@ public class Album {
 
     private String imageLgUrl;
 
+    private LocalDate releaseDate;
+
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Artist artist;
-
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
-    private Collection<Song> songs = new ArrayList<>();
 
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
     private Set<AlbumsLocalizedData> localizedDataSet = new HashSet<>();
@@ -59,14 +57,6 @@ public class Album {
         this.artist = artist;
     }
 
-    public Collection<Song> getSongs() {
-        return songs;
-    }
-
-    public void setSongs(Collection<Song> songs) {
-        this.songs = songs;
-    }
-
     public Set<AlbumsLocalizedData> getLocalizedDataSet() {
         return localizedDataSet;
     }
@@ -88,8 +78,20 @@ public class Album {
         this.localizedDataSet = localizedDataSet;
     }
 
-    //TODO: should this entity have areEqual and hashcode?
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Album)) return false;
 
+        Album album = (Album) o;
+
+        return getLocalizedDataSet().equals(album.getLocalizedDataSet());
+    }
+
+    @Override
+    public int hashCode() {
+        return getLocalizedDataSet().hashCode();
+    }
 
     @Override
     public String toString() {

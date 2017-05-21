@@ -70,7 +70,7 @@ public class GenresController {
     }
 
     private void addGenresSubGenresToModel(Model model, long genresId) {
-        List<Genre> genresSubGenres = genreService.findSubgenres(genresId);
+        List<Genre> genresSubGenres = genreService.findSubGenres(genresId);
         model.addAttribute("genres", genresSubGenres);
     }
 

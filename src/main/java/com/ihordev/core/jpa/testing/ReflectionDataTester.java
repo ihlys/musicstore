@@ -1,17 +1,12 @@
 package com.ihordev.core.jpa.testing;
 
 import com.ihordev.core.util.GenericClass;
-import com.sun.xml.internal.bind.v2.runtime.output.SAXOutput;
+import com.ihordev.core.util.ReflectionsUtils;
 
-import java.util.Collections;
-import java.util.IdentityHashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Function;
 
-import static com.ihordev.core.jpa.testing.Options.Option.op;
-import static com.ihordev.core.jpa.testing.Options.options;
-import static com.ihordev.core.util.ReflectionsUtils.getGetterMethodsFromClass;
+import static com.ihordev.core.util.ReflectionsUtils.getPropertyGettersMethodsFromClass;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toMap;
 
@@ -20,21 +15,17 @@ public class ReflectionDataTester<T> extends AbstractDataTester<T> {
 
     private Map<Property, DataTester<?>> propertyTesters;
 
-    public ReflectionDataTester(GenericClass<T> objectsClass, DataTesterCreator dataTesterCreator) {
-        super(objectsClass, dataTesterCreator);
-    }
-
-    public ReflectionDataTester(Options options, GenericClass<T> objectsClass, DataTesterCreator dataTesterCreator) {
-        super(options, objectsClass, dataTesterCreator);
+    public ReflectionDataTester(GenericClass<T> objectsClass, DataTesterCreator dataTesterCreator,
+                                Options options, int depth) {
+        super(objectsClass, dataTesterCreator, options, depth);
     }
 
     @Override
-    protected void init(GenericClass<T> objectsClass, DataTesterCreator dataTesterCreator) {
-        this.propertyTesters = getGetterMethodsFromClass(objectsClass.getRawClass()).stream()
-                .map(Property::new)
+    protected void init(GenericClass<T> objectsClass, DataTesterCreator dataTesterCreator, Options options, int depth) {
+        this.propertyTesters = getPropertyGettersMethodsFromClass(objectsClass.getRawClass()).stream()
+                .map(method -> new Property(method, ReflectionsUtils.getMethodGenericReturnType(method, objectsClass)))
                 .collect(toMap(Function.identity(), property ->
-                        createInternalDataTester(property.getPropertyClass(),
-                                dataTesterCreator, options(op("depth", depth + 1)))));
+                        createInternalDataTester(property.getPropertyClass(), dataTesterCreator, options, depth + 1)));
     }
 
     @SuppressWarnings("unchecked")
@@ -66,8 +57,17 @@ public class ReflectionDataTester<T> extends AbstractDataTester<T> {
                 .map(entry -> {
                     Property property = entry.getKey();
                     DataTester propertyTester = entry.getValue();
-                    return paddingString + property.getName() + ": " + propertyTester.toString(property.get(object));
+                    String propertyAsString = propertyTester.toString(property.get(object));
+                    if (isMultilineString(propertyAsString)) {
+                        return paddingString + property.getName() + ": " + System.lineSeparator() + propertyAsString;
+                    } else {
+                        return paddingString + property.getName() + ": " + propertyAsString;
+                    }
                 })
                 .collect(joining(System.lineSeparator()));
+    }
+
+    private boolean isMultilineString(String str) {
+        return str.contains(System.lineSeparator());
     }
 }

@@ -87,7 +87,7 @@ public class GenresControllerTests extends AbstractMockMvcTests {
         //List<Genre> subGenresOfGenreWithId1 = asList(new Genre());
         List<Genre> subGenresOfGenreWithId1 = null;
 
-        given(genreService.findSubgenres(eq(1L))).willReturn(subGenresOfGenreWithId1);
+        given(genreService.findSubGenres(eq(1L))).willReturn(subGenresOfGenreWithId1);
 
         mockMvc.perform(get("/genres/1"))
                 .andExpect(status().isOk())
@@ -95,7 +95,7 @@ public class GenresControllerTests extends AbstractMockMvcTests {
                 .andExpect(model().attributeExists("genres"))
                 .andExpect(model().attribute("genres", equalTo(subGenresOfGenreWithId1)));
 
-        then(genreService).should(times(1)).findSubgenres(assertArg(id -> assertEquals(id.longValue(), 1L)));
+        then(genreService).should(times(1)).findSubGenres(assertArg(id -> assertEquals(id.longValue(), 1L)));
     }
 
     @Test

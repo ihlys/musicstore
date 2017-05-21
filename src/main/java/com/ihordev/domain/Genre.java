@@ -1,7 +1,6 @@
 package com.ihordev.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,8 +18,14 @@ public class Genre {
 
     private String imageLgUrl;
 
-    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
-    private Collection<Artist> artists;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Genre parentGenre;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "parentGenre")
+    private Set<Genre> subGenres;
+
+/*    @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
+    private Set<Artist> artists;*/
 
     @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
     private Set<GenresLocalizedData> localizedDataSet = new HashSet<>();
@@ -45,13 +50,13 @@ public class Genre {
         this.imageLgUrl = imageLgUrl;
     }
 
-    public Collection<Artist> getArtists() {
+/*    public Set<Artist> getArtists() {
         return artists;
     }
 
-    public void setArtists(Collection<Artist> artists) {
+    public void setArtists(Set<Artist> artists) {
         this.artists = artists;
-    }
+    }*/
 
     public Set<GenresLocalizedData> getLocalizedDataSet() {
         return localizedDataSet;
@@ -74,7 +79,20 @@ public class Genre {
         this.localizedDataSet = localizedDataSet;
     }
 
-    //TODO: should this entity have areEqual and hashcode?
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Genre)) return false;
+
+        Genre genre = (Genre) o;
+
+        return getLocalizedDataSet().equals(genre.getLocalizedDataSet());
+    }
+
+    @Override
+    public int hashCode() {
+        return getLocalizedDataSet().hashCode();
+    }
 
     @Override
     public String toString() {

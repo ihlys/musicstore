@@ -2,18 +2,19 @@ package com.ihordev.core.jpa.testing;
 
 import com.ihordev.core.util.GenericClass;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+import static com.ihordev.core.jpa.testing.DataTesterUtils.areOrderedIterablesEqual;
 
 
-public class BagDataTester<E> extends AbstractCollectionDataTester<E, Collection<E>> {
+public class BagDataTester<E> extends AbstractIterableDataTester<E, Collection<E>> {
 
-    public BagDataTester(GenericClass<Collection<E>> bagsClass, DataTesterCreator dataTesterCreator) {
-        super(bagsClass, dataTesterCreator);
-    }
-
-    public BagDataTester(Options options, GenericClass<Collection<E>> bagsClass,
-                         DataTesterCreator dataTesterCreator) {
-        super(options, bagsClass, dataTesterCreator);
+    public BagDataTester(GenericClass<Collection<E>> bagsClass, DataTesterCreator dataTesterCreator,
+                         Options options, int depth) {
+        super(bagsClass, dataTesterCreator, options, depth);
     }
 
     @Override
@@ -26,19 +27,6 @@ public class BagDataTester<E> extends AbstractCollectionDataTester<E, Collection
         Collections.sort((List<E>) expectedBag, hashCodeComparator);
         Collections.sort((List<E>) actualBag, hashCodeComparator);
 
-        return checkSortedListsEquality((List<E>) expectedBag, (List<E>) actualBag);
-    }
-
-    private boolean checkSortedListsEquality(List<E> list1, List<E> list2) {
-        ListIterator<E> iter1 = list1.listIterator();
-        ListIterator<E> iter2 = list2.listIterator();
-
-        while (iter1.hasNext() && iter2.hasNext()) {
-            E list1Item = iter1.next();
-            E list2Item = iter2.next();
-            if (!(list1Item == null ? list2Item == null : itemTester.areEqual(list1Item, list2Item)))
-                return false;
-        }
-        return true;
+        return areOrderedIterablesEqual(expectedBag, actualBag, itemTester);
     }
 }

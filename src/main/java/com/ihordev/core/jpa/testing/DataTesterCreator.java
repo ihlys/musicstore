@@ -5,7 +5,9 @@ import net.jodah.typetools.TypeResolver;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
 import static com.ihordev.core.util.AnnotationUtils.isJPAEntity;
@@ -39,11 +41,16 @@ public class DataTesterCreator {
 
     @SuppressWarnings("unchecked")
     public <T> DataTester<T> createForClass(GenericClass<T> objectsClass) {
-        return createForClass(objectsClass, Options.noOptions());
+        return createForClass(objectsClass, Options.noOptions(), 0);
     }
 
     @SuppressWarnings("unchecked")
     public <T> DataTester<T> createForClass(GenericClass<T> objectsClass, Options options) {
+        return createForClass(objectsClass, options, 0);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> DataTester<T> createForClass(GenericClass<T> objectsClass, Options options, int depth) {
         Function<? super Map.Entry<Class<?>, Class<? extends AbstractDataTester<?>>>,
                 Class<? extends AbstractDataTester<T>>>
                 func = entry -> (Class<? extends AbstractDataTester<T>>) entry.getValue();
@@ -54,35 +61,33 @@ public class DataTesterCreator {
                     .findFirst();
 
         if (dataTesterClassOpt.isPresent()) {
-            return createDataTester(options, dataTesterClassOpt.get(), objectsClass);
+            return createDataTester(objectsClass, dataTesterClassOpt.get(), options, depth);
         } else {
             if (isJPAEntity(objectsClass.getRawClass())) {
-                return new ReflectionDataTester<>(options, objectsClass, this);
+                return new ReflectionDataTester<>(objectsClass, this, options, depth);
             } else {
                 if (objectsClass.getRawClass().isPrimitive() ||
                         !objectsClass.getRawClass().isInterface() &&
                         isClassOverridesMethod(objectsClass.getRawClass(), "equals", Object.class) &&
                         isClassOverridesMethod(objectsClass.getRawClass(), "hashCode") &&
                         isClassOverridesMethod(objectsClass.getRawClass(), "toString")) {
-                    return new OverriddenDataTester<>(objectsClass, this);
+                    return new OverriddenDataTester<>(objectsClass, this, options, depth);
                 } else {
-                    return new ReflectionDataTester<>(options, objectsClass, this);
+                    return new ReflectionDataTester<>(objectsClass, this, options, depth);
                 }
             }
         }
     }
 
-    private <T> DataTester<T> createDataTester(Options options, Class<? extends AbstractDataTester<T>> dataTesterClass,
-                                               GenericClass<T> objectsClass) {
+    private <T> DataTester<T> createDataTester(GenericClass<T> objectsClass, Class<? extends AbstractDataTester<T>> dataTesterClass,
+                                               Options options, int depth) {
         try {
             Constructor<? extends DataTester<T>> constructor = dataTesterClass
-                    .getConstructor(Options.class, GenericClass.class, DataTesterCreator.class);
-            return constructor.newInstance(options, objectsClass, this);
+                    .getConstructor(GenericClass.class, DataTesterCreator.class, Options.class, int.class);
+            return constructor.newInstance(objectsClass, this, options, depth);
         } catch (NoSuchMethodException | IllegalAccessException |
                 InvocationTargetException | InstantiationException e) {
             throw new RuntimeException("Cannot create data tester: ", e);
         }
     }
-
-
 }

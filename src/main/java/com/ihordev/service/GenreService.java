@@ -11,5 +11,5 @@ public interface GenreService {
 
     List<Genre> findAllGenres();
 
-    List<Genre> findSubgenres(Long id);
+    List<Genre> findSubGenres(Long id);
 }

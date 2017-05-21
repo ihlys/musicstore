@@ -1,7 +1,7 @@
 package com.ihordev.domain;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,8 +15,9 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private LocalDate releaseDate;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Album album;
 
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
@@ -48,7 +49,6 @@ public class Song {
         this.localizedDataSet = localizedDataSet;
     }
 
-    //TODO: should this entity have areEqual and hashcode?
 
     @Override
     public String toString() {
