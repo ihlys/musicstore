@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQuery;
 import java.util.Set;
 
@@ -19,6 +20,8 @@ public class MusicstoreApplication {
     @Bean
     public static NamedQueriesAddingPostProcessor namedQueriesScanner() {
         Set<NamedQuery> namedQueries = NamedQueriesHelper.findNamedQueries("com.ihordev.repository", ".*Repository");
-        return new NamedQueriesAddingPostProcessor(namedQueries);
+        Set<NamedNativeQuery> namedNativeQueries =
+                NamedQueriesHelper.findNamedNativeQueries("com.ihordev.repository", ".*Repository");
+        return new NamedQueriesAddingPostProcessor(namedQueries, namedNativeQueries);
     }
 }

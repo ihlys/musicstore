@@ -4,6 +4,12 @@
            xmlns="https://www.musicstore.com"
            elementFormDefault="qualified">
 
+    <xs:simpleType name="notEmptyString">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <xs:complexType name="Language">
         <xs:attribute name="id"     type="xs:long" use="required"/>
         <xs:attribute name="name"   type="xs:string"/>
@@ -14,70 +20,80 @@
         <xs:attribute name="album_id" type="xs:long" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="SongsLocalizedData">
+    <xs:complexType name="SongLocalizedData">
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="song_id"     type="xs:long" use="required"/>
         <xs:attribute name="language_id" type="xs:long" use="required"/>
-        <xs:attribute name="name"        type="xs:string"/>
+        <xs:attribute name="name"        type="notEmptyString" use="required"/>
     </xs:complexType>
+
+    <xs:simpleType name="album_type">
+      <xs:restriction base="xs:string">
+        <xs:enumeration value="STUDIO_ALBUM" />
+        <xs:enumeration value="CONCERT_ALBUM" />
+        <xs:enumeration value="COLLECTION" />
+      </xs:restriction>
+    </xs:simpleType>
 
     <xs:complexType name="Album">
-        <xs:attribute name="id"          type="xs:long" use="required"/>
-        <xs:attribute name="imageSmlUrl" type="xs:string"/>
-        <xs:attribute name="imageSmlLg"  type="xs:string"/>
-        <xs:attribute name="artist_id"   type="xs:long" use="required"/>
+        <xs:attribute name="id"            type="xs:long"    use="required"/>
+        <xs:attribute name="image_sml_url" type="xs:string"/>
+        <xs:attribute name="image_lg_url"  type="xs:string"/>
+        <xs:attribute name="release_date"  type="xs:date"    use="required"/>
+        <xs:attribute name="album_type"    type="album_type" use="required"/>
+        <xs:attribute name="artist_id"     type="xs:long"    use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="AlbumsLocalizedData">
+    <xs:complexType name="AlbumLocalizedData">
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="album_id"    type="xs:long" use="required"/>
         <xs:attribute name="language_id" type="xs:long" use="required"/>
-        <xs:attribute name="name"        type="xs:string"/>
-        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="name"        type="notEmptyString" use="required"/>
+        <xs:attribute name="description" type="notEmptyString" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="Artist">
-        <xs:attribute name="id"          type="xs:long" use="required"/>
-        <xs:attribute name="imageSmlUrl" type="xs:string"/>
-        <xs:attribute name="imageSmlLg"  type="xs:string"/>
-        <xs:attribute name="genre_id"    type="xs:long" use="required"/>
+        <xs:attribute name="id"            type="xs:long" use="required"/>
+        <xs:attribute name="image_sml_url" type="xs:string"/>
+        <xs:attribute name="image_lg_url"  type="xs:string"/>
+        <xs:attribute name="genre_id"      type="xs:long" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="ArtistsLocalizedData">
+    <xs:complexType name="ArtistLocalizedData">
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="artist_id"   type="xs:long" use="required"/>
         <xs:attribute name="language_id" type="xs:long" use="required"/>
-        <xs:attribute name="name"        type="xs:string"/>
-        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="name"        type="notEmptyString" use="required"/>
+        <xs:attribute name="description" type="notEmptyString" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="Genre">
-        <xs:attribute name="id"          type="xs:long" use="required"/>
-        <xs:attribute name="imageSmlUrl" type="xs:string"/>
-        <xs:attribute name="imageSmlLg"  type="xs:string"/>
-        <xs:attribute name="genre_id"    type="xs:long"/>
+        <xs:attribute name="id"              type="xs:long" use="required"/>
+        <xs:attribute name="image_sml_url"   type="xs:string"/>
+        <xs:attribute name="image_lg_url"    type="xs:string"/>
+        <xs:attribute name="parent_genre_id" type="xs:long"/>
     </xs:complexType>
 
-    <xs:complexType name="GenresLocalizedData">
+    <xs:complexType name="GenreLocalizedData">
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="genre_id"    type="xs:long" use="required"/>
         <xs:attribute name="language_id" type="xs:long" use="required"/>
-        <xs:attribute name="name"        type="xs:string"/>
-        <xs:attribute name="description" type="xs:string"/>
+        <xs:attribute name="name"        type="notEmptyString" use="required"/>
+        <xs:attribute name="description" type="notEmptyString" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="ThematicCollection">
-        <xs:attribute name="id"          type="xs:long" use="required"/>
-        <xs:attribute name="imageSmlUrl" type="xs:string"/>
-        <xs:attribute name="imageSmlLg"  type="xs:string"/>
+    <xs:complexType name="ThematicCompilation">
+        <xs:attribute name="id"             type="xs:long" use="required"/>
+        <xs:attribute name="image_sml_url"  type="xs:string"/>
+        <xs:attribute name="image_lg_url"   type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="ThematicCollectionsLocalizedData">
-        <xs:attribute name="id"                    type="xs:long" use="required"/>
-        <xs:attribute name="thematicCollection_id" type="xs:long" use="required"/>
-        <xs:attribute name="language_id"           type="xs:long" use="required"/>
-        <xs:attribute name="name"                  type="xs:string"/>
-        <xs:attribute name="description"           type="xs:string"/>
+    <xs:complexType name="ThematicCompilationLocalizedData">
+        <xs:attribute name="id"                      type="xs:long" use="required"/>
+        <xs:attribute name="thematic_compilation_id" type="xs:long" use="required"/>
+        <xs:attribute name="language_id"             type="xs:long" use="required"/>
+        <xs:attribute name="name"                    type="notEmptyString" use="required"/>
+        <xs:attribute name="description"             type="notEmptyString" use="required"/>
     </xs:complexType>
 
 </xs:schema>

@@ -5,11 +5,11 @@ import com.ihordev.domainprojections.ArtistAsPageItem;
 import com.ihordev.repository.ArtistRepository;
 import com.ihordev.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 
 @Service
@@ -24,8 +24,9 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public List<Artist> findByGenre(Long genresId) {
-        return null;
+    public Slice<ArtistAsPageItem> findArtistsByGenreIdProjectedPaginated(String clientLanguage, Long genreId,
+                                                                          Pageable pageRequest) {
+        return artistRepository.findArtistsByGenreIdProjectedPaginated(clientLanguage, genreId, pageRequest);
     }
 
     @Override
@@ -41,9 +42,15 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public List<ArtistAsPageItem> findAllPaginated(String language) {
-        //return artistRepository.findAllPaginated(language);
-        throw new AssertionError("not implemented yet.");
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void removeArtist(Artist artist) {
+        artistRepository.delete(artist);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void removeArtistById(Long id) {
+        artistRepository.delete(id);
     }
 
 }

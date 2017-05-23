@@ -45,30 +45,30 @@ var artists = [
 	}
 ];
 
-var thematicCollections = [
+var thematicCompilations = [
 	{
 		name: "Sport music",
-		image: "/Static prototyping resources/images/sm/ThematicCollections/SportMusic-sm.png"
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/SportMusic-sm.png"
 	},
 	{
 		name: "Relax music",
-		image: "/Static prototyping resources/images/sm/ThematicCollections/RelaxMusic-sm.png"
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/RelaxMusic-sm.png"
 	},
 	{
 		name: "Holiday music",
-		image: "/Static prototyping resources/images/sm/ThematicCollections/HolidayMusic-sm.png"
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/HolidayMusic-sm.png"
 	},
 	{
 		name: "Soul music",
-		image: "/Static prototyping resources/images/sm/ThematicCollections/SoulMusic-sm.png"
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/SoulMusic-sm.png"
 	},
 	{
 		name: "Positive music",
-		image: "/Static prototyping resources/images/sm/ThematicCollections/PositiveMusic-sm.png"
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/PositiveMusic-sm.png"
 	},
 	{
 		name: "Space music",
-		image: "/Static prototyping resources/images/sm/ThematicCollections/SpaceMusic-sm.png"
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/SpaceMusic-sm.png"
 	}
 ];
 
@@ -201,12 +201,12 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Ni
 
 /*
 var currentMusicEntity = thematicCollections[0]; // Sport
-currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SportMusic-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/RelaxMusic-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/HolidayMusic-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SoulMusic-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/PositiveMusic-lg.png";
-//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCollections/SpaceMusic-lg.png";
+currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/SportMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/RelaxMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/HolidayMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/SoulMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/PositiveMusic-lg.png";
+//currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/SpaceMusic-lg.png";
 */
 
 var newsEvents = [
@@ -262,7 +262,7 @@ var thVars = [
 	["albums", albums],
 	["songs", songs],
 	["soundtracks", soundtracks],
-	["thematicCollections", thematicCollections],
+	["thematicCompilations", thematicCompilations],
 	["currentMusicEntity", currentMusicEntity],
 	["newsEvents", newsEvents],
 	["navigation", navigation]

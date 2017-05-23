@@ -2,6 +2,7 @@ package com.ihordev.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +13,8 @@ import static java.util.stream.Collectors.toList;
 public class Artist {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "ARTIST_SEQ_GEN", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "ARTIST_SEQ_GEN", sequenceName = "ARTIST_SEQ", allocationSize = 1)
     private Long id;
 
     private String imageSmlUrl;
@@ -23,11 +25,12 @@ public class Artist {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Genre genre;
 
-    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "artist")
     private Set<Album> albums = new HashSet<>();
 
+    @Size(min = 1)
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
-    private Set<ArtistsLocalizedData> localizedDataSet = new HashSet<>();
+    private Set<ArtistLocalizedData> localizedDataSet = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -65,24 +68,24 @@ public class Artist {
         this.albums = albums;
     }
 
-    public Set<ArtistsLocalizedData> getLocalizedDataSet() {
+    public Set<ArtistLocalizedData> getLocalizedDataSet() {
         return localizedDataSet;
     }
 
-    public void setLocalizedDataSet(Set<ArtistsLocalizedData> localizedDataSet) {
+    public void setLocalizedDataSet(Set<ArtistLocalizedData> localizedDataSet) {
         this.localizedDataSet = localizedDataSet;
     }
 
     protected Artist() {}
 
-    public Artist(String imageSmlUrl, String imageLgUrl) {
-        this.imageSmlUrl = imageSmlUrl;
-        this.imageLgUrl = imageLgUrl;
+    public Artist(String imageSmlUrl, String imageLgUrl, Genre genre) {
+        this(imageSmlUrl, imageLgUrl, genre, new HashSet<>());
     }
 
-    public Artist(String imageSmlUrl, String imageLgUrl, Set<ArtistsLocalizedData> localizedDataSet) {
+    public Artist(String imageSmlUrl, String imageLgUrl, Genre genre, Set<ArtistLocalizedData> localizedDataSet) {
         this.imageSmlUrl = imageSmlUrl;
         this.imageLgUrl = imageLgUrl;
+        this.genre = genre;
         this.localizedDataSet = localizedDataSet;
     }
 
@@ -108,7 +111,7 @@ public class Artist {
                 ", imageSmlUrl='" + imageSmlUrl + '\'' +
                 ", imageLgUrl='" + imageLgUrl + '\'' +
                 ", localizedDataSet=" + localizedDataSet.stream()
-                    .map(ArtistsLocalizedData::getLanguage)
+                    .map(ArtistLocalizedData::getLanguage)
                     .map(Language::getName)
                     .collect(toList()) +
                 '}';

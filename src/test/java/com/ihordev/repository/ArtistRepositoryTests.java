@@ -2,73 +2,134 @@ package com.ihordev.repository;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.ihordev.core.jpa.projections.ProjectionFactory;
-import com.ihordev.core.jpa.testing.DataTester;
-import com.ihordev.core.jpa.testing.DataTesterCreator;
-import com.ihordev.core.util.GenericClass;
+import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
+import com.ihordev.domain.Artist;
+import com.ihordev.domain.ArtistLocalizedData;
+import com.ihordev.domain.Genre;
+import com.ihordev.domain.Language;
 import com.ihordev.domainprojections.ArtistAsPageItem;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import javax.persistence.EntityManager;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
-import static java.lang.String.format;
+import static com.ihordev.config.AppProfiles.REPOSITORY_TESTS;
 
 
 @RunWith(SpringRunner.class)
+@ActiveProfiles(REPOSITORY_TESTS)
 @DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
        DirtiesContextTestExecutionListener.class,
        TransactionDbUnitTestExecutionListener.class })
-@DatabaseSetup("classpath:repository/data/test-data.xml")
 public class ArtistRepositoryTests {
 
     @Autowired
     private ArtistRepository artistRepository;
 
+    @Autowired
+    private EntityManager em;
+
     @Test
-    public void shouldSelectAllArtists() {
-        Pageable pageRequest = new PageRequest(0, 3);
-        List<ArtistAsPageItem> expectedArtists = new ArrayList<>();
+    @DatabaseSetup("classpath:repository/data/artist-repository/" +
+            "find-artists-by-genre-id-projected-paginated-source-data.xml")
+    public void findArtistsByGenreIdProjectedPaginatedTest() {
+        Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");
 
-        ProjectionFactory<ArtistAsPageItem> projectionFactory = new ProjectionFactory<>(ArtistAsPageItem.class);
+        Slice<ArtistAsPageItem> actualArtistsSliceA =
+                artistRepository.findArtistsByGenreIdProjectedPaginated("EN", 2L, pageRequestA);
 
-        Map<String, Object> artist1Properties = new HashMap<>();
-        artist1Properties.put("id", 2L);
-        artist1Properties.put("imageSmlUrl", null);
-        artist1Properties.put("name", "Disturbed");
-        artist1Properties.put("description", "This is Disturbed band");
-        expectedArtists.add(projectionFactory.createProjection(artist1Properties));
+        List<ArtistAsPageItem> contentA = actualArtistsSliceA.getContent();
+        Assert.assertEquals(3, contentA.size());
 
-        Map<String, Object> artist2Properties = new HashMap<>();
-        artist2Properties.put("id", 1L);
-        artist2Properties.put("imageSmlUrl", null);
-        artist2Properties.put("name", "Nightwish");
-        artist2Properties.put("description", "This is Nightwish band");
-        expectedArtists.add(projectionFactory.createProjection(artist2Properties));
+        ArtistAsPageItem artistAsPageItemA1 = contentA.get(0);
+        Assert.assertEquals((Long) 1L, artistAsPageItemA1.getId());
 
-        Slice<ArtistAsPageItem> expectedArtistsSlice = new SliceImpl<>(expectedArtists, pageRequest, false);
+        ArtistAsPageItem artistAsPageItemA2 = contentA.get(1);
+        Assert.assertEquals((Long) 2L, artistAsPageItemA2.getId());
 
-        DataTesterCreator dataTesterCreator = new DataTesterCreator();
-        DataTester<Slice<ArtistAsPageItem>> listDataTester = dataTesterCreator.createForClass(
-                new GenericClass<Slice<ArtistAsPageItem>>(){});
+        ArtistAsPageItem artistAsPageItemA3 = contentA.get(2);
+        Assert.assertEquals((Long) 3L, artistAsPageItemA3.getId());
 
-        Slice<ArtistAsPageItem> actualArtistsSlice = artistRepository.findAllPaginated("EN", pageRequest);
+        Assert.assertEquals(true, actualArtistsSliceA.hasNext());
 
-        String failMsg = format("%1$s%1$sexpected:%1$s%1$s%2$s%1$s%1$sactual:%1$s%1$s%3$s", System.lineSeparator(),
-                listDataTester.toString(expectedArtistsSlice), listDataTester.toString(actualArtistsSlice));
-        Assert.assertTrue(failMsg, listDataTester.areEqual(expectedArtistsSlice, actualArtistsSlice));
+        Pageable pageRequestB = new PageRequest(1, 3, Sort.Direction.ASC, "id");
+
+        Slice<ArtistAsPageItem> actualArtistsSliceB =
+                artistRepository.findArtistsByGenreIdProjectedPaginated("EN", 2L, pageRequestB);
+
+        List<ArtistAsPageItem> contentB = actualArtistsSliceB.getContent();
+        Assert.assertEquals(1, contentB.size());
+
+        ArtistAsPageItem artistAsPageItemB1 = contentB.get(0);
+        Assert.assertEquals((Long) 4L, artistAsPageItemB1.getId());
+
+        Assert.assertEquals(false, actualArtistsSliceB.hasNext());
     }
 
+
+    @Test
+    @DatabaseSetup("classpath:repository/data/artist-repository/insert-source-data.xml")
+    @ExpectedDatabase(value = "classpath:repository/data/artist-repository/insert-expected-data.xml",
+                      assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void insertArtistTest() {
+        Genre genre = em.find(Genre.class, 1L);
+        Language language = em.find(Language.class, 1L);
+
+        Artist artist = new Artist("Small image test url", "Large image test url", genre);
+
+        Set<ArtistLocalizedData> localizedDataSet = new HashSet<>();
+        ArtistLocalizedData artistLocalizedData = new ArtistLocalizedData("Test artist", "This is test artist",
+                artist, language);
+        localizedDataSet.add(artistLocalizedData);
+
+        artist.setLocalizedDataSet(localizedDataSet);
+
+        artistRepository.saveAndFlush(artist);
+    }
+
+    @Test
+    @DatabaseSetup("classpath:repository/data/artist-repository/update-source-data.xml")
+    @ExpectedDatabase(value = "classpath:repository/data/artist-repository/update-expected-data.xml",
+                      assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void updateArtistTest() {
+        Genre anotherGenre = em.find(Genre.class, 2L);
+
+        Artist artist = em.find(Artist.class, 1L);
+        artist.setImageSmlUrl("Small image updated url");
+        artist.setImageLgUrl("Large image updated url");
+        artist.setGenre(anotherGenre);
+        ArtistLocalizedData localizedData = artist.getLocalizedDataSet().iterator().next();
+        localizedData.setName("Updated artist");
+        localizedData.setDescription("This is updated artist");
+
+        artistRepository.saveAndFlush(artist);
+    }
+
+    @Test
+    @DatabaseSetup("classpath:repository/data/artist-repository/remove-source-data.xml")
+    @ExpectedDatabase(value = "classpath:repository/data/artist-repository/remove-expected-data.xml",
+                      assertionMode = DatabaseAssertionMode.NON_STRICT)
+    public void removeArtistTest() {
+        artistRepository.delete(1L);
+        artistRepository.flush();
+    }
 }

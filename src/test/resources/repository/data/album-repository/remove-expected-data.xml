@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-expected-schema.xsd">
+
+    <ALBUM/>
+    <ALBUM_LOCALIZED_DATA/>
+
+</dataset>

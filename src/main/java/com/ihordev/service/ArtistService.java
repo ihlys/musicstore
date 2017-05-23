@@ -2,19 +2,23 @@ package com.ihordev.service;
 
 import com.ihordev.domain.Artist;
 import com.ihordev.domainprojections.ArtistAsPageItem;
-
-import java.util.List;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 
 
 public interface ArtistService {
 
     Artist findById(Long id);
 
-    List<Artist> findByGenre(Long genresId);
+    Slice<ArtistAsPageItem> findArtistsByGenreIdProjectedPaginated(String clientLanguage, Long genreId,
+                                                                   Pageable pageRequest);
 
     void saveArtist(Artist artist);
 
     Artist updateArtist(Artist artist);
 
-    List<ArtistAsPageItem> findAllPaginated(String language);
+    void removeArtist(Artist artist);
+
+    void removeArtistById(Long id);
+
 }

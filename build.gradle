@@ -39,6 +39,7 @@ ext {
 	h2Version = "1.4.194"
     springTestDbUnit = '1.3.0'
     dbUnitVersion = '2.5.3'
+    oracleDriverVersion = '12.1.0.1.0'
 
     targetJavaVersion = JavaVersion.VERSION_1_8
     checkerFrameworkVersion = '2.1.10'
@@ -87,6 +88,7 @@ dependencies {
     // ***** local libraries dependencies *****
     compile("io.github.lukehutch:fast-classpath-scanner:${fastClasspathScannerVersion}")
     compile("com.diffplug.durian:durian:${durianVersion}")
+	compile("com.oracle:ojdbc7:$oracleDriverVersion")
 
     // ***** Checker framework dependencies *****
    	checkerFrameworkAnnotatedJDK "org.checkerframework:${jdkVersion}:${checkerFrameworkVersion}"

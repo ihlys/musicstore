@@ -1,1 +1,0 @@
-CREATE ALIAS NEXT_PRIME FOR "com.ihordev.repository.SimpleTest.isPrime"

@@ -1,6 +1,6 @@
 package com.ihordev.core.jpa.projections;
 
-import com.ihordev.core.jpa.testing.Property;
+import com.ihordev.core.util.ReflectionsUtils;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -11,24 +11,21 @@ import java.util.Map;
 import java.util.Set;
 
 import static com.ihordev.core.util.ReflectionsUtils.getPropertyGettersMethodsFromClass;
-import static com.ihordev.core.util.ReflectionsUtils.getMethodReturnType;
 import static com.ihordev.core.util.ReflectionsUtils.getPropertyName;
+import static com.ihordev.core.util.ReflectionsUtils.isPropertyGetter;
 import static java.lang.String.format;
-import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 
 public class ProjectionFactory<T> {
 
     private Class<T> interfaceClass;
-    private List<Property> properties;
+    private List<Method> propertyGetters;
 
     public ProjectionFactory(Class<T> interfaceClass) {
         this.interfaceClass = interfaceClass;
-        this.properties = getPropertyGettersMethodsFromClass(interfaceClass).stream()
-                .map(method -> new Property(method, getMethodReturnType(method)))
-                .collect(toList());
-        if (properties.isEmpty()) {
+        this.propertyGetters = getPropertyGettersMethodsFromClass(interfaceClass);
+        if (propertyGetters.isEmpty()) {
             throw new IllegalArgumentException("Cannot create projection factory for interface without properties.");
         }
     }
@@ -49,8 +46,8 @@ public class ProjectionFactory<T> {
     }
 
     private Set<String> getPropertiesThatAreNotSet(Map<String, Object> propertiesValues) {
-        Set<String> propertiesNames = properties.stream()
-                .map(Property::getName)
+        Set<String> propertiesNames = propertyGetters.stream()
+                .map(ReflectionsUtils::getPropertyName)
                 .collect(toSet());
         propertiesNames.removeAll(propertiesValues.keySet());
         return propertiesNames;
@@ -66,7 +63,7 @@ public class ProjectionFactory<T> {
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            if (method.getName().startsWith("get")) {
+            if (isPropertyGetter(method)) {
                 String propertyName = getPropertyName(method);
                 return propertiesValues.get(propertyName);
             } else {

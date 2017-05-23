@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <LANGUAGE id="1" name="EN"/>
+
+    <GENRE id="1"/>
+        <ARTIST id="1" genre_id="1"/>
+            <ALBUM id="1"
+                   artist_id="1"
+                   image_sml_url="Small image test url"
+                   image_lg_url="Large image test url"
+                   release_date="2017-04-25"
+                   album_type="STUDIO_ALBUM"/>
+            <ALBUM_LOCALIZED_DATA id="1" album_id="1" language_id="1" name="Test album" description="This is test album"/>
+        <ARTIST id="2" genre_id="1"/>
+</dataset>

@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-import static com.ihordev.web.controllers.AlbumsController.PathVars.ALBUMS_ID;
-import static com.ihordev.web.controllers.ArtistsController.PathVars.ARTISTS_ID;
-import static com.ihordev.web.controllers.GenresController.PathVars.GENRES_ID;
+import static com.ihordev.web.controllers.AlbumController.PathVars.ALBUMS_ID;
+import static com.ihordev.web.controllers.ArtistController.PathVars.ARTISTS_ID;
+import static com.ihordev.web.controllers.GenreController.PathVars.GENRES_ID;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;

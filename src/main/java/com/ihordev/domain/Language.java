@@ -1,19 +1,20 @@
 package com.ihordev.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
 public class Language {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "LANGUAGE_SEQ_GEN", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "LANGUAGE_SEQ_GEN", sequenceName = "LANGUAGE_SEQ", allocationSize = 1)
     private Long id;
 
-    @NotEmpty
+    @NotNull
+    @Size(min = 1)
     @Column(nullable = false, unique = true)
     private String name;
 

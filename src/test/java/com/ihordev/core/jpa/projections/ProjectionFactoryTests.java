@@ -68,6 +68,4 @@ public class ProjectionFactoryTests {
         Assert.assertEquals(stringPropertyValue, projection.getStringProperty());
         Assert.assertEquals(integerPropertyValue, projection.getIntegerProperty());
     }
-
-
 }

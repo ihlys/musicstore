@@ -24,7 +24,7 @@ public class NamedQueriesScannerTests implements WithBDDMockito {
         @Bean
         public static NamedQueriesAddingPostProcessor namedQueriesScanner() {
             Set<NamedQuery> namedQueries = NamedQueriesHelper.findNamedQueries("com.ihordev.core.util", ".*TestEntity");
-            return new NamedQueriesAddingPostProcessor(namedQueries);
+            return new NamedQueriesAddingPostProcessor(namedQueries, null);
         }
     }
 
