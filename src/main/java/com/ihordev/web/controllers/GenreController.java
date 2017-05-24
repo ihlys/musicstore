@@ -2,21 +2,22 @@ package com.ihordev.web.controllers;
 
 
 
-import com.ihordev.domain.Artist;
-import com.ihordev.domain.Genre;
-import com.ihordev.domain.Song;
+import com.ihordev.domainprojections.ArtistAsPageItem;
+import com.ihordev.domainprojections.GenreAsPageItem;
+import com.ihordev.domainprojections.SongAsPageItem;
 import com.ihordev.service.ArtistService;
 import com.ihordev.service.GenreService;
 import com.ihordev.service.SongService;
 import com.ihordev.web.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
+import java.util.Locale;
 
 import static com.ihordev.web.controllers.GenreController.PathVars.GENRES_ID;
 import static com.ihordev.web.controllers.GenreController.PathVars.collectionToShowValues.*;
@@ -38,49 +39,52 @@ public class GenreController {
     @Autowired
     private SongService songService;
 
-    @RequestMapping(value = "/**/genres", method = RequestMethod.GET)
-    public String genres(Model model) {
-        List<Genre> allGenres = genreService.findAllGenres();
-        model.addAttribute("genres", allGenres);
+    @GetMapping(value = "/**/genres")
+    public String genres(Model model, Locale locale, Pageable pageRequest) {
+        addGenreSubGenresToModel(model, locale.getLanguage(), null, pageRequest);
         return "genres";
     }
 
-    @RequestMapping(value = {"/**/genres/{"+GENRES_ID+"}", "/**/genres/{"+GENRES_ID+"}/{collectionToShow}"},
-                    method = RequestMethod.GET)
-    public String genre(@PathVariable long genresId,
+    @GetMapping(value = {"/**/genres/{"+GENRES_ID+"}", "/**/genres/{"+GENRES_ID+"}/{collectionToShow}"})
+    public String genre(@PathVariable Long genresId,
                         @PathVariable(required = false) String collectionToShow,
-                        Model model) {
+                        Model model,
+                        Locale locale,
+                        Pageable pageRequest) {
         if (collectionToShow != null) {
             if (GENRES.name().equalsIgnoreCase(collectionToShow)) {
-                addGenresSubGenresToModel(model, genresId);
+                addGenreSubGenresToModel(model, locale.getLanguage(), genresId, pageRequest);
                 return "genres";
             } else if (ARTISTS.name().equalsIgnoreCase(collectionToShow)) {
-                addGenresArtistsToModel(model, genresId);
+                addGenreArtistsToModel(model, locale.getLanguage(), genresId, pageRequest);
                 return "artists";
             } else if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
-                addGenresSongsToModel(model, genresId);
+                addGenreSongsToModel(model, locale.getLanguage(), genresId, pageRequest);
                 return "songs";
             } else {
                 throw new ResourceNotFoundException("There are no such items in genre resource");
             }
         } else {
-            addGenresSubGenresToModel(model, genresId);
+            addGenreSubGenresToModel(model, locale.getLanguage(), genresId, pageRequest);
             return "genres";
         }
     }
 
-    private void addGenresSubGenresToModel(Model model, long genresId) {
-        List<Genre> genresSubGenres = genreService.findSubGenres(genresId);
+    private void addGenreSubGenresToModel(Model model, String clientLanguage, Long genresId, Pageable pageRequest) {
+        Slice<GenreAsPageItem> genresSubGenres = genreService.findSubGenresByParentGenreIdProjectedPaginated(
+                clientLanguage, genresId, pageRequest);
         model.addAttribute("genres", genresSubGenres);
     }
 
-    private void addGenresArtistsToModel(Model model, long genresId) {
-        List<Artist> genresArtists = artistService.findByGenre(genresId);
+    private void addGenreArtistsToModel(Model model, String clientLanguage, Long genresId, Pageable pageRequest) {
+        Slice<ArtistAsPageItem> genresArtists = artistService.findArtistsByGenreIdProjectedPaginated(
+                clientLanguage, genresId, pageRequest);
         model.addAttribute("artists", genresArtists);
     }
 
-    private void addGenresSongsToModel(Model model, long genresId) {
-        List<Song> genresSongs = songService.findByGenre(genresId);
+    private void addGenreSongsToModel(Model model, String clientLanguage, Long genresId, Pageable pageRequest) {
+        Slice<SongAsPageItem> genresSongs = songService.findSongsByGenreIdProjectedPaginated(
+                clientLanguage, genresId, pageRequest);
         model.addAttribute("songs", genresSongs);
     }
 

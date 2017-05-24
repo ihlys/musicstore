@@ -10,8 +10,9 @@ public interface GenreService {
 
     Genre findById(Long id);
 
-    Slice<GenreAsPageItem> findGenreSubGenresProjectedPaginated(String clientLanguage, Long genreId,
-                                                                Pageable pageRequest);
+    Slice<GenreAsPageItem> findSubGenresByParentGenreIdProjectedPaginated(String clientLanguage,
+                                                                          Long parentGenreId,
+                                                                          Pageable pageRequest);
 
     void saveGenre(Genre genre);
 

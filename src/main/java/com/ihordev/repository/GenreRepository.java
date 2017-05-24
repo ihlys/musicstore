@@ -37,17 +37,18 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
 
     String FIND_GENRE_ALL_SUBGENRES_QUERY = "findGenreAllSubGenres";
 
-    @Query(" SELECT genre.id AS id,                                           " +
-           "        genre.imageSmlUrl AS imageSmlUrl,                         " +
-           "        localizedData.name AS name,                               " +
-           "        localizedData.description AS description                  " +
-           "     FROM Genre genre                                             " +
-           "     LEFT JOIN genre.localizedDataSet localizedData               " +
-           "     LEFT JOIN localizedData.language lang                        " +
-           "     WHERE genre.parentGenre.id = :genreId                        " +
-           "           AND (lang.name = :clientLanguage OR lang.name IS NULL) ")
-    Slice<GenreAsPageItem> findGenreSubGenresProjectedPaginated(@Param("clientLanguage") String clientLanguage,
-                                                                @Param("genreId") Long genreId,
-                                                                Pageable pageRequest);
+    @Query(" SELECT genre.id AS id,                                                " +
+           "        genre.imageSmlUrl AS imageSmlUrl,                              " +
+           "        localizedData.name AS name,                                    " +
+           "        localizedData.description AS description                       " +
+           "     FROM Genre genre                                                  " +
+           "     LEFT JOIN genre.localizedDataSet localizedData                    " +
+           "     LEFT JOIN localizedData.language lang                             " +
+           "     WHERE :genreId IS NULL AND genre.parentGenre.id IS NULL           " +
+           "           OR :genreId IS NOT NULL AND genre.parentGenre.id = :genreId " +
+           "           AND (lang.name = :clientLanguage OR lang.name IS NULL)      ")
+    Slice<GenreAsPageItem> findSubGenresByParentGenreIdProjectedPaginated(@Param("clientLanguage") String clientLanguage,
+                                                                          @Param("genreId") Long parentGenreId,
+                                                                          Pageable pageRequest);
 
 }

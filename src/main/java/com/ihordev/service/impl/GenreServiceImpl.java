@@ -20,9 +20,11 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public Slice<GenreAsPageItem> findGenreSubGenresProjectedPaginated(String clientLanguage, Long genreId,
-                                                                       Pageable pageRequest) {
-        return genreRepository.findGenreSubGenresProjectedPaginated(clientLanguage, genreId, pageRequest);
+    public Slice<GenreAsPageItem> findSubGenresByParentGenreIdProjectedPaginated(String clientLanguage,
+                                                                                 Long parentGenreId,
+                                                                                 Pageable pageRequest) {
+        return genreRepository.findSubGenresByParentGenreIdProjectedPaginated(clientLanguage,
+                parentGenreId, pageRequest);
     }
 
     @Override

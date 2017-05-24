@@ -1,13 +1,18 @@
 package com.ihordev.web.controllers;
 
-import com.ihordev.domain.Song;
+import com.ihordev.domainprojections.SongAsPageItem;
 import com.ihordev.service.SongService;
 import com.ihordev.web.AbstractMockMvcTests;
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 
-import java.util.List;
+import java.util.Collections;
+import java.util.Locale;
 
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.hamcrest.Matchers.equalTo;
@@ -51,16 +56,21 @@ public class AlbumControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowSongsOfConcreteAlbum() throws Exception  {
-        List<Song> songsOfAlbumWithId1 = null;
+        Slice<SongAsPageItem> songsOfAlbumWithId1 = new SliceImpl<>(Collections.emptyList());
+        Pageable expectedPageRequest = new PageRequest(0, 1);
 
-        given(songService.findByAlbum(eq(1L))).willReturn(songsOfAlbumWithId1);
+        given(songService.findSongsByAlbumIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
+                .willReturn(songsOfAlbumWithId1);
 
-        mockMvc.perform(get("/albums/1/songs"))
+        mockMvc.perform(get("/albums/1/songs?page=1&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("songs"))
                 .andExpect(model().attributeExists("songs"))
                 .andExpect(model().attribute("songs", equalTo(songsOfAlbumWithId1)));
 
-        then(songService).should(times(1)).findByAlbum(assertArg(id -> assertEquals(id.longValue(), 1L)));
+        then(songService).should(times(1)).findSongsByAlbumIdProjectedPaginated(
+                assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),
+                assertArg(albumId -> assertEquals(albumId.longValue(), 1L)),
+                assertArg(actualPageRequest -> assertEquals(expectedPageRequest, actualPageRequest)));
     }
 }

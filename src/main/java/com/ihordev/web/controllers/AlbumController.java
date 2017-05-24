@@ -1,16 +1,17 @@
 package com.ihordev.web.controllers;
 
-import com.ihordev.domain.Song;
+import com.ihordev.domainprojections.SongAsPageItem;
 import com.ihordev.service.SongService;
 import com.ihordev.web.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
+import java.util.Locale;
 
 import static com.ihordev.web.controllers.AlbumController.PathVars.ALBUMS_ID;
 import static com.ihordev.web.controllers.AlbumController.PathVars.collectionToShowValues.SONGS;
@@ -27,26 +28,28 @@ public class AlbumController {
     @Autowired
     private SongService songService;
 
-    @RequestMapping(value = {"/**/albums/{"+ALBUMS_ID+"}", "/**/albums/{"+ALBUMS_ID+"}/{collectionToShow}"},
-                    method = RequestMethod.GET)
-    public String albums(@PathVariable long albumsId,
+    @GetMapping(value = {"/**/albums/{"+ALBUMS_ID+"}", "/**/albums/{"+ALBUMS_ID+"}/{collectionToShow}"})
+    public String albums(@PathVariable Long albumsId,
                          @PathVariable(required = false) String collectionToShow,
-                         Model model) {
+                         Model model,
+                         Locale locale,
+                         Pageable pageRequest) {
         if (collectionToShow != null) {
             if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
-                addAlbumsSongsToModel(model, albumsId);
+                addAlbumsSongsToModel(model, locale.getLanguage(), albumsId, pageRequest);
                 return "songs";
             } else {
                 throw new ResourceNotFoundException("There are no such items in album resource");
             }
         } else {
-            addAlbumsSongsToModel(model, albumsId);
+            addAlbumsSongsToModel(model, locale.getLanguage(), albumsId, pageRequest);
             return "songs";
         }
     }
 
-    private void addAlbumsSongsToModel(Model model, long albumsId) {
-        List<Song> albumsSongs = songService.findByAlbum(albumsId);
+    private void addAlbumsSongsToModel(Model model, String clientLanguage, Long albumsId, Pageable pageRequest) {
+        Slice<SongAsPageItem> albumsSongs = songService.findSongsByAlbumIdProjectedPaginated(
+                clientLanguage, albumsId, pageRequest);
         model.addAttribute("songs", albumsSongs);
     }
 

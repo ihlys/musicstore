@@ -43,18 +43,14 @@ public class Song {
         this.localizedDataSet = localizedDataSet;
     }
 
+    protected Song() {}
+
     public Song(Album album) {
         this(album, new HashSet<>());
     }
 
     public Song(Album album, Set<SongLocalizedData> localizedDataSet) {
         this.album = album;
-        this.localizedDataSet = localizedDataSet;
-    }
-
-    protected Song() {}
-
-    public Song(Set<SongLocalizedData> localizedDataSet) {
         this.localizedDataSet = localizedDataSet;
     }
 

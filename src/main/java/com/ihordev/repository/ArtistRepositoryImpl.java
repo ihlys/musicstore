@@ -1,10 +1,12 @@
 package com.ihordev.repository;
 
-import com.ihordev.core.jpa.projections.ProjectionFactory;
 import com.ihordev.domainprojections.ArtistAsPageItem;
+import com.ihordev.domainprojections.SongAsPageItem;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
+import org.springframework.data.projection.ProjectionFactory;
+import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -65,8 +67,8 @@ public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
     }
 
     private ArtistAsPageItem mapRowToArtist(Object[] row) {
-        ProjectionFactory<ArtistAsPageItem> projectionFactory = new ProjectionFactory<>(ArtistAsPageItem.class);
-        return projectionFactory.createProjection(
+        ProjectionFactory projectionFactory = new SpelAwareProxyProjectionFactory();
+        return projectionFactory.createProjection(ArtistAsPageItem.class,
                 convertRowToPropertiesMap(row, "id", "imageSmlUrl", "name", "description"));
     }
 }

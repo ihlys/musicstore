@@ -54,7 +54,7 @@ public class GenreRepositoryTests {
         Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");
 
         Slice<GenreAsPageItem> actualGenresSliceA =
-                genreRepository.findGenreSubGenresProjectedPaginated("EN", 2L, pageRequestA);
+                genreRepository.findSubGenresByParentGenreIdProjectedPaginated("EN", 2L, pageRequestA);
 
         List<GenreAsPageItem> contentA = actualGenresSliceA.getContent();
         Assert.assertEquals(3, contentA.size());
@@ -73,7 +73,7 @@ public class GenreRepositoryTests {
         Pageable pageRequestB = new PageRequest(1, 3, Sort.Direction.ASC, "id");
 
         Slice<GenreAsPageItem> actualGenresSliceB =
-                genreRepository.findGenreSubGenresProjectedPaginated("EN", 2L, pageRequestB);
+                genreRepository.findSubGenresByParentGenreIdProjectedPaginated("EN", 2L, pageRequestB);
 
         List<GenreAsPageItem> contentB = actualGenresSliceB.getContent();
         Assert.assertEquals(1, contentB.size());
