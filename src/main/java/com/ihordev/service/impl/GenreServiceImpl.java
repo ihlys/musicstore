@@ -6,10 +6,12 @@ import com.ihordev.repository.GenreRepository;
 import com.ihordev.service.GenreService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
+@Service
 public class GenreServiceImpl implements GenreService {
 
     private GenreRepository genreRepository;

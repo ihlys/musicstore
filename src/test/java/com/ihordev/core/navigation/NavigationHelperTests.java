@@ -20,7 +20,6 @@ import static java.util.Arrays.asList;
 public class NavigationHelperTests implements WithBDDMockito {
 
     private RequestMapping requestMapping;
-    private Locale locale = Locale.ENGLISH;
 
     @Before
     public void setUp() {
@@ -37,23 +36,23 @@ public class NavigationHelperTests implements WithBDDMockito {
         String request1URL = "http://localhost/genres/15/artists";
         String request1MatchedPattern = "/**/genres/{genresId}/{collectionToShow}";
         Map<String, String> request1PathVars = pathVars(var("genresId", "15"), var("collectionToShow", "genres"));
-        MatchedRequestInfo request1Info = new MatchedRequestInfo(request1MatchedPattern, request1PathVars, locale, request1URL);
+        MatchedRequestInfo request1Info = new MatchedRequestInfo(request1MatchedPattern, request1PathVars, request1URL);
         expectedMatchedRequestInfos.add(request1Info);
 
         String request2URL = "http://localhost/genres/15";
         String request2MatchedPattern = "/**/genres/{genresId}";
         Map<String, String> request2PathVars = pathVars(var("genresId", "15"));
-        MatchedRequestInfo request2Info = new MatchedRequestInfo(request2MatchedPattern, request2PathVars, locale, request2URL);
+        MatchedRequestInfo request2Info = new MatchedRequestInfo(request2MatchedPattern, request2PathVars, request2URL);
         expectedMatchedRequestInfos.add(request2Info);
 
         String request3URL = "http://localhost/genres";
         String request3MatchedPattern = "/**/genres";
-        MatchedRequestInfo request3Info = new MatchedRequestInfo(request3MatchedPattern, null, locale, request3URL);
+        MatchedRequestInfo request3Info = new MatchedRequestInfo(request3MatchedPattern, null, request3URL);
         expectedMatchedRequestInfos.add(request3Info);
 
         String request4URL = "http://localhost/";
         String request4MatchedPattern = "/";
-        MatchedRequestInfo request4Info = new MatchedRequestInfo(request4MatchedPattern, null, locale, request4URL);
+        MatchedRequestInfo request4Info = new MatchedRequestInfo(request4MatchedPattern, null, request4URL);
         expectedMatchedRequestInfos.add(request4Info);
 
         doReturn(new RequestMatchingResult(true, request1MatchedPattern, request1PathVars)).when(requestMapping).matchRequest(argThat(requestWithURL(request1URL)));

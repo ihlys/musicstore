@@ -39,7 +39,7 @@ public class Genre {
 
     @Size(min = 1)
     @OneToMany(mappedBy = "genre", cascade = CascadeType.ALL)
-    private Set<GenreLocalizedData> localizedDataSet = new HashSet<>();
+    private Set<GenreL10n> genreL10nSet = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -85,12 +85,12 @@ public class Genre {
         this.artists = artists;
     }
 
-    public Set<GenreLocalizedData> getLocalizedDataSet() {
-        return localizedDataSet;
+    public Set<GenreL10n> getGenreL10nSet() {
+        return genreL10nSet;
     }
 
-    public void setLocalizedDataSet(Set<GenreLocalizedData> localizedDataSet) {
-        this.localizedDataSet = localizedDataSet;
+    public void setGenreL10nSet(Set<GenreL10n> genreL10nSet) {
+        this.genreL10nSet = genreL10nSet;
     }
 
     protected Genre() {}
@@ -99,11 +99,11 @@ public class Genre {
         this(imageSmlUrl, imageLgUrl, parentGenre, new HashSet<>());
     }
 
-    public Genre(String imageSmlUrl, String imageLgUrl, Genre parentGenre, Set<GenreLocalizedData> localizedDataSet) {
+    public Genre(String imageSmlUrl, String imageLgUrl, Genre parentGenre, Set<GenreL10n> genreL10nSet) {
         this.imageSmlUrl = imageSmlUrl;
         this.imageLgUrl = imageLgUrl;
         this.parentGenre = parentGenre;
-        this.localizedDataSet = localizedDataSet;
+        this.genreL10nSet = genreL10nSet;
     }
 
     @Override
@@ -113,12 +113,12 @@ public class Genre {
 
         Genre genre = (Genre) o;
 
-        return getLocalizedDataSet().equals(genre.getLocalizedDataSet());
+        return getGenreL10nSet().equals(genre.getGenreL10nSet());
     }
 
     @Override
     public int hashCode() {
-        return getLocalizedDataSet().hashCode();
+        return getGenreL10nSet().hashCode();
     }
 
     @Override
@@ -127,8 +127,8 @@ public class Genre {
                 "id=" + id +
                 ", imageSmlUrl='" + imageSmlUrl + '\'' +
                 ", imageLgUrl='" + imageLgUrl + '\'' +
-                ", localizedDataSet=" + localizedDataSet.stream()
-                    .map(GenreLocalizedData::getLanguage)
+                ", genreL10nSet=" + genreL10nSet.stream()
+                    .map(GenreL10n::getLanguage)
                     .map(Language::getName)
                     .collect(toList()) +
                 '}';

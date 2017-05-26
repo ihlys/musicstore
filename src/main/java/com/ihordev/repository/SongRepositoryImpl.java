@@ -35,10 +35,10 @@ public class SongRepositoryImpl implements SongRepositoryCustom {
 
         String Jpql = String.format(
                       " SELECT song.id AS id,                                                 " +
-                      "        localizedData.name AS name                                     " +
+                      "        l10n.name AS name                                              " +
                       "     FROM Song song                                                    " +
-                      "     LEFT JOIN song.localizedDataSet localizedData                     " +
-                      "     LEFT JOIN localizedData.language lang                             " +
+                      "     LEFT JOIN song.songL10nSet l10n                                   " +
+                      "     LEFT JOIN l10n.language lang                                      " +
                       "     WHERE song.album.id IN (                                          " +
                       "                             SELECT album.id AS id                     " +
                       "                                 FROM Artist artist                    " +

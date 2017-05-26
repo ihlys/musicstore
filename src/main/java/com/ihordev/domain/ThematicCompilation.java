@@ -23,7 +23,7 @@ public class ThematicCompilation {
 
     @Size(min = 1)
     @OneToMany(mappedBy = "thematicCompilation", cascade = CascadeType.ALL)
-    private Set<ThematicCompilationLocalizedData> localizedDataSet = new HashSet<>();
+    private Set<ThematicCompilationL10n> thematicCompilationL10nSet = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -45,12 +45,12 @@ public class ThematicCompilation {
         this.imageLgUrl = imageLgUrl;
     }
 
-    public Set<ThematicCompilationLocalizedData> getLocalizedDataSet() {
-        return localizedDataSet;
+    public Set<ThematicCompilationL10n> getThematicCompilationL10nSet() {
+        return thematicCompilationL10nSet;
     }
 
-    public void setLocalizedDataSet(Set<ThematicCompilationLocalizedData> localizedDataSet) {
-        this.localizedDataSet = localizedDataSet;
+    public void setThematicCompilationL10nSet(Set<ThematicCompilationL10n> thematicCompilationL10nSet) {
+        this.thematicCompilationL10nSet = thematicCompilationL10nSet;
     }
 
     protected ThematicCompilation() {}
@@ -60,10 +60,10 @@ public class ThematicCompilation {
     }
 
     public ThematicCompilation(String imageSmlUrl, String imageLgUrl,
-                               Set<ThematicCompilationLocalizedData> localizedDataSet) {
+                               Set<ThematicCompilationL10n> thematicCompilationL10nSet) {
         this.imageSmlUrl = imageSmlUrl;
         this.imageLgUrl = imageLgUrl;
-        this.localizedDataSet = localizedDataSet;
+        this.thematicCompilationL10nSet = thematicCompilationL10nSet;
     }
 
     //TODO: should this entity have areEqual and hashcode?
@@ -74,8 +74,8 @@ public class ThematicCompilation {
                 "id=" + id +
                 ", imageSmlUrl='" + imageSmlUrl + '\'' +
                 ", imageLgUrl='" + imageLgUrl + '\'' +
-                ", localizedDataSet=" + localizedDataSet.stream()
-                    .map(ThematicCompilationLocalizedData::getLanguage)
+                ", thematicCompilationL10nSet=" + thematicCompilationL10nSet.stream()
+                    .map(ThematicCompilationL10n::getLanguage)
                     .map(Language::getName)
                     .collect(toList()) +
                 '}';

@@ -1,22 +1,19 @@
 package com.ihordev.core.navigation;
 
-import com.ihordev.domain.Album;
-import com.ihordev.domain.Artist;
-import com.ihordev.service.AlbumService;
-import com.ihordev.service.ArtistService;
-import com.ihordev.service.GenreService;
-import com.ihordev.service.SongService;
+import com.ihordev.domain.*;
+import com.ihordev.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-import static com.ihordev.web.controllers.AlbumController.PathVars.ALBUMS_ID;
-import static com.ihordev.web.controllers.ArtistController.PathVars.ARTISTS_ID;
-import static com.ihordev.web.controllers.GenreController.PathVars.GENRES_ID;
+import static com.ihordev.web.controllers.AlbumController.PathVars.ALBUM_ID;
+import static com.ihordev.web.controllers.ArtistController.PathVars.ARTIST_ID;
+import static com.ihordev.web.controllers.GenreController.PathVars.GENRE_ID;
 import static java.lang.Long.parseLong;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
@@ -71,43 +68,47 @@ public class Navigation {
     public List<NavigationLink> getNavigationLinks(HttpServletRequest request) throws Exception {
         List<MatchedRequestInfo> matchedRequestsInfos = navigationHelper.getInfoForMatchedRequestsPrecedingTo(request);
 
-        return createNavigationLinksFrom(matchedRequestsInfos);
+        return createNavigationLinksFrom(matchedRequestsInfos, request.getLocale());
     }
 
-    private List<NavigationLink> createNavigationLinksFrom(List<MatchedRequestInfo> matchedRequestInfos) {
-        return matchedRequestInfos.stream()
-                    .map(this::createNavigationLink)
+    private List<NavigationLink> createNavigationLinksFrom(List<MatchedRequestInfo> matchedRequestsInfos,
+                                                           Locale clientLocale) {
+        return matchedRequestsInfos.stream()
+                    .map(matchedRequestInfo -> createNavigationLink(matchedRequestInfo, clientLocale))
                     .collect(toList());
     }
 
-    private NavigationLink createNavigationLink(MatchedRequestInfo matchedRequestInfo) {
+    private NavigationLink createNavigationLink(MatchedRequestInfo matchedRequestInfo, Locale clientLocale) {
         if (!matchedRequestInfo.getMatchedPathParams().isEmpty()) {
-            return createDynamicResourceLink(matchedRequestInfo);
+            return createDynamicResourceLink(matchedRequestInfo, clientLocale.getLanguage());
         } else {
-            return createStaticResourceLink(matchedRequestInfo);
+            return createStaticResourceLink(matchedRequestInfo, clientLocale);
         }
     }
 
-    private NavigationLink createDynamicResourceLink(MatchedRequestInfo matchedRequestInfo) {
+    private NavigationLink createDynamicResourceLink(MatchedRequestInfo matchedRequestInfo, String clientLanguage) {
         Map<String, String> matchedPathParams = matchedRequestInfo.getMatchedPathParams();
-        if (matchedPathParams.containsKey(ALBUMS_ID)) {
-            Album album = albumService.findById(parseLong(matchedPathParams.get(ALBUMS_ID)));
-            return new NavigationLink(matchedRequestInfo.getRequestURL(), "asd"/*album.getName()*/);
-        } else if (matchedPathParams.containsKey(ARTISTS_ID)) {
-            Artist artist = artistService.findById(parseLong(matchedPathParams.get(ARTISTS_ID)));
-            return new NavigationLink(matchedRequestInfo.getRequestURL(), "asd"/*artist.getName()*/);
-        } else if (matchedPathParams.containsKey(GENRES_ID)) {
+        if (matchedPathParams.containsKey(ALBUM_ID)) {
+            Album album = albumService.findById(parseLong(matchedPathParams.get(ALBUM_ID)));
+            album.getAlbumL10nSet().stream()
+                    .map(AlbumL10n::getName);
+            return new NavigationLink(matchedRequestInfo.getRequestURL(), ""/*albumLocalizedData.getName()*/);
+        } else if (matchedPathParams.containsKey(ARTIST_ID)) {
+            //ArtistLocalizedData artistLocalizedData =
+                //    artistLocalizedDataService.findById(parseLong(matchedPathParams.get(ARTIST_ID)));
+            return new NavigationLink(matchedRequestInfo.getRequestURL(),"" /*artistLocalizedData.getName()*/);
+        } else if (matchedPathParams.containsKey(GENRE_ID)) {
             throw new AssertionError("not implemented yet");
         } else {
-            String errMsg = format("Cannot createForClass navigation link for dynamic resource: " +
+            String errMsg = format("Cannot create navigation link for dynamic resource: " +
                     "there is no handling for request with path variables: %s",
                     matchedPathParams.keySet());
             throw new NavigationException(errMsg);
         }
     }
 
-    private NavigationLink createStaticResourceLink(MatchedRequestInfo matchedRequestInfo) {
-        String label = messageSource.getMessage(matchedRequestInfo.getMatchedPattern(), new Object[]{}, matchedRequestInfo.getLocale());
+    private NavigationLink createStaticResourceLink(MatchedRequestInfo matchedRequestInfo, Locale clientLocale) {
+        String label = messageSource.getMessage(matchedRequestInfo.getMatchedPattern(), new Object[]{}, clientLocale);
         return new NavigationLink(matchedRequestInfo.getRequestURL(), label);
     }
 

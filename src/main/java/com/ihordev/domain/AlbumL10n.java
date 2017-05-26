@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
                 columnNames = {"NAME", "DESCRIPTION"})
     }
 )
-public class AlbumLocalizedData {
+public class AlbumL10n {
 
     @Id
     @GeneratedValue(generator = "ALBUM_L10N_SEQ_GEN", strategy = GenerationType.SEQUENCE)
@@ -69,9 +69,9 @@ public class AlbumLocalizedData {
         this.description = description;
     }
 
-    protected AlbumLocalizedData() {}
+    protected AlbumL10n() {}
 
-    public AlbumLocalizedData(String name, String description, Album album, Language language) {
+    public AlbumL10n(String name, String description, Album album, Language language) {
         this.name = name;
         this.description = description;
         this.album = album;
@@ -81,9 +81,9 @@ public class AlbumLocalizedData {
     @Override
     public boolean equals(@Nullable Object o) {
         if (this == o) return true;
-        if (!(o instanceof AlbumLocalizedData)) return false;
+        if (!(o instanceof AlbumL10n)) return false;
 
-        AlbumLocalizedData that = (AlbumLocalizedData) o;
+        AlbumL10n that = (AlbumL10n) o;
 
         if (!getName().equals(that.getName())) return false;
         return getDescription().equals(that.getDescription());
@@ -98,7 +98,7 @@ public class AlbumLocalizedData {
 
     @Override
     public String toString() {
-        return "AlbumsLocalizedData{" +
+        return "AlbumL10n{" +
                 "id=" + id +
                 ", language=" + language +
                 ", album=" + album +

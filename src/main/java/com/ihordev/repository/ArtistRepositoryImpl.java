@@ -1,7 +1,6 @@
 package com.ihordev.repository;
 
 import com.ihordev.domainprojections.ArtistAsPageItem;
-import com.ihordev.domainprojections.SongAsPageItem;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
@@ -37,11 +36,11 @@ public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
         String Jpql = String.format(
                       " SELECT artist.id AS id,                                          " +
                       "        artist.imageSmlUrl AS imageSmlUrl,                        " +
-                      "        localizedData.name AS name,                               " +
-                      "        localizedData.description AS description                  " +
+                      "        l10n.name AS name,                                        " +
+                      "        l10n.description AS description                           " +
                       "     FROM Artist artist                                           " +
-                      "     LEFT JOIN artist.localizedDataSet localizedData              " +
-                      "     LEFT JOIN localizedData.language lang                        " +
+                      "     LEFT JOIN artist.artistL10nSet l10n                          " +
+                      "     LEFT JOIN l10n.language lang                                 " +
                       "     WHERE artist.genre.id IN (:genresIds)                        " +
                       "           AND (lang.name = :clientLanguage OR lang.name IS NULL) " +
                       "     ORDER BY %s                                                  ",

@@ -12,10 +12,10 @@ import org.springframework.data.repository.query.Param;
 public interface SongRepository extends JpaRepository<Song, Long>, SongRepositoryCustom {
 
     @Query(" SELECT song.id AS id,                                           " +
-           "        localizedData.name AS name                               " +
+           "        l10n.name AS name                                        " +
            "    FROM Song song                                               " +
-           "    LEFT JOIN song.localizedDataSet localizedData                " +
-           "    LEFT JOIN localizedData.language lang                        " +
+           "    LEFT JOIN song.songL10nSet l10n                              " +
+           "    LEFT JOIN l10n.language lang                                 " +
            "    WHERE song.album.id = :albumId                               " +
            "          AND (lang.name = :clientLanguage OR lang.name IS NULL) ")
     Slice<SongAsPageItem> findSongsByAlbumIdProjectedPaginated(@Param("clientLanguage") String clientLanguage,
@@ -23,10 +23,10 @@ public interface SongRepository extends JpaRepository<Song, Long>, SongRepositor
                                                                Pageable pageRequest);
 
     @Query(" SELECT song.id AS id,                                        " +
-           "        localizedData.name AS name                            " +
+           "        l10n.name AS name                                     " +
            "    FROM Song song                                            " +
-           "    LEFT JOIN song.localizedDataSet localizedData             " +
-           "    LEFT JOIN localizedData.language lang                     " +
+           "    LEFT JOIN song.songL10nSet l10n                           " +
+           "    LEFT JOIN l10n.language lang                              " +
            "    WHERE song.album.id IN (                                  " +
            "                             SELECT album.id AS id            " +
            "                                 FROM Artist artist           " +

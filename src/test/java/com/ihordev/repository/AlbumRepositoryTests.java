@@ -2,9 +2,6 @@ package com.ihordev.repository;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.ihordev.domain.*;
 import com.ihordev.domainprojections.AlbumAsPageItem;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,10 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.ihordev.config.AppProfiles.REPOSITORY_TESTS;
 
@@ -82,57 +76,4 @@ public class AlbumRepositoryTests {
 
         Assert.assertEquals(false, actualAlbumsSliceB.hasNext());
     }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/album-repository/insert-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/album-repository/insert-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void insertAlbumTest() {
-        Artist artist = em.find(Artist.class, 1L);
-        Language language = em.find(Language.class, 1L);
-
-        Album album = new Album("Small image test url", "Large image test url",
-                LocalDate.of(2017, 4, 25),
-                Album.AlbumType.STUDIO_ALBUM,
-                artist);
-
-        Set<AlbumLocalizedData> localizedDataSet = new HashSet<>();
-        AlbumLocalizedData albumLocalizedData = new AlbumLocalizedData("Test album", "This is test album",
-                album, language);
-        localizedDataSet.add(albumLocalizedData);
-
-        album.setLocalizedDataSet(localizedDataSet);
-
-        albumRepository.saveAndFlush(album);
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/album-repository/update-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/album-repository/update-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void updateAlbumTest() {
-        Artist anotherArtist = em.find(Artist.class, 2L);
-
-        Album album = em.find(Album.class, 1L);
-        album.setImageSmlUrl("Small image updated url");
-        album.setImageLgUrl("Large image updated url");
-        album.setReleaseDate(LocalDate.of(2018, 4, 25));
-        album.setAlbumType(Album.AlbumType.CONCERT_ALBUM);
-        album.setArtist(anotherArtist);
-        AlbumLocalizedData localizedData = album.getLocalizedDataSet().iterator().next();
-        localizedData.setName("Updated album");
-        localizedData.setDescription("This is updated album");
-
-        albumRepository.saveAndFlush(album);
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/album-repository/remove-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/album-repository/remove-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void removeAlbumTest() {
-        albumRepository.delete(1L);
-        albumRepository.flush();
-    }
-
 }

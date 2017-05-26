@@ -2,12 +2,6 @@ package com.ihordev.repository;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.ihordev.domain.Artist;
-import com.ihordev.domain.ArtistLocalizedData;
-import com.ihordev.domain.Genre;
-import com.ihordev.domain.Language;
 import com.ihordev.domainprojections.ArtistAsPageItem;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,9 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import javax.persistence.EntityManager;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.ihordev.config.AppProfiles.REPOSITORY_TESTS;
 
@@ -83,53 +75,5 @@ public class ArtistRepositoryTests {
         Assert.assertEquals((Long) 4L, artistAsPageItemB1.getId());
 
         Assert.assertEquals(false, actualArtistsSliceB.hasNext());
-    }
-
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/artist-repository/insert-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/artist-repository/insert-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void insertArtistTest() {
-        Genre genre = em.find(Genre.class, 1L);
-        Language language = em.find(Language.class, 1L);
-
-        Artist artist = new Artist("Small image test url", "Large image test url", genre);
-
-        Set<ArtistLocalizedData> localizedDataSet = new HashSet<>();
-        ArtistLocalizedData artistLocalizedData = new ArtistLocalizedData("Test artist", "This is test artist",
-                artist, language);
-        localizedDataSet.add(artistLocalizedData);
-
-        artist.setLocalizedDataSet(localizedDataSet);
-
-        artistRepository.saveAndFlush(artist);
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/artist-repository/update-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/artist-repository/update-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void updateArtistTest() {
-        Genre anotherGenre = em.find(Genre.class, 2L);
-
-        Artist artist = em.find(Artist.class, 1L);
-        artist.setImageSmlUrl("Small image updated url");
-        artist.setImageLgUrl("Large image updated url");
-        artist.setGenre(anotherGenre);
-        ArtistLocalizedData localizedData = artist.getLocalizedDataSet().iterator().next();
-        localizedData.setName("Updated artist");
-        localizedData.setDescription("This is updated artist");
-
-        artistRepository.saveAndFlush(artist);
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/artist-repository/remove-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/artist-repository/remove-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void removeArtistTest() {
-        artistRepository.delete(1L);
-        artistRepository.flush();
     }
 }

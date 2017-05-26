@@ -1,34 +1,35 @@
 package com.ihordev.domain;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-@Entity(name = "THEMATIC_COMPILATION_LOC_DATA")
+@Entity
 @Table(
     uniqueConstraints = {
-            @UniqueConstraint(name = "UNQ_TH_COM_L10N_LANG_TH_COM",
-                    columnNames = {"LANGUAGE_ID", "THEMATIC_COMPILATION_ID"}),
-            @UniqueConstraint(name = "UNQ_TH_COM_L10N_NAME_DESCRIP",
-                    columnNames = {"NAME", "DESCRIPTION"})
+        @UniqueConstraint(name = "UNQ_ARTIST_L10N_LANG_ARTIST",
+                columnNames = {"LANGUAGE_ID", "ARTIST_ID"}),
+        @UniqueConstraint(name = "UNQ_ARTIST_L10N_NAME_DESCRIP",
+                columnNames = {"NAME", "DESCRIPTION"})
     }
 )
-public class ThematicCompilationLocalizedData {
+public class ArtistL10n {
 
     @Id
-    @GeneratedValue(generator = "TH_COM_L10N_SEQ_GEN", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "TH_COM_L10N_SEQ_GEN",
-            sequenceName = "TH_COM_L10N_SEQ", allocationSize = 1)
+    @GeneratedValue(generator = "ARTIST_L10N_SEQ_GEN", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "ARTIST_L10N_SEQ_GEN", sequenceName = "ARTIST_L10N_SEQ", allocationSize = 1)
     private Long id;
 
     @NotNull
     @ManyToOne(optional = false)
-    private ThematicCompilation thematicCompilation;
+    private Language language;
 
     @NotNull
     @ManyToOne(optional = false)
-    private Language language;
+    private Artist artist;
 
     @NotNull
     @Size(min = 1)
@@ -44,12 +45,12 @@ public class ThematicCompilationLocalizedData {
         return id;
     }
 
-    public ThematicCompilation getThematicCompilation() {
-        return thematicCompilation;
-    }
-
     public Language getLanguage() {
         return language;
+    }
+
+    public Artist getArtist() {
+        return artist;
     }
 
     public String getName() {
@@ -68,22 +69,21 @@ public class ThematicCompilationLocalizedData {
         this.description = description;
     }
 
-    protected ThematicCompilationLocalizedData() {}
+    protected ArtistL10n() {}
 
-    public ThematicCompilationLocalizedData(String name, String description, Language language,
-                                            ThematicCompilation thematicCompilation) {
+    public ArtistL10n(String name, String description, Artist artist, Language language) {
         this.name = name;
         this.description = description;
+        this.artist = artist;
         this.language = language;
-        this.thematicCompilation = thematicCompilation;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
-        if (!(o instanceof ThematicCompilationLocalizedData)) return false;
+        if (!(o instanceof ArtistL10n)) return false;
 
-        ThematicCompilationLocalizedData that = (ThematicCompilationLocalizedData) o;
+        ArtistL10n that = (ArtistL10n) o;
 
         if (!getName().equals(that.getName())) return false;
         return getDescription().equals(that.getDescription());
@@ -98,10 +98,9 @@ public class ThematicCompilationLocalizedData {
 
     @Override
     public String toString() {
-        return "ThematicCompilationLocalizedData{" +
-                "id=" + id +
-                ", thematicCompilation=" + thematicCompilation +
-                ", language=" + language +
+        return "ArtistL10n{" +
+                "language=" + language.getId() +
+                ", artist=" + artist.getId() +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';

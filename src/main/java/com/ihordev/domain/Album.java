@@ -34,8 +34,10 @@ public class Album {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(columnDefinition = "VARCHAR2(30) CONSTRAINT" +
-            " album_type_ch CHECK(album_type IN ('STUDIO_ALBUM', 'CONCERT_ALBUM', 'COLLECTION'))")
+    @Column(columnDefinition =
+            "VARCHAR2(30) CONSTRAINT album_type_ch CHECK(                       " +
+            "   album_type IN ('STUDIO_ALBUM', 'CONCERT_ALBUM', 'COLLECTION')   " +
+            ")                                                                  ")
     private AlbumType albumType = AlbumType.STUDIO_ALBUM;
 
     @NotNull
@@ -47,7 +49,7 @@ public class Album {
 
     @Size(min = 1)
     @OneToMany(mappedBy = "album", cascade = CascadeType.ALL)
-    private Set<AlbumLocalizedData> localizedDataSet = new HashSet<>();
+    private Set<AlbumL10n> albumL10nSet = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -93,12 +95,12 @@ public class Album {
         this.artist = artist;
     }
 
-    public Set<AlbumLocalizedData> getLocalizedDataSet() {
-        return localizedDataSet;
+    public Set<AlbumL10n> getAlbumL10nSet() {
+        return albumL10nSet;
     }
 
-    public void setLocalizedDataSet(Set<AlbumLocalizedData> localizedDataSet) {
-        this.localizedDataSet = localizedDataSet;
+    public void setAlbumL10nSet(Set<AlbumL10n> albumL10nSet) {
+        this.albumL10nSet = albumL10nSet;
     }
 
     protected Album() {}
@@ -108,13 +110,13 @@ public class Album {
     }
 
     public Album(String imageSmlUrl, String imageLgUrl, LocalDate releaseDate,
-                 AlbumType albumType, Artist artist, Set<AlbumLocalizedData> localizedDataSet) {
+                 AlbumType albumType, Artist artist, Set<AlbumL10n> albumL10nSet) {
         this.imageSmlUrl = imageSmlUrl;
         this.imageLgUrl = imageLgUrl;
         this.releaseDate = releaseDate;
         this.albumType = albumType;
         this.artist = artist;
-        this.localizedDataSet = localizedDataSet;
+        this.albumL10nSet = albumL10nSet;
     }
 
     @Override
@@ -124,12 +126,12 @@ public class Album {
 
         Album album = (Album) o;
 
-        return getLocalizedDataSet().equals(album.getLocalizedDataSet());
+        return getAlbumL10nSet().equals(album.getAlbumL10nSet());
     }
 
     @Override
     public int hashCode() {
-        return getLocalizedDataSet().hashCode();
+        return getAlbumL10nSet().hashCode();
     }
 
     @Override
@@ -138,8 +140,8 @@ public class Album {
                 "id=" + id +
                 ", imageSmlUrl='" + imageSmlUrl + '\'' +
                 ", imageLgUrl='" + imageLgUrl + '\'' +
-                ", localizedDataSet=" + localizedDataSet.stream()
-                    .map(AlbumLocalizedData::getLanguage)
+                ", albumL10nSet=" + albumL10nSet.stream()
+                    .map(AlbumL10n::getLanguage)
                     .map(Language::getName)
                     .collect(toList()) +
                 '}';

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Locale;
 
-import static com.ihordev.web.controllers.AlbumController.PathVars.ALBUMS_ID;
+import static com.ihordev.web.controllers.AlbumController.PathVars.ALBUM_ID;
 import static com.ihordev.web.controllers.AlbumController.PathVars.collectionToShowValues.SONGS;
 
 
@@ -21,35 +21,35 @@ import static com.ihordev.web.controllers.AlbumController.PathVars.collectionToS
 public class AlbumController {
 
     public static class PathVars {
-        public static final String ALBUMS_ID = "albumsId";
+        public static final String ALBUM_ID = "albumId";
         enum collectionToShowValues {SONGS}
     }
 
     @Autowired
     private SongService songService;
 
-    @GetMapping(value = {"/**/albums/{"+ALBUMS_ID+"}", "/**/albums/{"+ALBUMS_ID+"}/{collectionToShow}"})
-    public String albums(@PathVariable Long albumsId,
+    @GetMapping(value = {"/**/albums/{"+ALBUM_ID+"}", "/**/albums/{"+ALBUM_ID+"}/{collectionToShow}"})
+    public String albums(@PathVariable Long albumId,
                          @PathVariable(required = false) String collectionToShow,
                          Model model,
                          Locale locale,
                          Pageable pageRequest) {
         if (collectionToShow != null) {
             if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
-                addAlbumsSongsToModel(model, locale.getLanguage(), albumsId, pageRequest);
+                addAlbumsSongsToModel(model, locale.getLanguage(), albumId, pageRequest);
                 return "songs";
             } else {
                 throw new ResourceNotFoundException("There are no such items in album resource");
             }
         } else {
-            addAlbumsSongsToModel(model, locale.getLanguage(), albumsId, pageRequest);
+            addAlbumsSongsToModel(model, locale.getLanguage(), albumId, pageRequest);
             return "songs";
         }
     }
 
-    private void addAlbumsSongsToModel(Model model, String clientLanguage, Long albumsId, Pageable pageRequest) {
+    private void addAlbumsSongsToModel(Model model, String clientLanguage, Long albumId, Pageable pageRequest) {
         Slice<SongAsPageItem> albumsSongs = songService.findSongsByAlbumIdProjectedPaginated(
-                clientLanguage, albumsId, pageRequest);
+                clientLanguage, albumId, pageRequest);
         model.addAttribute("songs", albumsSongs);
     }
 

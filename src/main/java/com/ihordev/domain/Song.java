@@ -21,7 +21,7 @@ public class Song {
 
     @Size(min = 1)
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
-    private Set<SongLocalizedData> localizedDataSet = new HashSet<>();
+    private Set<SongL10n> songL10nSet = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -35,12 +35,12 @@ public class Song {
         this.album = album;
     }
 
-    public Set<SongLocalizedData> getLocalizedDataSet() {
-        return localizedDataSet;
+    public Set<SongL10n> getSongL10nSet() {
+        return songL10nSet;
     }
 
-    public void setLocalizedDataSet(Set<SongLocalizedData> localizedDataSet) {
-        this.localizedDataSet = localizedDataSet;
+    public void setSongL10nSet(Set<SongL10n> songL10nSet) {
+        this.songL10nSet = songL10nSet;
     }
 
     protected Song() {}
@@ -49,17 +49,17 @@ public class Song {
         this(album, new HashSet<>());
     }
 
-    public Song(Album album, Set<SongLocalizedData> localizedDataSet) {
+    public Song(Album album, Set<SongL10n> songL10nSet) {
         this.album = album;
-        this.localizedDataSet = localizedDataSet;
+        this.songL10nSet = songL10nSet;
     }
 
     @Override
     public String toString() {
         return "Song{" +
                 "id=" + id +
-                ", localizedDataSet=" + localizedDataSet.stream()
-                    .map(SongLocalizedData::getLanguage)
+                ", songL10nSet=" + songL10nSet.stream()
+                    .map(SongL10n::getLanguage)
                     .map(Language::getName)
                     .collect(toList()) +
                 '}';

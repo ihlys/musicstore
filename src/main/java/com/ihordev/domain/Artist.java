@@ -30,7 +30,7 @@ public class Artist {
 
     @Size(min = 1)
     @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
-    private Set<ArtistLocalizedData> localizedDataSet = new HashSet<>();
+    private Set<ArtistL10n> artistL10nSet = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -68,12 +68,12 @@ public class Artist {
         this.albums = albums;
     }
 
-    public Set<ArtistLocalizedData> getLocalizedDataSet() {
-        return localizedDataSet;
+    public Set<ArtistL10n> getArtistL10nSet() {
+        return artistL10nSet;
     }
 
-    public void setLocalizedDataSet(Set<ArtistLocalizedData> localizedDataSet) {
-        this.localizedDataSet = localizedDataSet;
+    public void setArtistL10nSet(Set<ArtistL10n> artistL10nSet) {
+        this.artistL10nSet = artistL10nSet;
     }
 
     protected Artist() {}
@@ -82,11 +82,11 @@ public class Artist {
         this(imageSmlUrl, imageLgUrl, genre, new HashSet<>());
     }
 
-    public Artist(String imageSmlUrl, String imageLgUrl, Genre genre, Set<ArtistLocalizedData> localizedDataSet) {
+    public Artist(String imageSmlUrl, String imageLgUrl, Genre genre, Set<ArtistL10n> artistL10nSet) {
         this.imageSmlUrl = imageSmlUrl;
         this.imageLgUrl = imageLgUrl;
         this.genre = genre;
-        this.localizedDataSet = localizedDataSet;
+        this.artistL10nSet = artistL10nSet;
     }
 
     @Override
@@ -96,12 +96,12 @@ public class Artist {
 
         Artist artist = (Artist) o;
 
-        return getLocalizedDataSet().equals(artist.getLocalizedDataSet());
+        return getArtistL10nSet().equals(artist.getArtistL10nSet());
     }
 
     @Override
     public int hashCode() {
-        return getLocalizedDataSet().hashCode();
+        return getArtistL10nSet().hashCode();
     }
 
     @Override
@@ -110,8 +110,8 @@ public class Artist {
                 "id=" + id +
                 ", imageSmlUrl='" + imageSmlUrl + '\'' +
                 ", imageLgUrl='" + imageLgUrl + '\'' +
-                ", localizedDataSet=" + localizedDataSet.stream()
-                    .map(ArtistLocalizedData::getLanguage)
+                ", artistL10nSet=" + artistL10nSet.stream()
+                    .map(ArtistL10n::getLanguage)
                     .map(Language::getName)
                     .collect(toList()) +
                 '}';

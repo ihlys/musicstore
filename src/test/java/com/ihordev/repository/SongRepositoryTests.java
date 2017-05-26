@@ -2,9 +2,6 @@ package com.ihordev.repository;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.ihordev.domain.*;
 import com.ihordev.domainprojections.SongAsPageItem;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,10 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.ihordev.config.AppProfiles.REPOSITORY_TESTS;
 
@@ -158,48 +152,5 @@ public class SongRepositoryTests {
         Assert.assertEquals((Long) 4L, songAsPageItemB1.getId());
 
         Assert.assertEquals(false, actualArtistsSliceB.hasNext());
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/song-repository/insert-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/song-repository/insert-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void insertSongTest() {
-        Album album = em.find(Album.class, 1L);
-        Language language = em.find(Language.class, 1L);
-
-        Song song = new Song(album);
-
-        Set<SongLocalizedData> localizedDataSet = new HashSet<>();
-        SongLocalizedData songLocalizedData = new SongLocalizedData("Test song", song, language);
-        localizedDataSet.add(songLocalizedData);
-
-        song.setLocalizedDataSet(localizedDataSet);
-
-        songRepository.saveAndFlush(song);
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/song-repository/update-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/song-repository/update-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void updateSongTest() {
-        Album anotherAlbum = em.find(Album.class, 2L);
-
-        Song song = em.find(Song.class, 1L);
-        song.setAlbum(anotherAlbum);
-        SongLocalizedData localizedData = song.getLocalizedDataSet().iterator().next();
-        localizedData.setName("Updated song");
-
-        songRepository.saveAndFlush(song);
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/song-repository/remove-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/song-repository/remove-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void removeSongTest() {
-        songRepository.delete(1L);
-        songRepository.flush();
     }
 }

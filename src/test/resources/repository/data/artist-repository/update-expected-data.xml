@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<dataset xmlns="https://www.musicstore.com"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-expected-schema.xsd">
-
-    <ARTIST genre_id="2" image_sml_url="Small image updated url" image_lg_url="Large image updated url"/>
-    <ARTIST_LOCALIZED_DATA name="Updated artist" description="This is updated artist"/>
-
-</dataset>

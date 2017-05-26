@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
                 columnNames = {"LANGUAGE_ID", "SONG_ID"}),
     }
 )
-public class SongLocalizedData {
+public class SongL10n {
 
     @Id
     @GeneratedValue(generator = "SONG_L10N_SEQ_GEN", strategy = GenerationType.SEQUENCE)
@@ -53,9 +53,9 @@ public class SongLocalizedData {
         this.name = name;
     }
 
-    protected SongLocalizedData() {}
+    protected SongL10n() {}
 
-    public SongLocalizedData(String name, Song song, Language language) {
+    public SongL10n(String name, Song song, Language language) {
         this.name = name;
         this.song = song;
         this.language = language;
@@ -64,9 +64,9 @@ public class SongLocalizedData {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SongLocalizedData)) return false;
+        if (!(o instanceof SongL10n)) return false;
 
-        SongLocalizedData that = (SongLocalizedData) o;
+        SongL10n that = (SongL10n) o;
 
         if (!getLanguage().equals(that.getLanguage())) return false;
         return getName().equals(that.getName());
@@ -81,7 +81,7 @@ public class SongLocalizedData {
 
     @Override
     public String toString() {
-        return "SongsLocalizedData{" +
+        return "SongL10n{" +
                 "id=" + id +
                 ", song=" + song +
                 ", language=" + language +

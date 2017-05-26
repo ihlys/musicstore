@@ -2,11 +2,6 @@ package com.ihordev.repository;
 
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.github.springtestdbunit.annotation.ExpectedDatabase;
-import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
-import com.ihordev.domain.Genre;
-import com.ihordev.domain.GenreLocalizedData;
-import com.ihordev.domain.Language;
 import com.ihordev.domainprojections.GenreAsPageItem;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,9 +20,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
 import javax.persistence.EntityManager;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static com.ihordev.config.AppProfiles.REPOSITORY_TESTS;
 
@@ -82,51 +75,5 @@ public class GenreRepositoryTests {
         Assert.assertEquals((Long) 6L, genreAsPageItemB1.getId());
 
         Assert.assertEquals(false, actualGenresSliceB.hasNext());
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/genre-repository/insert-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/genre-repository/insert-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void insertGenreTest() {
-        Language language = em.find(Language.class, 1L);
-
-        Genre genre = new Genre("Small image test url", "Large image test url", null);
-
-        Set<GenreLocalizedData> localizedDataSet = new HashSet<>();
-        GenreLocalizedData genreLocalizedData = new GenreLocalizedData("Test genre", "This is test genre",
-                genre, language);
-        localizedDataSet.add(genreLocalizedData);
-
-        genre.setLocalizedDataSet(localizedDataSet);
-
-        genreRepository.saveAndFlush(genre);
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/genre-repository/update-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/genre-repository/update-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void updateGenreTest() {
-        Genre anotherGenre = em.find(Genre.class, 1L);
-
-        Genre genre = em.find(Genre.class, 2L);
-        genre.setImageSmlUrl("Small image updated url");
-        genre.setImageLgUrl("Large image updated url");
-        genre.setParentGenre(anotherGenre);
-        GenreLocalizedData localizedData = genre.getLocalizedDataSet().iterator().next();
-        localizedData.setName("Updated genre");
-        localizedData.setDescription("This is updated genre");
-
-        genreRepository.saveAndFlush(genre);
-    }
-
-    @Test
-    @DatabaseSetup("classpath:repository/data/genre-repository/remove-source-data.xml")
-    @ExpectedDatabase(value = "classpath:repository/data/genre-repository/remove-expected-data.xml",
-                      assertionMode = DatabaseAssertionMode.NON_STRICT)
-    public void removeGenreTest() {
-        genreRepository.delete(1L);
-        genreRepository.flush();
     }
 }

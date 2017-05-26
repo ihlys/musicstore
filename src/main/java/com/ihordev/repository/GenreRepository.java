@@ -39,11 +39,11 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
 
     @Query(" SELECT genre.id AS id,                                                " +
            "        genre.imageSmlUrl AS imageSmlUrl,                              " +
-           "        localizedData.name AS name,                                    " +
-           "        localizedData.description AS description                       " +
+           "        l10n.name AS name,                                             " +
+           "        l10n.description AS description                                " +
            "     FROM Genre genre                                                  " +
-           "     LEFT JOIN genre.localizedDataSet localizedData                    " +
-           "     LEFT JOIN localizedData.language lang                             " +
+           "     LEFT JOIN genre.genreL10nSet l10n                                 " +
+           "     LEFT JOIN l10n.language lang                                      " +
            "     WHERE :genreId IS NULL AND genre.parentGenre.id IS NULL           " +
            "           OR :genreId IS NOT NULL AND genre.parentGenre.id = :genreId " +
            "           AND (lang.name = :clientLanguage OR lang.name IS NULL)      ")

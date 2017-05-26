@@ -36,7 +36,6 @@ public class NavigationHelper {
             if (requestMatchingResult.isRequestHasMatch()) {
                 MatchedRequestInfo matchedRequestInfo = new MatchedRequestInfo(requestMatchingResult.getMatchedPattern(),
                         requestMatchingResult.getMatchedPathParams(),
-                        currentRequestToCheck.getLocale(),
                         getFullUrl(currentRequestToCheck));
                 matchedRequestsInfos.add(matchedRequestInfo);
             }

@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Locale;
 
-import static com.ihordev.web.controllers.GenreController.PathVars.GENRES_ID;
+import static com.ihordev.web.controllers.GenreController.PathVars.GENRE_ID;
 import static com.ihordev.web.controllers.GenreController.PathVars.collectionToShowValues.*;
 
 @Controller
 public class GenreController {
 
     public static class PathVars {
-        public static final String GENRES_ID = "genresId";
+        public static final String GENRE_ID = "genreId";
         enum collectionToShowValues { GENRES, ARTISTS, SONGS }
     }
 
@@ -45,34 +45,34 @@ public class GenreController {
         return "genres";
     }
 
-    @GetMapping(value = {"/**/genres/{"+GENRES_ID+"}", "/**/genres/{"+GENRES_ID+"}/{collectionToShow}"})
-    public String genre(@PathVariable Long genresId,
+    @GetMapping(value = {"/**/genres/{"+GENRE_ID+"}", "/**/genres/{"+GENRE_ID+"}/{collectionToShow}"})
+    public String genre(@PathVariable Long genreId,
                         @PathVariable(required = false) String collectionToShow,
                         Model model,
                         Locale locale,
                         Pageable pageRequest) {
         if (collectionToShow != null) {
             if (GENRES.name().equalsIgnoreCase(collectionToShow)) {
-                addGenreSubGenresToModel(model, locale.getLanguage(), genresId, pageRequest);
+                addGenreSubGenresToModel(model, locale.getLanguage(), genreId, pageRequest);
                 return "genres";
             } else if (ARTISTS.name().equalsIgnoreCase(collectionToShow)) {
-                addGenreArtistsToModel(model, locale.getLanguage(), genresId, pageRequest);
+                addGenreArtistsToModel(model, locale.getLanguage(), genreId, pageRequest);
                 return "artists";
             } else if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
-                addGenreSongsToModel(model, locale.getLanguage(), genresId, pageRequest);
+                addGenreSongsToModel(model, locale.getLanguage(), genreId, pageRequest);
                 return "songs";
             } else {
                 throw new ResourceNotFoundException("There are no such items in genre resource");
             }
         } else {
-            addGenreSubGenresToModel(model, locale.getLanguage(), genresId, pageRequest);
+            addGenreSubGenresToModel(model, locale.getLanguage(), genreId, pageRequest);
             return "genres";
         }
     }
 
-    private void addGenreSubGenresToModel(Model model, String clientLanguage, Long genresId, Pageable pageRequest) {
+    private void addGenreSubGenresToModel(Model model, String clientLanguage, Long genreId, Pageable pageRequest) {
         Slice<GenreAsPageItem> genresSubGenres = genreService.findSubGenresByParentGenreIdProjectedPaginated(
-                clientLanguage, genresId, pageRequest);
+                clientLanguage, genreId, pageRequest);
         model.addAttribute("genres", genresSubGenres);
     }
 

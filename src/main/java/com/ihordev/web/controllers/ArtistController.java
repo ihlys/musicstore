@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Locale;
 
-import static com.ihordev.web.controllers.ArtistController.PathVars.ARTISTS_ID;
+import static com.ihordev.web.controllers.ArtistController.PathVars.ARTIST_ID;
 import static com.ihordev.web.controllers.ArtistController.PathVars.collectionToShowValues.ALBUMS;
 import static com.ihordev.web.controllers.ArtistController.PathVars.collectionToShowValues.SONGS;
 
@@ -24,7 +24,7 @@ import static com.ihordev.web.controllers.ArtistController.PathVars.collectionTo
 public class ArtistController {
 
     public static class PathVars {
-        public static final String ARTISTS_ID = "artistsId";
+        public static final String ARTIST_ID = "artistId";
         enum collectionToShowValues {ALBUMS, SONGS}
     }
 
@@ -35,31 +35,31 @@ public class ArtistController {
     private SongService songService;
 
 
-    @GetMapping(value = {"/**/artists/{"+ARTISTS_ID+"}", "/**/artists/{"+ARTISTS_ID+"}/{collectionToShow}"})
-    public String artist(@PathVariable Long artistsId,
+    @GetMapping(value = {"/**/artists/{"+ARTIST_ID+"}", "/**/artists/{"+ARTIST_ID+"}/{collectionToShow}"})
+    public String artist(@PathVariable Long artistId,
                          @PathVariable(required = false) String collectionToShow,
                          Model model,
                          Locale locale,
                          Pageable pageRequest) {
         if (collectionToShow != null) {
             if (ALBUMS.name().equalsIgnoreCase(collectionToShow)) {
-                addArtistsAlbumsToModel(model, locale.getLanguage(), artistsId, pageRequest);
+                addArtistsAlbumsToModel(model, locale.getLanguage(), artistId, pageRequest);
                 return "albums";
             } else if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
-                addArtistsSongsToModel(model, locale.getLanguage(), artistsId, pageRequest);
+                addArtistsSongsToModel(model, locale.getLanguage(), artistId, pageRequest);
                 return "songs";
             } else {
                 throw new ResourceNotFoundException("There are no such items in artist resource");
             }
         } else {
-            addArtistsAlbumsToModel(model, locale.getLanguage(), artistsId, pageRequest);
+            addArtistsAlbumsToModel(model, locale.getLanguage(), artistId, pageRequest);
             return "albums";
         }
     }
 
-    private void addArtistsAlbumsToModel(Model model, String clientLanguage, Long artistsId, Pageable pageRequest) {
+    private void addArtistsAlbumsToModel(Model model, String clientLanguage, Long artistId, Pageable pageRequest) {
         Slice<AlbumAsPageItem> artistsAlbums = albumService.findAlbumsByArtistIdProjectedPaginated(
-                clientLanguage, artistsId, pageRequest);
+                clientLanguage, artistId, pageRequest);
         model.addAttribute("albums", artistsAlbums);
     }
 

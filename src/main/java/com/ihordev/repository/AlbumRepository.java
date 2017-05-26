@@ -14,11 +14,11 @@ public interface AlbumRepository extends JpaRepository<Album, Long> {
     @Query(" SELECT album.id AS id,                                       " +
            "        album.imageSmlUrl AS imageSmlUrl,                     " +
            "        album.releaseDate AS releaseDate,                     " +
-           "        localizedData.name AS name,                           " +
-           "        localizedData.description AS description              " +
+           "        l10n.name AS name,                                    " +
+           "        l10n.description AS description                       " +
            " FROM Album album                                             " +
-           " LEFT JOIN album.localizedDataSet localizedData               " +
-           " LEFT JOIN localizedData.language lang                        " +
+           " LEFT JOIN album.albumL10nSet l10n                            " +
+           " LEFT JOIN l10n.language lang                                 " +
            " WHERE album.artist.id = :artistId                            " +
            "       AND (lang.name = :clientLanguage OR lang.name IS NULL) ")
     Slice<AlbumAsPageItem> findAlbumsByArtistIdProjectedPaginated(@Param("clientLanguage") String clientLanguage,
