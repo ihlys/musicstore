@@ -12,6 +12,7 @@
         <xs:complexContent>
             <xs:restriction base="Language">
                 <xs:attribute name="id" type="xs:long"/>
+                <xs:attribute name="name" type="xs:string"/>
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
@@ -25,9 +26,9 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="SongLocalizedDataNoRestrictions">
+    <xs:complexType name="SongL10nNoRestrictions">
         <xs:complexContent>
-            <xs:restriction base="SongLocalizedData">
+            <xs:restriction base="SongL10n">
                 <xs:attribute name="id"          type="xs:long"/>
                 <xs:attribute name="song_id"     type="xs:long"/>
                 <xs:attribute name="language_id" type="xs:long"/>
@@ -47,9 +48,9 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="AlbumLocalizedDataNoRestrictions">
+    <xs:complexType name="AlbumL10nNoRestrictions">
         <xs:complexContent>
-            <xs:restriction base="AlbumLocalizedData">
+            <xs:restriction base="AlbumL10n">
                 <xs:attribute name="id"          type="xs:long"/>
                 <xs:attribute name="album_id"    type="xs:long"/>
                 <xs:attribute name="language_id" type="xs:long"/>
@@ -68,9 +69,9 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="ArtistLocalizedDataNoRestrictions">
+    <xs:complexType name="ArtistL10nNoRestrictions">
         <xs:complexContent>
-            <xs:restriction base="ArtistLocalizedData">
+            <xs:restriction base="ArtistL10n">
                 <xs:attribute name="id"          type="xs:long"/>
                 <xs:attribute name="artist_id"   type="xs:long"/>
                 <xs:attribute name="language_id" type="xs:long"/>
@@ -89,9 +90,9 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="GenreLocalizedDataNoRestrictions">
+    <xs:complexType name="GenreL10nNoRestrictions">
         <xs:complexContent>
-            <xs:restriction base="GenreLocalizedData">
+            <xs:restriction base="GenreL10n">
                 <xs:attribute name="id"          type="xs:long"/>
                 <xs:attribute name="genre_id"    type="xs:long"/>
                 <xs:attribute name="language_id" type="xs:long"/>
@@ -109,9 +110,9 @@
         </xs:complexContent>
     </xs:complexType>
 
-    <xs:complexType name="ThematicCompilationLocalizedDataNoRestrictions">
+    <xs:complexType name="ThematicCompilationL10nNoRestrictions">
         <xs:complexContent>
-            <xs:restriction base="ThematicCompilationLocalizedData">
+            <xs:restriction base="ThematicCompilationL10n">
                 <xs:attribute name="id"                      type="xs:long"/>
                 <xs:attribute name="thematic_compilation_id" type="xs:long"/>
                 <xs:attribute name="language_id"             type="xs:long"/>
@@ -127,15 +128,15 @@
                 <xs:element name="LANGUAGE" type="LanguageNoRestrictions"/>
 
                 <xs:element name="SONG" type="SongNoRestrictions"/>
-                <xs:element name="SONG_LOCALIZED_DATA" type="SongLocalizedDataNoRestrictions"/>
+                <xs:element name="SONG_LOCALIZED_DATA" type="SongL10nNoRestrictions"/>
                 <xs:element name="ALBUM" type="AlbumNoRestrictions"/>
-                <xs:element name="ALBUM_LOCALIZED_DATA" type="AlbumLocalizedDataNoRestrictions"/>
+                <xs:element name="ALBUM_LOCALIZED_DATA" type="AlbumL10nNoRestrictions"/>
                 <xs:element name="ARTIST" type="ArtistNoRestrictions"/>
-                <xs:element name="ARTIST_LOCALIZED_DATA" type="ArtistLocalizedDataNoRestrictions"/>
+                <xs:element name="ARTIST_LOCALIZED_DATA" type="ArtistL10nNoRestrictions"/>
                 <xs:element name="GENRE" type="GenreNoRestrictions"/>
-                <xs:element name="GENRE_LOCALIZED_DATA" type="GenreLocalizedDataNoRestrictions"/>
+                <xs:element name="GENRE_LOCALIZED_DATA" type="GenreL10nNoRestrictions"/>
                 <xs:element name="THEMATIC_COMPILATION" type="ThematicCompilationNoRestrictions"/>
-                <xs:element name="THEMATIC_COMPILATION_LOC_DATA" type="ThematicCompilationLocalizedDataNoRestrictions"/>
+                <xs:element name="THEMATIC_COMPILATION_LOC_DATA" type="ThematicCompilationL10nNoRestrictions"/>
             </xs:choice>
         </xs:complexType>
     </xs:element>

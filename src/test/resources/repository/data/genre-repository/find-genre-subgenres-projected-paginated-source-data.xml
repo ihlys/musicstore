@@ -10,4 +10,13 @@
             <GENRE id="5" parent_genre_id="2"/>
             <GENRE id="6" parent_genre_id="2"/>
 
+    <GENREL10N id="3" genre_id="3" language_id="1"
+               name="Genre Three" description="This is Genre Three"/>
+    <GENREL10N id="4" genre_id="4" language_id="1"
+               name="Genre Four" description="This is Genre Four"/>
+    <GENREL10N id="5" genre_id="5" language_id="1"
+               name="Genre Five" description="This is Genre Five"/>
+    <GENREL10N id="6" genre_id="6" language_id="1"
+               name="Genre Six" description="This is Genre Six"/>
+
 </dataset>

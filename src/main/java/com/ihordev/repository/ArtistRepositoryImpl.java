@@ -33,20 +33,20 @@ public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
         findGenreSubGenres.setParameter("genreId", genreId);
         List<Long> genresIds = findGenreSubGenres.getResultList();
 
-        String Jpql = String.format(
-                      " SELECT artist.id AS id,                                          " +
-                      "        artist.imageSmlUrl AS imageSmlUrl,                        " +
-                      "        l10n.name AS name,                                        " +
-                      "        l10n.description AS description                           " +
-                      "     FROM Artist artist                                           " +
-                      "     LEFT JOIN artist.artistL10nSet l10n                          " +
-                      "     LEFT JOIN l10n.language lang                                 " +
-                      "     WHERE artist.genre.id IN (:genresIds)                        " +
-                      "           AND (lang.name = :clientLanguage OR lang.name IS NULL) " +
-                      "     ORDER BY %s                                                  ",
+        String jpql = String.format(
+                      " SELECT artist.id AS id,                   " +
+                      "        artist.imageSmlUrl AS imageSmlUrl, " +
+                      "        l10n.name AS name,                 " +
+                      "        l10n.description AS description    " +
+                      "     FROM Artist artist                    " +
+                      "     JOIN artist.artistL10nSet l10n        " +
+                      "     JOIN l10n.language lang               " +
+                      "     WHERE artist.genre.id IN (:genresIds) " +
+                      "           AND lang.name = :clientLanguage " +
+                      "     ORDER BY %s                           ",
                 getOrderByClauseFromSort(pageRequest.getSort(), ArtistAsPageItem.class));
 
-        Query query = em.createQuery(Jpql);
+        Query query = em.createQuery(jpql);
         query.setParameter("clientLanguage", clientLanguage);
         query.setParameter("genresIds", genresIds);
         query.setFirstResult(pageRequest.getOffset());

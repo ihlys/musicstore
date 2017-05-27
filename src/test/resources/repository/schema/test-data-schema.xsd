@@ -12,15 +12,15 @@
                 <xs:element name="LANGUAGE" type="Language"/>
 
                 <xs:element name="SONG" type="Song"/>
-                <xs:element name="SONG_LOCALIZED_DATA" type="SongLocalizedData"/>
+                <xs:element name="SONGL10N" type="SongL10n"/>
                 <xs:element name="ALBUM" type="Album"/>
-                <xs:element name="ALBUM_LOCALIZED_DATA" type="AlbumLocalizedData"/>
+                <xs:element name="ALBUML10N" type="AlbumL10n"/>
                 <xs:element name="ARTIST" type="Artist"/>
-                <xs:element name="ARTIST_LOCALIZED_DATA" type="ArtistLocalizedData"/>
+                <xs:element name="ARTISTL10N" type="ArtistL10n"/>
                 <xs:element name="GENRE" type="Genre"/>
-                <xs:element name="GENRE_LOCALIZED_DATA" type="GenreLocalizedData"/>
+                <xs:element name="GENREL10N" type="GenreL10n"/>
                 <xs:element name="THEMATIC_COMPILATION" type="ThematicCompilation"/>
-                <xs:element name="THEMATIC_COMPILATION_LOC_DATA" type="ThematicCompilationLocalizedData"/>
+                <xs:element name="THEMATIC_COMPILATIONL10N" type="ThematicCompilationL10n"/>
             </xs:choice>
         </xs:complexType>
     </xs:element>

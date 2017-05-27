@@ -12,7 +12,7 @@
 
     <xs:complexType name="Language">
         <xs:attribute name="id"     type="xs:long" use="required"/>
-        <xs:attribute name="name"   type="xs:string"/>
+        <xs:attribute name="name"   type="xs:string" use="required"/>
     </xs:complexType>
 
     <xs:complexType name="Song">
@@ -20,7 +20,7 @@
         <xs:attribute name="album_id" type="xs:long" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="SongLocalizedData">
+    <xs:complexType name="SongL10n">
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="song_id"     type="xs:long" use="required"/>
         <xs:attribute name="language_id" type="xs:long" use="required"/>
@@ -44,7 +44,7 @@
         <xs:attribute name="artist_id"     type="xs:long"    use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="AlbumLocalizedData">
+    <xs:complexType name="AlbumL10n">
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="album_id"    type="xs:long" use="required"/>
         <xs:attribute name="language_id" type="xs:long" use="required"/>
@@ -59,7 +59,7 @@
         <xs:attribute name="genre_id"      type="xs:long" use="required"/>
     </xs:complexType>
 
-    <xs:complexType name="ArtistLocalizedData">
+    <xs:complexType name="ArtistL10n">
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="artist_id"   type="xs:long" use="required"/>
         <xs:attribute name="language_id" type="xs:long" use="required"/>
@@ -74,7 +74,7 @@
         <xs:attribute name="parent_genre_id" type="xs:long"/>
     </xs:complexType>
 
-    <xs:complexType name="GenreLocalizedData">
+    <xs:complexType name="GenreL10n">
         <xs:attribute name="id"          type="xs:long" use="required"/>
         <xs:attribute name="genre_id"    type="xs:long" use="required"/>
         <xs:attribute name="language_id" type="xs:long" use="required"/>
@@ -88,7 +88,7 @@
         <xs:attribute name="image_lg_url"   type="xs:string"/>
     </xs:complexType>
 
-    <xs:complexType name="ThematicCompilationLocalizedData">
+    <xs:complexType name="ThematicCompilationL10n">
         <xs:attribute name="id"                      type="xs:long" use="required"/>
         <xs:attribute name="thematic_compilation_id" type="xs:long" use="required"/>
         <xs:attribute name="language_id"             type="xs:long" use="required"/>

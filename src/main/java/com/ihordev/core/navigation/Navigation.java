@@ -89,9 +89,11 @@ public class Navigation {
     private NavigationLink createDynamicResourceLink(MatchedRequestInfo matchedRequestInfo, String clientLanguage) {
         Map<String, String> matchedPathParams = matchedRequestInfo.getMatchedPathParams();
         if (matchedPathParams.containsKey(ALBUM_ID)) {
-            Album album = albumService.findById(parseLong(matchedPathParams.get(ALBUM_ID)));
+/*            Album album = albumService.findById(parseLong(matchedPathParams.get(ALBUM_ID)));
             album.getAlbumL10nSet().stream()
-                    .map(AlbumL10n::getName);
+                    .filter(albumL10n -> albumL10n.getLanguage().getName().equals(clientLanguage))
+                    .findAny()
+                    .orElseGet(album.getAlbumL10nSet().);*/
             return new NavigationLink(matchedRequestInfo.getRequestURL(), ""/*albumLocalizedData.getName()*/);
         } else if (matchedPathParams.containsKey(ARTIST_ID)) {
             //ArtistLocalizedData artistLocalizedData =

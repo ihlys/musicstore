@@ -47,32 +47,40 @@ public class GenreRepositoryTests {
         Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");
 
         Slice<GenreAsPageItem> actualGenresSliceA =
-                genreRepository.findSubGenresByParentGenreIdProjectedPaginated("EN", 2L, pageRequestA);
+                genreRepository.findSubGenresByParentGenreIdProjectedPaginated("en", 2L, pageRequestA);
 
         List<GenreAsPageItem> contentA = actualGenresSliceA.getContent();
         Assert.assertEquals(3, contentA.size());
 
         GenreAsPageItem genreAsPageItemA1 = contentA.get(0);
         Assert.assertEquals((Long) 3L, genreAsPageItemA1.getId());
+        Assert.assertEquals("Genre Three", genreAsPageItemA1.getName());
+        Assert.assertEquals("This is Genre Three", genreAsPageItemA1.getDescription());
 
         GenreAsPageItem genreAsPageItemA2 = contentA.get(1);
         Assert.assertEquals((Long) 4L, genreAsPageItemA2.getId());
+        Assert.assertEquals("Genre Four", genreAsPageItemA2.getName());
+        Assert.assertEquals("This is Genre Four", genreAsPageItemA2.getDescription());
 
         GenreAsPageItem genreAsPageItemA3 = contentA.get(2);
         Assert.assertEquals((Long) 5L, genreAsPageItemA3.getId());
+        Assert.assertEquals("Genre Five", genreAsPageItemA3.getName());
+        Assert.assertEquals("This is Genre Five", genreAsPageItemA3.getDescription());
 
         Assert.assertEquals(true, actualGenresSliceA.hasNext());
 
         Pageable pageRequestB = new PageRequest(1, 3, Sort.Direction.ASC, "id");
 
         Slice<GenreAsPageItem> actualGenresSliceB =
-                genreRepository.findSubGenresByParentGenreIdProjectedPaginated("EN", 2L, pageRequestB);
+                genreRepository.findSubGenresByParentGenreIdProjectedPaginated("en", 2L, pageRequestB);
 
         List<GenreAsPageItem> contentB = actualGenresSliceB.getContent();
         Assert.assertEquals(1, contentB.size());
 
         GenreAsPageItem genreAsPageItemB1 = contentB.get(0);
         Assert.assertEquals((Long) 6L, genreAsPageItemB1.getId());
+        Assert.assertEquals("Genre Six", genreAsPageItemB1.getName());
+        Assert.assertEquals("This is Genre Six", genreAsPageItemB1.getDescription());
 
         Assert.assertEquals(false, actualGenresSliceB.hasNext());
     }

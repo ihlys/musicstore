@@ -47,32 +47,40 @@ public class ArtistRepositoryTests {
         Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");
 
         Slice<ArtistAsPageItem> actualArtistsSliceA =
-                artistRepository.findArtistsByGenreIdProjectedPaginated("EN", 2L, pageRequestA);
+                artistRepository.findArtistsByGenreIdProjectedPaginated("en", 2L, pageRequestA);
 
         List<ArtistAsPageItem> contentA = actualArtistsSliceA.getContent();
         Assert.assertEquals(3, contentA.size());
 
         ArtistAsPageItem artistAsPageItemA1 = contentA.get(0);
         Assert.assertEquals((Long) 1L, artistAsPageItemA1.getId());
+        Assert.assertEquals("Artist One", artistAsPageItemA1.getName());
+        Assert.assertEquals("This is Artist One", artistAsPageItemA1.getDescription());
 
         ArtistAsPageItem artistAsPageItemA2 = contentA.get(1);
         Assert.assertEquals((Long) 2L, artistAsPageItemA2.getId());
+        Assert.assertEquals("Artist Two", artistAsPageItemA2.getName());
+        Assert.assertEquals("This is Artist Two", artistAsPageItemA2.getDescription());
 
         ArtistAsPageItem artistAsPageItemA3 = contentA.get(2);
         Assert.assertEquals((Long) 3L, artistAsPageItemA3.getId());
+        Assert.assertEquals("Artist Three", artistAsPageItemA3.getName());
+        Assert.assertEquals("This is Artist Three", artistAsPageItemA3.getDescription());
 
         Assert.assertEquals(true, actualArtistsSliceA.hasNext());
 
         Pageable pageRequestB = new PageRequest(1, 3, Sort.Direction.ASC, "id");
 
         Slice<ArtistAsPageItem> actualArtistsSliceB =
-                artistRepository.findArtistsByGenreIdProjectedPaginated("EN", 2L, pageRequestB);
+                artistRepository.findArtistsByGenreIdProjectedPaginated("en", 2L, pageRequestB);
 
         List<ArtistAsPageItem> contentB = actualArtistsSliceB.getContent();
         Assert.assertEquals(1, contentB.size());
 
         ArtistAsPageItem artistAsPageItemB1 = contentB.get(0);
         Assert.assertEquals((Long) 4L, artistAsPageItemB1.getId());
+        Assert.assertEquals("Artist Four", artistAsPageItemB1.getName());
+        Assert.assertEquals("This is Artist Four", artistAsPageItemB1.getDescription());
 
         Assert.assertEquals(false, actualArtistsSliceB.hasNext());
     }

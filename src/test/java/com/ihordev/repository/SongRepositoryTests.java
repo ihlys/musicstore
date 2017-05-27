@@ -47,35 +47,40 @@ public class SongRepositoryTests {
         Pageable pageRequestA = new PageRequest(1, 3, Sort.Direction.ASC, "id");
 
         Slice<SongAsPageItem> actualSongsSliceA =
-                songRepository.findSongsByGenreIdProjectedPaginated("EN", 2L, pageRequestA);
+                songRepository.findSongsByGenreIdProjectedPaginated("en", 2L, pageRequestA);
 
         List<SongAsPageItem> contentA = actualSongsSliceA.getContent();
         Assert.assertEquals(3, contentA.size());
 
         SongAsPageItem songAsPageItemA1 = contentA.get(0);
         Assert.assertEquals((Long) 4L, songAsPageItemA1.getId());
+        Assert.assertEquals("Song Four", songAsPageItemA1.getName());
 
         SongAsPageItem songAsPageItemA2 = contentA.get(1);
         Assert.assertEquals((Long) 5L, songAsPageItemA2.getId());
+        Assert.assertEquals("Song Five", songAsPageItemA2.getName());
 
         SongAsPageItem songAsPageItemA3 = contentA.get(2);
         Assert.assertEquals((Long) 6L, songAsPageItemA3.getId());
+        Assert.assertEquals("Song Six", songAsPageItemA3.getName());
 
         Assert.assertEquals(true, actualSongsSliceA.hasNext());
 
         Pageable pageRequestB = new PageRequest(1, 3, Sort.Direction.ASC, "id");
 
         Slice<SongAsPageItem> actualArtistsSliceB =
-                songRepository.findSongsByGenreIdProjectedPaginated("EN", 3L, pageRequestB);
+                songRepository.findSongsByGenreIdProjectedPaginated("en", 3L, pageRequestB);
 
         List<SongAsPageItem> contentB = actualArtistsSliceB.getContent();
         Assert.assertEquals(2, contentB.size());
 
         SongAsPageItem songAsPageItemB1 = contentB.get(0);
         Assert.assertEquals((Long) 4L, songAsPageItemB1.getId());
+        Assert.assertEquals("Song Four", songAsPageItemB1.getName());
 
         SongAsPageItem songAsPageItemB2 = contentB.get(1);
         Assert.assertEquals((Long) 5L, songAsPageItemB2.getId());
+        Assert.assertEquals("Song Five", songAsPageItemB2.getName());
 
         Assert.assertEquals(false, actualArtistsSliceB.hasNext());
     }
@@ -87,32 +92,36 @@ public class SongRepositoryTests {
         Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");
 
         Slice<SongAsPageItem> actualSongsSliceA =
-                songRepository.findSongsByArtistIdProjectedPaginated("EN", 1L, pageRequestA);
+                songRepository.findSongsByArtistIdProjectedPaginated("en", 1L, pageRequestA);
 
         List<SongAsPageItem> contentA = actualSongsSliceA.getContent();
         Assert.assertEquals(3, contentA.size());
 
         SongAsPageItem songAsPageItemA1 = contentA.get(0);
         Assert.assertEquals((Long) 1L, songAsPageItemA1.getId());
+        Assert.assertEquals("Song One", songAsPageItemA1.getName());
 
         SongAsPageItem songAsPageItemA2 = contentA.get(1);
         Assert.assertEquals((Long) 2L, songAsPageItemA2.getId());
+        Assert.assertEquals("Song Two", songAsPageItemA2.getName());
 
         SongAsPageItem songAsPageItemA3 = contentA.get(2);
         Assert.assertEquals((Long) 3L, songAsPageItemA3.getId());
+        Assert.assertEquals("Song Three", songAsPageItemA3.getName());
 
         Assert.assertEquals(true, actualSongsSliceA.hasNext());
 
         Pageable pageRequestB = new PageRequest(1, 3, Sort.Direction.ASC, "id");
 
         Slice<SongAsPageItem> actualArtistsSliceB =
-                songRepository.findSongsByArtistIdProjectedPaginated("EN", 1L, pageRequestB);
+                songRepository.findSongsByArtistIdProjectedPaginated("en", 1L, pageRequestB);
 
         List<SongAsPageItem> contentB = actualArtistsSliceB.getContent();
         Assert.assertEquals(1, contentB.size());
 
         SongAsPageItem songAsPageItemB1 = contentB.get(0);
         Assert.assertEquals((Long) 4L, songAsPageItemB1.getId());
+        Assert.assertEquals("Song Four", songAsPageItemB1.getName());
 
         Assert.assertEquals(false, actualArtistsSliceB.hasNext());
     }
@@ -124,32 +133,36 @@ public class SongRepositoryTests {
         Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");
 
         Slice<SongAsPageItem> actualSongsSliceA =
-                songRepository.findSongsByAlbumIdProjectedPaginated("EN", 1L, pageRequestA);
+                songRepository.findSongsByAlbumIdProjectedPaginated("en", 1L, pageRequestA);
 
         List<SongAsPageItem> contentA = actualSongsSliceA.getContent();
         Assert.assertEquals(3, contentA.size());
 
         SongAsPageItem songAsPageItemA1 = contentA.get(0);
         Assert.assertEquals((Long) 1L, songAsPageItemA1.getId());
+        Assert.assertEquals("Song One", songAsPageItemA1.getName());
 
         SongAsPageItem songAsPageItemA2 = contentA.get(1);
         Assert.assertEquals((Long) 2L, songAsPageItemA2.getId());
+        Assert.assertEquals("Song Two", songAsPageItemA2.getName());
 
         SongAsPageItem songAsPageItemA3 = contentA.get(2);
         Assert.assertEquals((Long) 3L, songAsPageItemA3.getId());
+        Assert.assertEquals("Song Three", songAsPageItemA3.getName());
 
         Assert.assertEquals(true, actualSongsSliceA.hasNext());
 
         Pageable pageRequestB = new PageRequest(1, 3, Sort.Direction.ASC, "id");
 
         Slice<SongAsPageItem> actualArtistsSliceB =
-                songRepository.findSongsByAlbumIdProjectedPaginated("EN", 1L, pageRequestB);
+                songRepository.findSongsByAlbumIdProjectedPaginated("en", 1L, pageRequestB);
 
         List<SongAsPageItem> contentB = actualArtistsSliceB.getContent();
         Assert.assertEquals(1, contentB.size());
 
         SongAsPageItem songAsPageItemB1 = contentB.get(0);
         Assert.assertEquals((Long) 4L, songAsPageItemB1.getId());
+        Assert.assertEquals("Song Four", songAsPageItemB1.getName());
 
         Assert.assertEquals(false, actualArtistsSliceB.hasNext());
     }

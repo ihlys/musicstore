@@ -42,11 +42,11 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
            "        l10n.name AS name,                                             " +
            "        l10n.description AS description                                " +
            "     FROM Genre genre                                                  " +
-           "     LEFT JOIN genre.genreL10nSet l10n                                 " +
-           "     LEFT JOIN l10n.language lang                                      " +
+           "     JOIN genre.genreL10nSet l10n                                      " +
+           "     JOIN l10n.language lang                                           " +
            "     WHERE :genreId IS NULL AND genre.parentGenre.id IS NULL           " +
            "           OR :genreId IS NOT NULL AND genre.parentGenre.id = :genreId " +
-           "           AND (lang.name = :clientLanguage OR lang.name IS NULL)      ")
+           "           AND lang.name = :clientLanguage                             ")
     Slice<GenreAsPageItem> findSubGenresByParentGenreIdProjectedPaginated(@Param("clientLanguage") String clientLanguage,
                                                                           @Param("genreId") Long parentGenreId,
                                                                           Pageable pageRequest);

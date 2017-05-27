@@ -12,4 +12,13 @@
             <GENRE id="4" parent_genre_id="2"/>
                 <ARTIST id="4" genre_id="4"/>
 
+    <ARTISTL10N id="1" artist_id="1" language_id="1"
+                name="Artist One" description="This is Artist One"/>
+    <ARTISTL10N id="2" artist_id="2" language_id="1"
+                name="Artist Two" description="This is Artist Two"/>
+    <ARTISTL10N id="3" artist_id="3" language_id="1"
+                name="Artist Three" description="This is Artist Three"/>
+    <ARTISTL10N id="4" artist_id="4" language_id="1"
+                name="Artist Four" description="This is Artist Four"/>
+
 </dataset>

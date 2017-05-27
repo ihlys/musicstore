@@ -1,9 +1,32 @@
 -- *****************************************************************************
+
+--CREATE OR REPLACE FUNCTION DEFAULT_LANGUAGE
+--RETURN VARCHAR2
+--AS
+--BEGIN
+--    RETURN 'en';
+--END;
+--/
+CREATE OR REPLACE FUNCTION DEFAULT_LANGUAGE RETURN VARCHAR2 AS BEGIN RETURN 'en'; END; insert into Language values(1, DEFAULT_LANGUAGE);
+
+-- *****************************************************************************
+insert into Language values(1, DEFAULT_LANGUAGE);
+
 CREATE MATERIALIZED VIEW LOG ON language
 WITH SEQUENCE, ROWID
 (id, name)
 INCLUDING NEW VALUES;
 
+CREATE MATERIALIZED VIEW LanguageHasEn
+REFRESH FORCE ON COMMIT AS
+SELECT Count(id) AS en_count
+    FROM Language
+    WHERE name = DEFAULT_LANGUAGE();
+
+ALTER TABLE LanguageHasEn
+ADD CONSTRAINT ch_lang_has_en CHECK(en_count = 1);
+
+-- *****************************************************************************
 CREATE MATERIALIZED VIEW LOG ON albuml10n
 WITH SEQUENCE, ROWID
 (id, album_id, language_id, name, description)
@@ -28,7 +51,7 @@ INCLUDING NEW VALUES;
 
 CREATE MATERIALIZED VIEW AlbumL10nExistsInEnglish
 REFRESH FAST ON COMMIT AS
-SELECT l10n.album_id, Sum(CASE WHEN l.name = 'en' THEN 1 ELSE 0 END) AS l10n_en_count
+SELECT l10n.album_id, Sum(CASE WHEN l.name = DEFAULT_LANGUAGE() THEN 1 ELSE 0 END) AS l10n_en_count
     FROM albuml10n l10n
     JOIN language l ON l.id = l10n.language_id
     GROUP BY l10n.album_id;
@@ -40,7 +63,7 @@ ADD CONSTRAINT ch_albuml10n_en_exists CHECK(l10n_en_count > 0);
 
 CREATE MATERIALIZED VIEW ArtistL10nExistsInEnglish
 REFRESH FAST ON COMMIT AS
-SELECT l10n.artist_id, Sum(CASE WHEN l.name = 'en' THEN 1 ELSE 0 END) AS l10n_en_count
+SELECT l10n.artist_id, Sum(CASE WHEN l.name = DEFAULT_LANGUAGE() THEN 1 ELSE 0 END) AS l10n_en_count
     FROM artistl10n l10n
     JOIN language l ON l.id = l10n.language_id
     GROUP BY l10n.artist_id;
@@ -52,7 +75,7 @@ ADD CONSTRAINT ch_artistl10n_en_exists CHECK(l10n_en_count > 0);
 
 CREATE MATERIALIZED VIEW GenreL10nExistsInEnglish
 REFRESH FAST ON COMMIT AS
-SELECT l10n.genre_id, Sum(CASE WHEN l.name = 'en' THEN 1 ELSE 0 END) AS l10n_en_count
+SELECT l10n.genre_id, Sum(CASE WHEN l.name = DEFAULT_LANGUAGE() THEN 1 ELSE 0 END) AS l10n_en_count
     FROM genrel10n l10n
     JOIN language l ON l.id = l10n.language_id
     GROUP BY l10n.genre_id;
@@ -64,7 +87,7 @@ ADD CONSTRAINT ch_genrel10n_en_exists CHECK(l10n_en_count > 0);
 
 CREATE MATERIALIZED VIEW SongL10nExistsInEnglish
 REFRESH FAST ON COMMIT AS
-SELECT l10n.song_id, Sum(CASE WHEN l.name = 'en' THEN 1 ELSE 0 END) AS l10n_en_count
+SELECT l10n.song_id, Sum(CASE WHEN l.name = DEFAULT_LANGUAGE() THEN 1 ELSE 0 END) AS l10n_en_count
     FROM songl10n l10n
     JOIN language l ON l.id = l10n.language_id
     GROUP BY l10n.song_id;

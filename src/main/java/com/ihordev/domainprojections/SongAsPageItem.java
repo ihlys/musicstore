@@ -5,6 +5,6 @@ public interface SongAsPageItem {
 
     Long getId();
 
-    String name();
+    String getName();
 
 }
