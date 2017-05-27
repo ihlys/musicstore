@@ -1,12 +1,18 @@
 buildscript {
 	ext {
 		springBootVersion = '1.5.2.RELEASE'
+        sqlSourceFlattenerVersion = '1.0'
 	}
 	repositories {
 		mavenCentral()
+
+        flatDir {
+           dirs 'libs'
+        }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("com.ihordev.SqlSourceFlattener:SqlSourceFlattener:$sqlSourceFlattenerVersion")
 	}
 }
 
@@ -100,6 +106,18 @@ import com.ihordev.CheckedCompile
 
 task checkedCompile() {
     finalizedBy CheckedCompile.getHookTask(project)
+}
+
+import com.ihordev.SqlSourceFlattener.SqlSourceFlattener;
+
+task flattenSqlSources {
+
+    File resourcesDir = sourceSets.main.resources.srcDirs.first();
+
+    String sqlSourcePath = resourcesDir.getAbsolutePath() +
+            "/src/resources/repository/sql/schema_create_additional_ddl.sql"
+
+    SqlSourceFlattener.main("-db", "oracle", "-sources", sqlSourcePath)
 }
 
 

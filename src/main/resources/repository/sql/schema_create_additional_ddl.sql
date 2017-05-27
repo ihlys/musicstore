@@ -1,13 +1,10 @@
 -- *****************************************************************************
-
---CREATE OR REPLACE FUNCTION DEFAULT_LANGUAGE
---RETURN VARCHAR2
---AS
---BEGIN
---    RETURN 'en';
---END;
---/
-CREATE OR REPLACE FUNCTION DEFAULT_LANGUAGE RETURN VARCHAR2 AS BEGIN RETURN 'en'; END; insert into Language values(1, DEFAULT_LANGUAGE);
+CREATE OR REPLACE FUNCTION DEFAULT_LANGUAGE
+RETURN VARCHAR2
+AS
+BEGIN
+    RETURN 'en';
+END;
 
 -- *****************************************************************************
 insert into Language values(1, DEFAULT_LANGUAGE);
