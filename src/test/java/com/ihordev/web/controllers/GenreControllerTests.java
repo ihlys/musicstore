@@ -78,7 +78,7 @@ public class GenreControllerTests extends AbstractMockMvcTests {
         given(genreService.findSubGenresByParentGenreIdProjectedPaginated(eq("en"), eq(null), eq(expectedPageRequest)))
                 .willReturn(subGenresOfGenreWithId1);
 
-        mockMvc.perform(get("/genres?page=1&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/genres?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("genres"))
                 .andExpect(model().attributeExists("genres"))
@@ -98,7 +98,7 @@ public class GenreControllerTests extends AbstractMockMvcTests {
         given(genreService.findSubGenresByParentGenreIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
                 .willReturn(subGenresOfGenreWithId1);
 
-        mockMvc.perform(get("/genres/1?page=1&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/genres/1?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("genres"))
                 .andExpect(model().attributeExists("genres"))
@@ -118,7 +118,7 @@ public class GenreControllerTests extends AbstractMockMvcTests {
         given(artistService.findArtistsByGenreIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
                 .willReturn(artistsOfGenreWithId1);
 
-        mockMvc.perform(get("/genres/1/artists?page=1&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/genres/1/artists?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("artists"))
                 .andExpect(model().attributeExists("artists"))
@@ -138,7 +138,7 @@ public class GenreControllerTests extends AbstractMockMvcTests {
         given(songService.findSongsByGenreIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
                 .willReturn(songsOfGenreWithId1);
 
-        mockMvc.perform(get("/genres/1/songs?page=1&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/genres/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("songs"))
                 .andExpect(model().attributeExists("songs"))

@@ -62,7 +62,7 @@ public class AlbumControllerTests extends AbstractMockMvcTests {
         given(songService.findSongsByAlbumIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
                 .willReturn(songsOfAlbumWithId1);
 
-        mockMvc.perform(get("/albums/1/songs?page=1&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/albums/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("songs"))
                 .andExpect(model().attributeExists("songs"))

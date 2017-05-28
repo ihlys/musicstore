@@ -19,7 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.ihordev.config.AppProfiles.REPOSITORY_TESTS;
@@ -37,11 +36,8 @@ public class ArtistRepositoryTests {
     @Autowired
     private ArtistRepository artistRepository;
 
-    @Autowired
-    private EntityManager em;
-
     @Test
-    @DatabaseSetup("classpath:repository/data/artist-repository/" +
+    @DatabaseSetup("classpath:data/repository/artist-repository/" +
             "find-artists-by-genre-id-projected-paginated-source-data.xml")
     public void findArtistsByGenreIdProjectedPaginatedTest() {
         Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");

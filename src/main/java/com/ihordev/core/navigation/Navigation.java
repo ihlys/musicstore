@@ -1,7 +1,9 @@
 package com.ihordev.core.navigation;
 
-import com.ihordev.domain.*;
-import com.ihordev.service.*;
+import com.ihordev.domain.AlbumL10n;
+import com.ihordev.domain.ArtistL10n;
+import com.ihordev.domain.GenreL10n;
+import com.ihordev.service.EntityL10nService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
@@ -23,32 +25,13 @@ import static java.util.stream.Collectors.toList;
 @Component
 public class Navigation {
 
-    private GenreService    genreService;
-    private ArtistService   artistService;
-    private AlbumService    albumService;
-    private SongService     songService;
-
-    private MessageSource    messageSource;
-    private NavigationHelper navigationHelper;
+    private EntityL10nService entityL10nService;
+    private MessageSource     messageSource;
+    private NavigationHelper  navigationHelper;
 
     @Autowired
-    public void setGenreService(GenreService genreService) {
-        this.genreService = genreService;
-    }
-
-    @Autowired
-    public void setArtistService(ArtistService artistService) {
-        this.artistService = artistService;
-    }
-
-    @Autowired
-    public void setAlbumService(AlbumService albumService) {
-        this.albumService = albumService;
-    }
-
-    @Autowired
-    public void setSongService(SongService songService) {
-        this.songService = songService;
+    public void setEntityL10nService(EntityL10nService entityL10nService) {
+        this.entityL10nService = entityL10nService;
     }
 
     @Autowired
@@ -89,18 +72,17 @@ public class Navigation {
     private NavigationLink createDynamicResourceLink(MatchedRequestInfo matchedRequestInfo, String clientLanguage) {
         Map<String, String> matchedPathParams = matchedRequestInfo.getMatchedPathParams();
         if (matchedPathParams.containsKey(ALBUM_ID)) {
-/*            Album album = albumService.findById(parseLong(matchedPathParams.get(ALBUM_ID)));
-            album.getAlbumL10nSet().stream()
-                    .filter(albumL10n -> albumL10n.getLanguage().getName().equals(clientLanguage))
-                    .findAny()
-                    .orElseGet(album.getAlbumL10nSet().);*/
-            return new NavigationLink(matchedRequestInfo.getRequestURL(), ""/*albumLocalizedData.getName()*/);
+            long albumId = parseLong(matchedPathParams.get(ALBUM_ID));
+            AlbumL10n albumL10n = entityL10nService.getAlbumL10n(albumId, clientLanguage);
+            return new NavigationLink(matchedRequestInfo.getRequestURL(), albumL10n.getName());
         } else if (matchedPathParams.containsKey(ARTIST_ID)) {
-            //ArtistLocalizedData artistLocalizedData =
-                //    artistLocalizedDataService.findById(parseLong(matchedPathParams.get(ARTIST_ID)));
-            return new NavigationLink(matchedRequestInfo.getRequestURL(),"" /*artistLocalizedData.getName()*/);
+            long artistId = parseLong(matchedPathParams.get(ARTIST_ID));
+            ArtistL10n artistL10n = entityL10nService.getArtistL10n(artistId, clientLanguage);
+            return new NavigationLink(matchedRequestInfo.getRequestURL(), artistL10n.getName());
         } else if (matchedPathParams.containsKey(GENRE_ID)) {
-            throw new AssertionError("not implemented yet");
+            long genreId = parseLong(matchedPathParams.get(GENRE_ID));
+            GenreL10n genreL10n = entityL10nService.getGenreL10n(genreId, clientLanguage);
+            return new NavigationLink(matchedRequestInfo.getRequestURL(), genreL10n.getName());
         } else {
             String errMsg = format("Cannot create navigation link for dynamic resource: " +
                     "there is no handling for request with path variables: %s",

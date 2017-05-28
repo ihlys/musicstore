@@ -19,7 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.ihordev.config.AppProfiles.REPOSITORY_TESTS;
@@ -37,11 +36,8 @@ public class SongRepositoryTests {
     @Autowired
     private SongRepository songRepository;
 
-    @Autowired
-    private EntityManager em;
-
     @Test
-    @DatabaseSetup("classpath:repository/data/song-repository/" +
+    @DatabaseSetup("classpath:data/repository/song-repository/" +
             "find-songs-by-genre-id-projected-paginated-source-data.xml")
     public void findSongsByGenreIdProjectedPaginatedTest() {
         Pageable pageRequestA = new PageRequest(1, 3, Sort.Direction.ASC, "id");
@@ -86,7 +82,7 @@ public class SongRepositoryTests {
     }
 
     @Test
-    @DatabaseSetup("classpath:repository/data/song-repository/" +
+    @DatabaseSetup("classpath:data/repository/song-repository/" +
             "find-songs-by-artist-id-projected-paginated-source-data.xml")
     public void findSongsByArtistIdProjectedPaginatedTest() {
         Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");
@@ -127,7 +123,7 @@ public class SongRepositoryTests {
     }
 
     @Test
-    @DatabaseSetup("classpath:repository/data/song-repository/" +
+    @DatabaseSetup("classpath:data/repository/song-repository/" +
             "find-songs-by-album-id-projected-paginated-source-data.xml")
     public void findSongsByAlbumIdProjectedPaginatedTest() {
         Pageable pageRequestA = new PageRequest(0, 3, Sort.Direction.ASC, "id");

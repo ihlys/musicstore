@@ -85,6 +85,10 @@ public class GenreController {
     private void addGenreSongsToModel(Model model, String clientLanguage, Long genresId, Pageable pageRequest) {
         Slice<SongAsPageItem> genresSongs = songService.findSongsByGenreIdProjectedPaginated(
                 clientLanguage, genresId, pageRequest);
+
+        System.out.println("clientLanguage: " + clientLanguage);
+        System.out.println("HERE: " + genresSongs);
+
         model.addAttribute("songs", genresSongs);
     }
 

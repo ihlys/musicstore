@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <GENRE id="1"/>
+    <GENREL10N id="1" genre_id="1" language_id="1" name="Genre One" description="This is Genre One"/>
+
+</dataset>

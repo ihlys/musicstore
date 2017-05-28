@@ -71,7 +71,7 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
         given(albumService.findAlbumsByArtistIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
                 .willReturn(albumsOfArtistWithId1);
 
-        mockMvc.perform(get("/artists/1/albums?page=1&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/artists/1/albums?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("albums"))
                 .andExpect(model().attributeExists("albums"))
@@ -91,7 +91,7 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
         given(songService.findSongsByArtistIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
                 .willReturn(songsOfArtistWithId1);
 
-        mockMvc.perform(get("/artists/1/songs?page=1&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/artists/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("songs"))
                 .andExpect(model().attributeExists("songs"))
