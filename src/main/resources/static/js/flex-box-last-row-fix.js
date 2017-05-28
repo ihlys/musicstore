@@ -5,8 +5,8 @@ function fixFlexBoxLastRow(divClass) {
 	var flexSpaceAroundHelper = new Utils.FlexSpaceAroundHelper(flexedDiv);
 	
 	var sensor = new ResizeSensor(flexedDiv, function() {
-		flexSpaceAroundHelper.squeezeDivsToLeftInLastRow();
+		flexSpaceAroundHelper.squeezeChildrenToLeftInLastRow();
 	});
 	
-	flexSpaceAroundHelper.squeezeDivsToLeftInLastRow();
+	flexSpaceAroundHelper.squeezeChildrenToLeftInLastRow();
 }
