@@ -46,7 +46,8 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
            "     JOIN l10n.language lang                                           " +
            "     WHERE :genreId IS NULL AND genre.parentGenre.id IS NULL           " +
            "           OR :genreId IS NOT NULL AND genre.parentGenre.id = :genreId " +
-           "           AND lang.name = :clientLanguage                             ")
+           "           AND (lang.name = :clientLanguage                            " +
+           "                OR lang.name = function('DEFAULT_LANGUAGE',))          ")
     Slice<GenreAsPageItem> findSubGenresByParentGenreIdProjectedPaginated(@Param("clientLanguage") String clientLanguage,
                                                                           @Param("genreId") Long parentGenreId,
                                                                           Pageable pageRequest);

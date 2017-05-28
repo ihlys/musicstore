@@ -34,16 +34,17 @@ public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
         List<Long> genresIds = findGenreSubGenres.getResultList();
 
         String jpql = String.format(
-                      " SELECT artist.id AS id,                   " +
-                      "        artist.imageSmlUrl AS imageSmlUrl, " +
-                      "        l10n.name AS name,                 " +
-                      "        l10n.description AS description    " +
-                      "     FROM Artist artist                    " +
-                      "     JOIN artist.artistL10nSet l10n        " +
-                      "     JOIN l10n.language lang               " +
-                      "     WHERE artist.genre.id IN (:genresIds) " +
-                      "           AND lang.name = :clientLanguage " +
-                      "     ORDER BY %s                           ",
+                      " SELECT artist.id AS id,                                      " +
+                      "        artist.imageSmlUrl AS imageSmlUrl,                    " +
+                      "        l10n.name AS name,                                    " +
+                      "        l10n.description AS description                       " +
+                      "     FROM Artist artist                                       " +
+                      "     JOIN artist.artistL10nSet l10n                           " +
+                      "     JOIN l10n.language lang                                  " +
+                      "     WHERE artist.genre.id IN (:genresIds)                    " +
+                      "           AND (lang.name = :clientLanguage                   " +
+                      "                OR lang.name = function('DEFAULT_LANGUAGE',)) " +
+                      "     ORDER BY %s                                              ",
                 getOrderByClauseFromSort(pageRequest.getSort(), ArtistAsPageItem.class));
 
         Query query = em.createQuery(jpql);

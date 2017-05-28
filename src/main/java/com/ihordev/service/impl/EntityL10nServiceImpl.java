@@ -21,11 +21,11 @@ public class EntityL10nServiceImpl implements EntityL10nService {
     private EntityManager em;
 
     private final String baseQuery =
-            " SELECT l10n                                                 " +
-            "     FROM %1$s l10n                                          " +
-            "     JOIN l10n.language lang                                 " +
-            "     WHERE l10n.%2$s.id = :%3$s                              " +
-            "           AND lang.name = :language                         " +
+            " SELECT l10n                                            " +
+            "     FROM %1$s l10n                                     " +
+            "     JOIN l10n.language lang                            " +
+            "     WHERE l10n.%2$s.id = :%3$s                         " +
+            "           AND lang.name = :language                    " +
             "           OR lang.name = function('DEFAULT_LANGUAGE',) ";
 
     private <T> TypedQuery<T> prepareQuery(String entityName, String entityProperty, String entityIdJpql,

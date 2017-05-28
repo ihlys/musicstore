@@ -45,7 +45,8 @@ public class SongRepositoryImpl implements SongRepositoryCustom {
                       "                                 JOIN artist.albums album              " +
                       "                                 WHERE artist.genre.id IN (:genresIds) " +
                       "                            )                                          " +
-                      "           AND lang.name = :clientLanguage                             " +
+                      "           AND (lang.name = :clientLanguage                            " +
+                      "                OR lang.name = function('DEFAULT_LANGUAGE',))          " +
                       "     ORDER BY %s                                                       ",
                 getOrderByClauseFromSort(pageRequest.getSort(), ArtistAsPageItem.class));
 

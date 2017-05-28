@@ -11,13 +11,14 @@ import org.springframework.data.repository.query.Param;
 
 public interface SongRepository extends JpaRepository<Song, Long>, SongRepositoryCustom {
 
-    @Query(" SELECT song.id AS id,                    " +
-           "        l10n.name AS name                 " +
-           "    FROM Song song                        " +
-           "    JOIN song.songL10nSet l10n            " +
-           "    JOIN l10n.language lang               " +
-           "    WHERE song.album.id = :albumId        " +
-           "          AND lang.name = :clientLanguage ")
+    @Query(" SELECT song.id AS id,                                       " +
+           "        l10n.name AS name                                    " +
+           "    FROM Song song                                           " +
+           "    JOIN song.songL10nSet l10n                               " +
+           "    JOIN l10n.language lang                                  " +
+           "    WHERE song.album.id = :albumId                           " +
+           "          AND (lang.name = :clientLanguage                   " +
+           "               OR lang.name = function('DEFAULT_LANGUAGE',)) ")
     Slice<SongAsPageItem> findSongsByAlbumIdProjectedPaginated(@Param("clientLanguage") String clientLanguage,
                                                                @Param("albumId") Long albumId,
                                                                Pageable pageRequest);
@@ -33,7 +34,8 @@ public interface SongRepository extends JpaRepository<Song, Long>, SongRepositor
            "                                 JOIN artist.albums album     " +
            "                                 WHERE artist.id = :artistId  " +
            "                            )                                 " +
-           "       AND lang.name = :clientLanguage                        ")
+           "       AND (lang.name = :clientLanguage                       " +
+           "            OR lang.name = function('DEFAULT_LANGUAGE',))     ")
     Slice<SongAsPageItem> findSongsByArtistIdProjectedPaginated(@Param("clientLanguage") String clientLanguage,
                                                                 @Param("artistId") Long artistId,
                                                                 Pageable pageRequest);
