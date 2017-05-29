@@ -1,0 +1,70 @@
+<div class="music-content">
+
+    <div class="row">
+
+        <div class="music-content__top-panel container-with-foreground">
+                
+            <div class="container-with-foreground__foreground-wrapper menu menu--center">
+                <a class="menu__link" href="#"><span>Жанры</span></a>
+                <a class="menu__link" href="#"><span>Подборки песен</span></a>
+                <a class="menu__link" href="#"><span>Саундтреки</span></a>
+            </div>
+        
+            <th:block th:switch="${currentMusicEntity != null}">
+            <div class="music-info" th:case="true">
+                <div class="container-with-background">
+
+                    <div class="container-with-background__background-wrapper">
+                        <div class="music-info__background-img-wrapper">
+                            <img th:src="@{${currentMusicEntity.imageLgUrl}}">
+                            <div class="fade-edge fade-edge--bottom fade-edge--black"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="container-with-background__foreground-wrapper music-info__content">
+                        <h1 class="music-info__title" th:text="currentMusicEntity.name"></h1>
+                        
+                        <div class="music-info__details" th:replace="music-details">
+                            <!-- content -->
+                        </div>
+                        
+                        <div class="music-info__expand-btn-wrapper music-info__expand-btn-wrapper--show-after">
+                            <button class="music-info__expand-btn show-link">Прочитать описание</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="menu__background" th:case="*">
+            </div>
+            </th:block>
+            
+            <div class="fade-edge fade-edge--bottom fade-edge--white"></div>
+                
+      </div>
+    </div>
+
+    <div class="row">
+        <div th:replace="navigation"></div>
+    </div>
+
+    <!-- Load if present, otherwise throw this tag away -->
+    <div class="row">
+        <div class="controls">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="genres flex-collection">
+            <div th:replace="genres"></div>
+        </div>
+        
+    </div>
+    
+    <div class="row">
+        <div th:replace="comments"></div>
+    </div>
+
+</div>
+
+<script src="../static/js/main-content.js"	th:src="@{/js/main-content.js}"></script>

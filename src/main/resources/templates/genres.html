@@ -1,4 +1,4 @@
-<div class="genres flex-collection" th:fragment="genres">
+<!-- <div class="genres flex-collection"> -->
 
 	<div class="genre flex-collection__item" th:each="genre : ${genres}">
 	
@@ -8,10 +8,10 @@
 				<img th:src="@{${genre.image}}">
 			</div>
 			
-			<div class="container-with-background__foreground-wrapper genre__content ">
+			<div class="container-with-background__foreground-wrapper genre__content">
 				<div class="container-with-background">
 				
-					<div class="container-with-background__background-wrapper genre__title-wrapper ">
+					<div class="container-with-background__background-wrapper genre__title-wrapper">
 						<span th:text="${genre.name}"></span>
 					</div>
 				
@@ -27,7 +27,6 @@
 			
 	</div>
 	
-</div>
+<!-- </div> -->
 
-
-<script src="../static/js/genres.js" th:src="@{/js/genres.js}"></script>
+<!-- <script src="../static/js/genres.js" th:src="@{/js/genres.js}"></script> -->

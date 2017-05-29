@@ -16,7 +16,7 @@
                   th:href="@{/lib/font-awesome-4.7.0/css/font-awesome.min.css}"/>
         <link rel="stylesheet" type="text/css" media="all"
               href="../static/css/main.css" 									
-                  th:href="@{/css/main.css}" />
+                  th:href="@{/css/main.css}"/>
 		
     </head>
 
@@ -69,11 +69,9 @@
 
 			<div class="row row--equal-columns main">
 
-				<div class="col-md-9 main__content">
+				<div class="col-md-9 main__center">
 
-					<div th:replace="main-content">
-					<!-- Content must be loaded asynchronously during runtime -->
-					</div>
+                    <div th:replace="music-content"></div>
 
 				</div>
 
@@ -94,15 +92,15 @@
 
 		<script src="../static/lib/jquery-3.1.1/jquery-3.1.1.min.js"          th:src="@{/lib/jquery-3.1.1/jquery-3.1.1.min.js}"></script>
 		<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"  th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
-    <script src="../static/lib/CSS-Element-Queries/ResizeSensor.js"       th:src="@{/lib/CSS-Element-Queries/ResizeSensor.js}"></script>
+        <script src="../static/lib/CSS-Element-Queries/ResizeSensor.js"       th:src="@{/lib/CSS-Element-Queries/ResizeSensor.js}"></script>
 		<script src="../static/lib/CSS-Element-Queries/ElementQueries.js"     th:src="@{/lib/CSS-Element-Queries/ElementQueries.js}"></script>
     
 		<script src="../static/js/jquery.flexbox-last-row-fix.js"             th:src="@{/js/jquery.flexbox-last-row-fix.js}"></script>
 		<script src="../static/js/main.js"                                    th:src="@{/js/main.js}"></script>
     
-    <script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
-               data-thymol-load="../static/Static prototyping resources/config/setThPath.js,
-                                 ../static/Static prototyping resources/config/setThVars.js"></script>
+        <script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
+                   data-thymol-load="../static/Static prototyping resources/config/setThPath.js,
+                                     ../static/Static prototyping resources/config/setThVars.js"></script>
 
     </body>
 </html>

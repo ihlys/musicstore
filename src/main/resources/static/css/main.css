@@ -257,22 +257,29 @@
 	
 }
 
-.main__content {
+.main__center {
 
-}
-
-.main__top-panel {
-	min-height: 150px;
-}
-
-.main__top-panel .fade-edge.fade-edge--bottom.fade-edge--white {
-	height: 3px;
 }
 
 @media (min-width: 992px) {
 	.row--equal-columns {
 		display: flex;
 	}
+}
+
+/**************************************/
+/************ Music content ***********/
+/**************************************/
+.music-content {
+
+}
+
+.music-content__top-panel {
+	min-height: 150px;
+}
+
+.music-content__top-panel .fade-edge.fade-edge--bottom.fade-edge--white {
+	height: 3px;
 }
 
 

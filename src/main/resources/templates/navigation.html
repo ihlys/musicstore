@@ -1,0 +1,8 @@
+<div class="navigation">
+    <th:block th:each="navigationPoint : ${navigation}">
+        <a class="navigation__link" th:href="${navigationPoint.navPath}">
+            <span th:text="${navigationPoint.navLabel}"></span>
+        </a>
+        <span class="navigation__divider"><i class="fa fa-caret-right"></i></span>
+    </th:block>
+</div>
