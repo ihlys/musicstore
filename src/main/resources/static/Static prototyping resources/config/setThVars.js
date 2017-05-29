@@ -191,8 +191,8 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Genres/Roc
 */
 
 
-var currentMusicEntity = artists[0]; // Nightwish
-currentMusicEntity.imageLgUrl = "/Static prototyping resources/images/lg/Artists/Nightwish-lg.png";
+//var currentMusicEntity = artists[0]; // Nightwish
+//currentMusicEntity.imageLgUrl = "/Static prototyping resources/images/lg/Artists/Nightwish-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/System_of_a_down-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Korn-lg.png";
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/Artists/Disturbed-lg.png";
@@ -263,7 +263,7 @@ var thVars = [
 	["songs", songs],
 	["soundtracks", soundtracks],
 	["thematicCompilations", thematicCompilations],
-	["currentMusicEntity", currentMusicEntity],
+	//["currentMusicEntity", currentMusicEntity]
 	["newsEvents", newsEvents],
 	["navigation", navigation]
 	

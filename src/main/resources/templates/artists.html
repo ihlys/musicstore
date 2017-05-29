@@ -1,6 +1,6 @@
-<div class="artists object-collection" th:fragment="artists">
+<div class="artists flex-collection" th:fragment="artists">
 
-	<div class="artist object-collection__item border--hover-fade-blue" th:each="artist : ${artists}">
+	<div class="artist flex-collection__item border--hover-fade-blue" th:each="artist : ${artists}">
 	
 		<div class="artist__cover">
 			<img th:src="@{${artist.image}}">

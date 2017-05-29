@@ -322,7 +322,8 @@
 
 .menu__background {
 	/* background-image: url("../images/Main-content__menu-background.png"); */
-	background: rgb(197, 247, 229);
+	/*background: rgb(25, 12, 53);*/
+	background: rgb(25, 12, 53);
 	width: 100%;
 	height: 150px;
 }
@@ -878,7 +879,7 @@
 	z-index: 1;
 }
 
-.object-collection {
+.flex-collection {
 	min-height: 800px;
 	
 	display: flex;
@@ -887,7 +888,7 @@
 	align-content: flex-start;
 }
 
-.object-collection__item {	
+.flex-collection__item {
 	margin: 10px;
 	
 	overflow: hidden;

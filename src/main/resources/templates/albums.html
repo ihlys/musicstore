@@ -1,6 +1,6 @@
-<div class="albums object-collection" th:fragment="albums">
+<div class="albums flex-collection" th:fragment="albums">
 
-	<div class="album object-collection__item border--hover-fade-blue" th:each="album : ${albums}">
+	<div class="album flex-collection__item border--hover-fade-blue" th:each="album : ${albums}">
 	
 		<div class="album__cover">
 			<img th:src="@{${album.image}}">
