@@ -1,19 +1,13 @@
-<div class="soundtracks flex-collection" th:fragment="soundtracks">
+<div class="soundtrack flex-collection__item border--hover-fade-blue" th:each="soundtrack : ${soundtracks}">
 
-	<div class="soundtrack flex-collection__item border--hover-fade-blue" th:each="soundtrack : ${soundtracks}">
-	
-		<div class="soundtrack__cover">
-			<img th:src="@{${soundtrack.image}}">
-		</div>
-		
-		<div class="soundtrack__short-info">
-			<span>Name: </span><span th:text="${soundtrack.name}"></span>
-			<br>
-			<span>Released: </span><span th:text="${soundtrack.released}"></span>
-		</div>
-			
-	</div>
-
+    <div class="soundtrack__cover">
+        <img th:src="@{${soundtrack.image}}">
+    </div>
+    
+    <div class="soundtrack__short-info">
+        <span>Name: </span><span th:text="${soundtrack.name}"></span>
+        <br>
+        <span>Released: </span><span th:text="${soundtrack.released}"></span>
+    </div>
+        
 </div>
-
-<script src="../static/js/soundtracks.js" th:src="@{/js/soundtracks.js}"></script>

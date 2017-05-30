@@ -58,7 +58,6 @@
         init(this);
       }
      
-      
       refresh() {
         restoreMargin(this);
         init(this);
@@ -70,8 +69,6 @@
           childrenInOneRow = Math.floor(divWidth / this[childHorizontalSpace]),
           missingChildrenInLastRow = childrenInOneRow - this[childrenCount] % childrenInOneRow,
           marginRestored = false;
-          
-          console.log("sdfsd " + childrenInOneRow);
       
         if ( missingChildrenInLastRow < childrenInOneRow ) {
           let gapsExtraSpacePerChildren = (divWidth - childrenInOneRow * this[childHorizontalSpace]) / childrenInOneRow,

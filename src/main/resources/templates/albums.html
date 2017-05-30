@@ -1,19 +1,14 @@
-<div class="albums flex-collection" th:fragment="albums">
+<div class="album flex-collection__item border--hover-fade-blue" th:each="album : ${albums}">
 
-	<div class="album flex-collection__item border--hover-fade-blue" th:each="album : ${albums}">
-	
-		<div class="album__cover">
-			<img th:src="@{${album.image}}">
-		</div>
-		
-		<div class="album__short-info">
-			<span>Name: </span><span th:text="${album.name}"></span>
-			<br>
-			<span>Released: </span><span th:text="${album.released}"></span>
-		</div>
-			
-	</div>
-
+    <div class="album__cover">
+        <img th:src="@{${album.image}}">
+    </div>
+    
+    <div class="album__short-info">
+        <span>Name: </span><span th:text="${album.name}"></span>
+        <br>
+        <span>Released: </span><span th:text="${album.released}"></span>
+    </div>
+        
 </div>
 
-<script src="../static/js/albums.js" th:src="@{/js/albums.js}"></script>

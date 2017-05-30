@@ -1,0 +1,15 @@
+<div class="thematic-collection flex-collection__item" th:each="thematicCompilation : ${thematicCompilations}">
+
+    <div class="container-with-background">
+        
+        <div class="container-with-background__background-wrapper">
+            <img th:src="@{${thematicCompilation.image}}">
+        </div>
+        
+        <div class="container-with-background__foreground-wrapper thematic-collection__content">
+            <a class="show-link show-link--thematic-collection" href="#"><span th:text="${thematicCompilation.name}"></span></a>
+        </div>
+        
+    </div>
+        
+</div>

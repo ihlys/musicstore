@@ -39,10 +39,12 @@ ext {
     aspectjVersion = '1.8.10'
     mockitoVersion = '2.0.1'
 	nekohtmlVersion = '1.9.21'
+    thymeleafVersion = '3.0.6.RELEASE'
+    thymeleafSpringVersion = '3.0.6.RELEASE'
+    thymeleafLayoutDialectVersion = '2.2.2'
 	reflectionsVersion = '0.9.10'
     fastClasspathScannerVersion = '2.0.19'
     durianVersion = '3.4.0'
-	h2Version = "1.4.194"
     springTestDbUnit = '1.3.0'
     dbUnitVersion = '2.5.3'
     oracleDriverVersion = '12.1.0.1.0'
@@ -65,12 +67,18 @@ configurations {
    	}
 
     all {
-        resolutionStrategy {
-            dependencySubstitution {
-                substitute module('org.mockito:mockito-core') with module('org.mockito:mockito-core:2.2.5')
-            }
+        resolutionStrategy.dependencySubstitution {
+            substitute module('org.mockito:mockito-core') with module('org.mockito:mockito-core:2.2.5')
+            substitute module("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect") with module("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion")
+            substitute module('org.thymeleaf:thymeleaf') with module("org.thymeleaf:thymeleaf:$thymeleafVersion")
+            substitute module('org.thymeleaf:thymeleaf-spring4') with module("org.thymeleaf:thymeleaf-spring4:$thymeleafSpringVersion")
         }
     }
+}
+
+
+bootRun {
+    addResources = true
 }
 
 dependencies {
@@ -79,9 +87,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-devtools')
 
 	testCompile('org.springframework.boot:spring-boot-starter-tomcat')
-	testCompile("com.h2database:h2:$h2Version")
     testCompile("com.github.springtestdbunit:spring-test-dbunit:$springTestDbUnit")
     compile("org.dbunit:dbunit:$dbUnitVersion")
 
@@ -97,9 +105,9 @@ dependencies {
 	compile("com.oracle:ojdbc7:$oracleDriverVersion")
 
     // ***** Checker framework dependencies *****
-   	checkerFrameworkAnnotatedJDK "org.checkerframework:${jdkVersion}:${checkerFrameworkVersion}"
-   	checkerFramework "org.checkerframework:checker:${checkerFrameworkVersion}"
-   	compile "org.checkerframework:checker-qual:${checkerFrameworkVersion}"
+   	checkerFrameworkAnnotatedJDK("org.checkerframework:${jdkVersion}:${checkerFrameworkVersion}")
+   	checkerFramework("org.checkerframework:checker:${checkerFrameworkVersion}")
+   	compile("org.checkerframework:checker-qual:${checkerFrameworkVersion}")
 }
 
 import com.ihordev.CheckedCompile

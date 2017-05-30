@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"> -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="base_layout(main_content)">
 
     <head>
         <meta charset="utf-8">
@@ -23,7 +24,7 @@
     <body>
 
 		<div class="container-fluid">
-			<div class="row header">
+			<div class="header row">
 				<div class="header__part header__part--left">
 					<form class="form form--search">
 						<div class="form__title-panel">
@@ -67,15 +68,15 @@
 				</div>
 			</div>
 
-			<div class="row row--equal-columns main">
+			<div class="main row row--equal-columns">
 
-				<div class="col-md-9 main__center">
+				<div class="main__center col-md-9">
 
-                    <div th:replace="music-content"></div>
+                    <div th:replace="${main_content}"></div>
 
 				</div>
 
-				<div class="col-md-3 main__right-panel" >
+				<div class="main__right-panel col-md-3" >
 					<h1 class="main__title">Новости</h1>
 					<div class="news-event border--hover-fade-blue" th:each="newsEvent : ${newsEvents}">
 						<h4 class="" th:text="${newsEvent.title}"></h4>
@@ -89,15 +90,15 @@
 			</div>
 
 		</div>
-
-		<script src="../static/lib/jquery-3.1.1/jquery-3.1.1.min.js"          th:src="@{/lib/jquery-3.1.1/jquery-3.1.1.min.js}"></script>
-		<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js"  th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
-        <script src="../static/lib/CSS-Element-Queries/ResizeSensor.js"       th:src="@{/lib/CSS-Element-Queries/ResizeSensor.js}"></script>
-		<script src="../static/lib/CSS-Element-Queries/ElementQueries.js"     th:src="@{/lib/CSS-Element-Queries/ElementQueries.js}"></script>
-    
-		<script src="../static/js/jquery.flexbox-last-row-fix.js"             th:src="@{/js/jquery.flexbox-last-row-fix.js}"></script>
-		<script src="../static/js/main.js"                                    th:src="@{/js/main.js}"></script>
-    
+        
+		<script src="../static/lib/jquery-3.1.1/jquery-3.1.1.min.js"         th:src="@{/lib/jquery-3.1.1/jquery-3.1.1.min.js}"></script>
+		<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+        <script src="../static/lib/CSS-Element-Queries/ResizeSensor.js"      th:src="@{/lib/CSS-Element-Queries/ResizeSensor.js}"></script>
+		<script src="../static/lib/CSS-Element-Queries/ElementQueries.js"    th:src="@{/lib/CSS-Element-Queries/ElementQueries.js}"></script>
+        
+		<script src="../static/js/jquery.flexbox-last-row-fix.js"            th:src="@{/js/jquery.flexbox-last-row-fix.js}"></script>
+		<script src="../static/js/main.js"                                   th:src="@{/js/main.js}"></script>
+        
         <script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
                    data-thymol-load="../static/Static prototyping resources/config/setThPath.js,
                                      ../static/Static prototyping resources/config/setThVars.js"></script>
