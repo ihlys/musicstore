@@ -1,6 +1,7 @@
 (function( $ ) {
+
   $(document).ready(function() {
-    
+
     initMusicInfoDetailsButton();
     
   });
@@ -9,6 +10,8 @@
     
     var musicInfoDetails = $("div.music-info__details");
     var musicInfoExpandBtn = $("div.music-info__expand-btn-wrapper");
+    
+    console.log(musicInfoDetails);
     
     $("button.music-info__expand-btn").click(function() {
       musicInfoDetails.slideToggle("slow");

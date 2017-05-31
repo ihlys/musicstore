@@ -14,7 +14,7 @@
             <div class="main row row--equal-columns">
 
                 <!--/* ===== content markup ===== */-->
-                <div th:replace="fragments :: greetings"></div>
+                <div th:replace="fragments :: music-content"></div>
                 <!--/* ========================== */-->
                 
                 <div class="news-panel col-md-3" th:include="fragments :: news-panel"></div>
@@ -32,7 +32,7 @@
         <th:block th:replace="fragments :: shared-scripts"></th:block>
         
         <!--/* ===== scripts ===== */-->
-        <script th:replace="base-placeholders :: scripts"></script>
+        <script th:replace="fragments :: music-content-scripts"></script>
         <!--/* =================== */-->
 
     </body>
