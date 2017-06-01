@@ -42,7 +42,88 @@ var artists = [
 	{
 		name: "Rise against the machine",
 		image: "/Static prototyping resources/images/sm/Artists/Raise_against_the_machine-sm.png"
+	},
+	{
+		name: "Artist6",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist7",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist8",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist9",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist10",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist11",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist12",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist13",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist14",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist15",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist16",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist17",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist18",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist19",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist20",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist21",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist22",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist23",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist24",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
+	},
+	{
+		name: "Artist25",
+		image: "/Static prototyping resources/images/sm/Artists/Unknown_artist-sm.png"
 	}
+
 ];
 
 var thematicCompilations = [

@@ -265,7 +265,7 @@
 }
 
 .music-content__top-panel {
-	min-height: 150px;
+	min-height: 180px;
 }
 
 .music-content__top-panel .fade-edge.fade-edge--bottom.fade-edge--white {
@@ -322,7 +322,7 @@
 	/*background: rgb(25, 12, 53);*/
 	background: rgb(25, 12, 53);
 	width: 100%;
-	height: 150px;
+	height: 120px;
 }
 
 .menu__link:link,
@@ -355,7 +355,6 @@
 	
 	font-size: 20px;
 	color: rgb(102, 122, 155);
-	
 }
 
 
@@ -384,14 +383,14 @@
 }
 
 .music-info__content {
-	min-height: 150px;
+	min-height: 180px;
 	background: rgba(0, 0, 0, 0.4);
 }
 
 .music-info__title {
 	text-align: center;
 	margin: 0px;
-	padding: 25px 0px 5px;
+	padding: 40px 0px 5px;
 	color: white;
 }
 
@@ -412,6 +411,7 @@
 }
 
 .music-info__expand-btn-wrapper {
+    margin-top: 10px;
 	padding: 10px 0px;
 	
 	display: flex;
@@ -516,10 +516,11 @@
 /*********** Greetings block **********/
 /**************************************/
 .greetings {
-	padding: 15px;
+
 }
 
 .greetings__header {
+    padding: 15px 0px;
 	font-size: 20px;
 	font-weight: bold;
 }
@@ -883,7 +884,9 @@
 }
 
 .flex-collection {
-	min-height: 800px;
+	height: 600px;
+    
+    overflow-y: auto;
 	
 	display: flex;
 	flex-wrap: wrap;

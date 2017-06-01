@@ -91,9 +91,9 @@
                 
     <div class="row">
 
-        <div class="music-content__top-panel container-with-foreground" th:switch="${currentMusicEntity != null}">
+        <div class="music-content__top-panel">
         
-            <div class="music-info" th:case="true">
+            <div class="music-info">
                 <div class="container-with-background">
 
                     <div class="container-with-background__background-wrapper">
@@ -115,19 +115,9 @@
                         </div>
                     </div>
                     
+                    <div class="fade-edge fade-edge--bottom fade-edge--white"></div>
                 </div>
             </div>
-            
-            <th:block th:case="*">
-            <div class="container-with-foreground__foreground-wrapper menu menu--center">
-                <a class="menu__link" href="#"><span>Жанры</span></a>
-                <a class="menu__link" href="#"><span>Подборки песен</span></a>
-                <a class="menu__link" href="#"><span>Саундтреки</span></a>
-            </div>
-            <div class="menu__background"></div>
-            </th:block>
-            
-            <div class="fade-edge fade-edge--bottom fade-edge--white"></div>
                 
       </div>
     </div>
@@ -159,6 +149,17 @@
 
 
 <div class="greetings col-md-9" th:fragment="greetings">
+    <div class="row">
+        <div class="greetings__top-panel container-with-foreground">
+            <div class="container-with-foreground__foreground-wrapper menu menu--center">
+                <a class="menu__link" href="#"><span>Жанры</span></a>
+                <a class="menu__link" href="#"><span>Подборки песен</span></a>
+                <a class="menu__link" href="#"><span>Саундтреки</span></a>
+            </div>
+            <div class="menu__background"></div>
+        </div>
+    </div>
+    
     <p class="greetings__header">
         Welcome!
     </p>
