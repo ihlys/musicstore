@@ -6,7 +6,7 @@ var thJsUrlMapping;
   const rootPath = thymol.location + thRelativeRootPath;
   
   thJsUrlMapping = new Map([
-    ["/genres/artists?page=0&size=3", rootPath + "/" + requestResponsesPath + "/artists.html"]
+    ["/genres/artists?page=0&size=3", rootPath + "/" + requestResponsesPath + "/artistsPage.html"]
   ]);
   
 })();

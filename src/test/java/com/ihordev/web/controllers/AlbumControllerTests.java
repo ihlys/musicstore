@@ -27,18 +27,32 @@ public class AlbumControllerTests extends AbstractMockMvcTests {
     @MockBean
     private SongService songService;
 
+    private final Pageable defaultPageRequest = new PageRequest(0, 20);
+    private final Slice<SongAsPageItem> songsOfAlbumWithId1 = new SliceImpl<>(Collections.emptyList());
+
+    private void configureMockAlbumService(Pageable pageRequest) {
+        given(songService.findSongsByAlbumIdProjectedPaginated(eq("en"), eq(1L), eq(pageRequest)))
+                .willReturn(songsOfAlbumWithId1);
+    }
+
     @Test
     public void shouldHandleAllRequestsForAlbumsWithCustomPrefixes() throws Exception {
-        mockMvc.perform(get("/test/albums/14/songs")).andExpect(status().isOk());
-        mockMvc.perform(get("/test/21/example-path/albums/14/songs")).andExpect(status().isOk());
-        mockMvc.perform(get("/albums/14/songs")).andExpect(status().isOk());
+        configureMockAlbumService(defaultPageRequest);
+
+        mockMvc.perform(get("/test/albums/1/songs")).andExpect(status().isOk());
+        mockMvc.perform(get("/test/21/example-path/albums/1/songs")).andExpect(status().isOk());
+        mockMvc.perform(get("/albums/1/songs")).andExpect(status().isOk());
     }
 
     @Test
     public void shouldHandleRequestsWithValidPathParamCorrectly() throws Exception {
-        mockMvc.perform(get("/albums/14/songs"))
+        configureMockAlbumService(defaultPageRequest);
+
+        mockMvc.perform(get("/albums/1/songs"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("songs"));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")));
     }
 
     @Test
@@ -49,24 +63,27 @@ public class AlbumControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldHandleRequestsWithAbsentPathParamAndReturnDefaultView() throws Exception {
-        mockMvc.perform(get("/albums/14"))
+        configureMockAlbumService(defaultPageRequest);
+
+        mockMvc.perform(get("/albums/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("songs"));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")));
     }
 
     @Test
     public void shouldShowSongsOfConcreteAlbum() throws Exception  {
-        Slice<SongAsPageItem> songsOfAlbumWithId1 = new SliceImpl<>(Collections.emptyList());
         Pageable expectedPageRequest = new PageRequest(0, 1);
-
-        given(songService.findSongsByAlbumIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
-                .willReturn(songsOfAlbumWithId1);
+        configureMockAlbumService(expectedPageRequest);
 
         mockMvc.perform(get("/albums/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("songs"))
-                .andExpect(model().attributeExists("songs"))
-                .andExpect(model().attribute("songs", equalTo(songsOfAlbumWithId1)));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")))
+                .andExpect(model().attributeExists("songsPage"))
+                .andExpect(model().attribute("songsPage", equalTo(songsOfAlbumWithId1)));
 
         then(songService).should(times(1)).findSongsByAlbumIdProjectedPaginated(
                 assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),

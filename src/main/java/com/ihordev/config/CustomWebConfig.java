@@ -41,28 +41,28 @@ public class CustomWebConfig extends WebMvcConfigurerAdapter implements Applicat
         }
     }
 
-/*    @Bean
-    public ViewResolver viewResolver() {
+    @Bean
+    public ViewResolver javascriptViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
+        resolver.setTemplateEngine(templateEngine(javascriptTemplateResolver()));
+        resolver.setContentType("application/javascript");
         resolver.setCharacterEncoding("UTF-8");
+        resolver.setViewNames(new String[]{"*.js"});
         return resolver;
     }
 
-    @Bean
-    public TemplateEngine templateEngine() {
+    private TemplateEngine templateEngine(ITemplateResolver templateResolver) {
         SpringTemplateEngine engine = new SpringTemplateEngine();
-        //engine.addDialect(new LayoutDialect(new GroupingStrategy()));
-        engine.setTemplateResolver(templateResolver());
+        engine.setTemplateResolver(templateResolver);
         return engine;
     }
 
-    private ITemplateResolver templateResolver() {
+    private ITemplateResolver javascriptTemplateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         resolver.setApplicationContext(applicationContext);
-        resolver.setPrefix("/templates/");
-        resolver.setTemplateMode(TemplateMode.HTML);
+        resolver.setPrefix("/static/js/");
+        resolver.setTemplateMode(TemplateMode.JAVASCRIPT);
         return resolver;
-    }*/
+    }
 
 }

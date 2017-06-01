@@ -13,8 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
 
+import static com.ihordev.core.util.UrlUtils.getFullUrl;
+import static com.ihordev.core.util.UrlUtils.rewriteQueryParameter;
 import static com.ihordev.web.controllers.ArtistController.PathVars.ARTIST_ID;
 import static com.ihordev.web.controllers.ArtistController.PathVars.collectionToShowValues.ALBUMS;
 import static com.ihordev.web.controllers.ArtistController.PathVars.collectionToShowValues.SONGS;
@@ -39,34 +41,38 @@ public class ArtistController {
     public String artist(@PathVariable Long artistId,
                          @PathVariable(required = false) String collectionToShow,
                          Model model,
-                         Locale locale,
+                         HttpServletRequest request,
                          Pageable pageRequest) {
         if (collectionToShow != null) {
             if (ALBUMS.name().equalsIgnoreCase(collectionToShow)) {
-                addArtistsAlbumsToModel(model, locale.getLanguage(), artistId, pageRequest);
-                return "albums";
+                addArtistsAlbumsInfoToModel(model, request, artistId, pageRequest);
             } else if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
-                addArtistsSongsToModel(model, locale.getLanguage(), artistId, pageRequest);
-                return "songs";
+                addArtistsSongsInfoToModel(model, request, artistId, pageRequest);
             } else {
                 throw new ResourceNotFoundException("There are no such items in artist resource");
             }
         } else {
-            addArtistsAlbumsToModel(model, locale.getLanguage(), artistId, pageRequest);
-            return "albums";
+            addArtistsAlbumsInfoToModel(model, request, artistId, pageRequest);
         }
+        return "music-content";
     }
 
-    private void addArtistsAlbumsToModel(Model model, String clientLanguage, Long artistId, Pageable pageRequest) {
-        Slice<AlbumAsPageItem> artistsAlbums = albumService.findAlbumsByArtistIdProjectedPaginated(
-                clientLanguage, artistId, pageRequest);
-        model.addAttribute("albums", artistsAlbums);
+    private void addArtistsAlbumsInfoToModel(Model model, HttpServletRequest request, Long artistId, Pageable pageRequest) {
+        Slice<AlbumAsPageItem> artistsAlbumsPage = albumService.findAlbumsByArtistIdProjectedPaginated(
+                request.getLocale().getLanguage(), artistId, pageRequest);
+        model.addAttribute("albumsPage", artistsAlbumsPage);
+        model.addAttribute("musicEntitiesPageView", "albumsPage");
+        model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
+                String.valueOf(artistsAlbumsPage.getNumber() + 1)));
     }
 
-    private void addArtistsSongsToModel(Model model, String clientLanguage, Long artistsId, Pageable pageRequest) {
-        Slice<SongAsPageItem> artistsSongs = songService.findSongsByArtistIdProjectedPaginated(
-                clientLanguage, artistsId, pageRequest);
-        model.addAttribute("songs", artistsSongs);
+    private void addArtistsSongsInfoToModel(Model model, HttpServletRequest request, Long artistsId, Pageable pageRequest) {
+        Slice<SongAsPageItem> artistsSongsPage = songService.findSongsByArtistIdProjectedPaginated(
+                request.getLocale().getLanguage(), artistsId, pageRequest);
+        model.addAttribute("songsPage", artistsSongsPage);
+        model.addAttribute("musicEntitiesPageView", "songsPage");
+        model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
+                        String.valueOf(artistsSongsPage.getNumber() + 1)));
     }
 
 }

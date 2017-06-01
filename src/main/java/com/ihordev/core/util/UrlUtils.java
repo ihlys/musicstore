@@ -21,7 +21,6 @@ public final class UrlUtils {
         return requestUrl.toString();
     }
 
-    // TODO: looks like very specific method, should it be private in the class that uses it?
     @SideEffectFree
     public static String cutSegmentFromEnd(String fromUrlString) {
         int segmentIdx = fromUrlString.lastIndexOf('/', fromUrlString.length());
@@ -30,6 +29,16 @@ public final class UrlUtils {
         } else {
             return fromUrlString.substring(0, segmentIdx);
         }
+    }
+
+    @SideEffectFree
+    public static String rewriteQueryParameter(String url, String paramName, String paramValue) {
+        int paramValueIdx = url.indexOf(paramName + "=") + paramName.length() + 1;
+        String beforeParamValueUrlPart = url.substring(0, paramValueIdx);
+        int paramEndIdx = url.indexOf(paramValueIdx, '&');
+        paramEndIdx = (paramEndIdx != -1) ? paramEndIdx : url.length();
+        String afterParamValueUrlPart = url.substring(paramEndIdx, url.length());
+        return beforeParamValueUrlPart + paramValue + afterParamValueUrlPart;
     }
 
 }

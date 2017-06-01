@@ -17,7 +17,7 @@ public class MainControllerTests extends AbstractMockMvcTests {
     public void shouldSuccessfullyRenderViewMain() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("main"));
+                .andExpect(view().name("greetings"));
     }
 
 }

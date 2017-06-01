@@ -1,5 +1,6 @@
 package com.ihordev.web.controllers;
 
+import com.ihordev.domainprojections.AlbumAsPageItem;
 import com.ihordev.domainprojections.ArtistAsPageItem;
 import com.ihordev.domainprojections.GenreAsPageItem;
 import com.ihordev.domainprojections.SongAsPageItem;
@@ -37,24 +38,62 @@ public class GenreControllerTests extends AbstractMockMvcTests {
     @MockBean
     private SongService songService;
 
+    private final Pageable defaultPageRequest = new PageRequest(0, 20);
+    private final Slice<GenreAsPageItem> subGenresOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
+    private final Slice<ArtistAsPageItem> artistsOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
+    private final Slice<SongAsPageItem> songsOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
+
+    private void configureMockGenreService(Pageable pageRequest) {
+        given(genreService.findSubGenresByParentGenreIdProjectedPaginated(eq("en"), eq(1L), eq(pageRequest)))
+                .willReturn(subGenresOfGenreWithId1);
+    }
+
+    private void configureMockArtistService(Pageable pageRequest) {
+        Slice<ArtistAsPageItem> artistsOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
+        given(artistService.findArtistsByGenreIdProjectedPaginated(eq("en"), eq(1L), eq(pageRequest)))
+                .willReturn(artistsOfGenreWithId1);
+    }
+
+    private void configureMockSongService(Pageable pageRequest) {
+        Slice<SongAsPageItem> songsOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
+        given(songService.findSongsByGenreIdProjectedPaginated(eq("en"), eq(1L), eq(pageRequest)))
+                .willReturn(songsOfGenreWithId1);
+    }
+
     @Test
     public void shouldHandleAllRequestsForGenresWithAnyPrefixes() throws Exception {
-        mockMvc.perform(get("/test/genres/14/artists")).andExpect(status().isOk());
-        mockMvc.perform(get("/test/21/example-path/genres/14/artists")).andExpect(status().isOk());
-        mockMvc.perform(get("/genres/14/artists")).andExpect(status().isOk());
+        configureMockArtistService(defaultPageRequest);
+
+        mockMvc.perform(get("/test/genres/1/artists").locale(Locale.ENGLISH)).andExpect(status().isOk());
+        mockMvc.perform(get("/test/21/example-path/genres/1/artists").locale(Locale.ENGLISH)).andExpect(status().isOk());
+        mockMvc.perform(get("/genres/1/artists").locale(Locale.ENGLISH)).andExpect(status().isOk());
     }
 
     @Test
     public void shouldHandleRequestsWithValidPathParamCorrectly() throws Exception {
-        mockMvc.perform(get("/genres/14/genres"))
+        configureMockGenreService(defaultPageRequest);
+
+        mockMvc.perform(get("/genres/1/subgenres").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("genres"));
-        mockMvc.perform(get("/genres/14/artists"))
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("genresPage")));
+
+        configureMockArtistService(defaultPageRequest);
+
+        mockMvc.perform(get("/genres/1/artists").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("artists"));
-        mockMvc.perform(get("/genres/14/songs"))
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("artistsPage")));
+
+        configureMockSongService(defaultPageRequest);
+
+        mockMvc.perform(get("/genres/1/songs").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("songs"));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")));
     }
 
     @Test
@@ -65,44 +104,27 @@ public class GenreControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldHandleRequestWithAbsentPathParamAndReturnDefaultView() throws Exception {
-        mockMvc.perform(get("/genres/14"))
+        configureMockGenreService(defaultPageRequest);
+
+        mockMvc.perform(get("/genres/1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("genres"));
-    }
-
-    @Test
-    public void shouldShowAllGenres() throws Exception {
-        Slice<GenreAsPageItem> subGenresOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
-        Pageable expectedPageRequest = new PageRequest(0, 1);
-
-        given(genreService.findSubGenresByParentGenreIdProjectedPaginated(eq("en"), eq(null), eq(expectedPageRequest)))
-                .willReturn(subGenresOfGenreWithId1);
-
-        mockMvc.perform(get("/genres?page=0&size=1").locale(Locale.ENGLISH))
-                .andExpect(status().isOk())
-                .andExpect(view().name("genres"))
-                .andExpect(model().attributeExists("genres"))
-                .andExpect(model().attribute("genres", equalTo(subGenresOfGenreWithId1)));
-
-        then(genreService).should(times(1)).findSubGenresByParentGenreIdProjectedPaginated(
-                assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),
-                assertArg(id -> assertEquals(id, null)),
-                assertArg(actualPageRequest -> assertEquals(expectedPageRequest, actualPageRequest)));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("genresPage")));
     }
 
     @Test
     public void shouldShowSubGenresOfConcreteGenre() throws Exception {
-        Slice<GenreAsPageItem> subGenresOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
         Pageable expectedPageRequest = new PageRequest(0, 1);
-
-        given(genreService.findSubGenresByParentGenreIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
-                .willReturn(subGenresOfGenreWithId1);
+        configureMockGenreService(expectedPageRequest);
 
         mockMvc.perform(get("/genres/1?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("genres"))
-                .andExpect(model().attributeExists("genres"))
-                .andExpect(model().attribute("genres", equalTo(subGenresOfGenreWithId1)));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("genresPage")))
+                .andExpect(model().attributeExists("genresPage"))
+                .andExpect(model().attribute("genresPage", equalTo(subGenresOfGenreWithId1)));
 
         then(genreService).should(times(1)).findSubGenresByParentGenreIdProjectedPaginated(
                 assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),
@@ -112,17 +134,16 @@ public class GenreControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowArtistsOfConcreteGenre() throws Exception {
-        Slice<ArtistAsPageItem> artistsOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
         Pageable expectedPageRequest = new PageRequest(0, 1);
-
-        given(artistService.findArtistsByGenreIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
-                .willReturn(artistsOfGenreWithId1);
+        configureMockArtistService(expectedPageRequest);
 
         mockMvc.perform(get("/genres/1/artists?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("artists"))
-                .andExpect(model().attributeExists("artists"))
-                .andExpect(model().attribute("artists", equalTo(artistsOfGenreWithId1)));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("artistsPage")))
+                .andExpect(model().attributeExists("artistsPage"))
+                .andExpect(model().attribute("artistsPage", equalTo(artistsOfGenreWithId1)));
 
         then(artistService).should(times(1)).findArtistsByGenreIdProjectedPaginated(
                 assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),
@@ -132,17 +153,16 @@ public class GenreControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowSongsOfConcreteGenre() throws Exception {
-        Slice<SongAsPageItem> songsOfGenreWithId1 = new SliceImpl<>(Collections.emptyList());
         Pageable expectedPageRequest = new PageRequest(0, 1);
-
-        given(songService.findSongsByGenreIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
-                .willReturn(songsOfGenreWithId1);
+        configureMockSongService(expectedPageRequest);
 
         mockMvc.perform(get("/genres/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("songs"))
-                .andExpect(model().attributeExists("songs"))
-                .andExpect(model().attribute("songs", equalTo(songsOfGenreWithId1)));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")))
+                .andExpect(model().attributeExists("songsPage"))
+                .andExpect(model().attribute("songsPage", equalTo(songsOfGenreWithId1)));
 
         then(songService).should(times(1)).findSongsByGenreIdProjectedPaginated(
                 assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),

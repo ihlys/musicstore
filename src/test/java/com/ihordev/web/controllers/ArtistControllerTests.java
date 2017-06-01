@@ -32,22 +32,46 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
     @MockBean
     private SongService songService;
 
+    private final Pageable defaultPageRequest = new PageRequest(0, 20);
+    private final Slice<AlbumAsPageItem> albumsOfArtistWithId1 = new SliceImpl<>(Collections.emptyList());
+    private final Slice<SongAsPageItem> songsOfArtistWithId1 = new SliceImpl<>(Collections.emptyList());
+
+    private void configureMockAlbumService(Pageable pageRequest) {
+        given(albumService.findAlbumsByArtistIdProjectedPaginated(eq("en"), eq(1L), eq(pageRequest)))
+                .willReturn(albumsOfArtistWithId1);
+    }
+
+    private void configureMockSongService(Pageable pageRequest) {
+        given(songService.findSongsByArtistIdProjectedPaginated(eq("en"), eq(1L), eq(pageRequest)))
+                .willReturn(songsOfArtistWithId1);
+    }
+
     @Test
     public void shouldHandleAllRequestsForArtistsWithCustomPrefixes() throws Exception {
-        mockMvc.perform(get("/test/artists/14/albums")).andExpect(status().isOk());
-        mockMvc.perform(get("/test/21/example-path/artists/14/albums")).andExpect(status().isOk());
-        mockMvc.perform(get("/artists/14/albums")).andExpect(status().isOk());
+        configureMockAlbumService(defaultPageRequest);
+
+        mockMvc.perform(get("/test/artists/1/albums").locale(Locale.ENGLISH)).andExpect(status().isOk());
+        mockMvc.perform(get("/test/21/example-path/artists/1/albums").locale(Locale.ENGLISH)).andExpect(status().isOk());
+        mockMvc.perform(get("/artists/1/albums").locale(Locale.ENGLISH)).andExpect(status().isOk());
     }
 
     @Test
     public void shouldHandleRequestsWithValidPathParamCorrectly() throws Exception {
-        mockMvc.perform(get("/~/artists/14/albums"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("albums"));
+        configureMockAlbumService(defaultPageRequest);
 
-        mockMvc.perform(get("/~/artists/14/songs"))
+        mockMvc.perform(get("/~/artists/1/albums").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("songs"));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("albumsPage")));
+
+        configureMockSongService(defaultPageRequest);
+
+        mockMvc.perform(get("/~/artists/1/songs").locale(Locale.ENGLISH))
+                .andExpect(status().isOk())
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")));
     }
 
     @Test
@@ -58,24 +82,27 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldHandleRequestsWithAbsentPathParamAndReturnDefaultView() throws Exception {
-        mockMvc.perform(get("/~/artists/14"))
+        configureMockAlbumService(defaultPageRequest);
+
+        mockMvc.perform(get("/~/artists/1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("albums"));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("albumsPage")));
     }
 
     @Test
-    public void shouldShowAlbumsOfConcreteArtist() throws Exception  {
-        Slice<AlbumAsPageItem> albumsOfArtistWithId1 = new SliceImpl<>(Collections.emptyList());
+    public void shouldShowAlbumsOfConcreteArtist() throws Exception {
         Pageable expectedPageRequest = new PageRequest(0, 1);
-
-        given(albumService.findAlbumsByArtistIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
-                .willReturn(albumsOfArtistWithId1);
+        configureMockAlbumService(expectedPageRequest);
 
         mockMvc.perform(get("/artists/1/albums?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("albums"))
-                .andExpect(model().attributeExists("albums"))
-                .andExpect(model().attribute("albums", equalTo(albumsOfArtistWithId1)));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("albumsPage")))
+                .andExpect(model().attributeExists("albumsPage"))
+                .andExpect(model().attribute("albumsPage", equalTo(albumsOfArtistWithId1)));
 
         then(albumService).should(times(1)).findAlbumsByArtistIdProjectedPaginated(
                 assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),
@@ -84,18 +111,17 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
     }
 
     @Test
-    public void shouldShowSongsOfConcreteArtist() throws Exception  {
-        Slice<SongAsPageItem> songsOfArtistWithId1 = new SliceImpl<>(Collections.emptyList());
+    public void shouldShowSongsOfConcreteArtist() throws Exception {
         Pageable expectedPageRequest = new PageRequest(0, 1);
-
-        given(songService.findSongsByArtistIdProjectedPaginated(eq("en"), eq(1L), eq(expectedPageRequest)))
-                .willReturn(songsOfArtistWithId1);
+        configureMockSongService(expectedPageRequest);
 
         mockMvc.perform(get("/artists/1/songs?page=0&size=1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
-                .andExpect(view().name("songs"))
-                .andExpect(model().attributeExists("songs"))
-                .andExpect(model().attribute("songs", equalTo(songsOfArtistWithId1)));
+                .andExpect(view().name("music-content"))
+                .andExpect(model().attributeExists("musicEntitiesPageView"))
+                .andExpect(model().attribute("musicEntitiesPageView", equalTo("songsPage")))
+                .andExpect(model().attributeExists("songsPage"))
+                .andExpect(model().attribute("songsPage", equalTo(songsOfArtistWithId1)));
 
         then(songService).should(times(1)).findSongsByArtistIdProjectedPaginated(
                 assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),

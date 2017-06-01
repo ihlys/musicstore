@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Locale;
+import javax.servlet.http.HttpServletRequest;
 
+import static com.ihordev.core.util.UrlUtils.getFullUrl;
+import static com.ihordev.core.util.UrlUtils.rewriteQueryParameter;
 import static com.ihordev.web.controllers.AlbumController.PathVars.ALBUM_ID;
 import static com.ihordev.web.controllers.AlbumController.PathVars.collectionToShowValues.SONGS;
 
@@ -32,25 +34,27 @@ public class AlbumController {
     public String albums(@PathVariable Long albumId,
                          @PathVariable(required = false) String collectionToShow,
                          Model model,
-                         Locale locale,
+                         HttpServletRequest request,
                          Pageable pageRequest) {
         if (collectionToShow != null) {
             if(SONGS.name().equalsIgnoreCase(collectionToShow)) {
-                addAlbumsSongsToModel(model, locale.getLanguage(), albumId, pageRequest);
-                return "songs";
+                addAlbumsSongsInfoToModel(model, request, albumId, pageRequest);
             } else {
                 throw new ResourceNotFoundException("There are no such items in album resource");
             }
         } else {
-            addAlbumsSongsToModel(model, locale.getLanguage(), albumId, pageRequest);
-            return "songs";
+            addAlbumsSongsInfoToModel(model, request, albumId, pageRequest);
         }
+        return "music-content";
     }
 
-    private void addAlbumsSongsToModel(Model model, String clientLanguage, Long albumId, Pageable pageRequest) {
-        Slice<SongAsPageItem> albumsSongs = songService.findSongsByAlbumIdProjectedPaginated(
-                clientLanguage, albumId, pageRequest);
-        model.addAttribute("songs", albumsSongs);
+    private void addAlbumsSongsInfoToModel(Model model, HttpServletRequest request, Long artistsId, Pageable pageRequest) {
+        Slice<SongAsPageItem> albumsSongsPage = songService.findSongsByAlbumIdProjectedPaginated(
+                request.getLocale().getLanguage(), artistsId, pageRequest);
+        model.addAttribute("songsPage", albumsSongsPage);
+        model.addAttribute("musicEntitiesPageView", "songsPage");
+        model.addAttribute("nextPageUrl", rewriteQueryParameter(getFullUrl(request), "page",
+                        String.valueOf(albumsSongsPage.getNumber() + 1)));
     }
 
 }

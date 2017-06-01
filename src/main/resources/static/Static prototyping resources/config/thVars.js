@@ -290,16 +290,16 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCo
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/SpaceMusic-lg.png";
 */
 
-var entities = [
-  "genres",
-  "artists",
-  "albums",
-  "songs",
-  "soundtracks",
-  "thematicCompilations"
+var musicEntitiesListPage = [
+  "genresPage",
+  "artistsPage",
+  "albumsPage",
+  "songsPage",
+  "soundtracksPage",
+  "thematicCompilationsPage"
 ];
 
-var showEntities = entities[1];
+var musicEntitiesListPage = musicEntitiesListPage[1];
 
 var newsEvents = [
 	{
@@ -358,6 +358,6 @@ var thVars = [
 	["currentMusicEntity", currentMusicEntity],
 	["newsEvents", newsEvents],
 	["navigation", navigation],
-  ["showEntities", showEntities]
+  ["musicEntitiesListPage", musicEntitiesListPage]
 	
 ];

@@ -9,7 +9,7 @@
   });
   
   function initFlexCollection() {
-    let nextPageUrl = /*[[${??????}]]*/ thJsUrlMapping.get("/genres/artists?page=0&size=3");
+    let nextPageUrl = /*[[${nextPageUrl}]]*/ thJsUrlMapping.get("/genres/artists?page=0&size=3");
     const $flexCollection = $(".flex-collection");
     
     console.log($flexCollection);
