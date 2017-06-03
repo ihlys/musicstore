@@ -1,0 +1,15 @@
+<div class="artists flex-collection" th:fragment="artists">
+    <div class="artist flex-collection__item border--hover-fade-blue" th:each="artist : ${artists}">
+        
+        <div class="artist__cover">
+            <img th:src="@{${artist.image}}">
+        </div>
+        
+        <span class="artist__name" th:text="${artist.name}"></span>
+        
+    </div>
+</div>
+
+<th:block th:fragment="artists-scripts">
+<script src="../static/js/artists.js" th:src="@{/js/artists.js}"></script>
+</th:block>

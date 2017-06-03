@@ -1,15 +1,67 @@
-<div class="thematic-collection flex-collection__item" th:each="thematicCompilation : ${thematicCompilations}">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <div class="container-with-background">
+    <head>
+        <th:block th:replace="fragments/main :: head"></th:block>
+    </head>
+
+    <body>
+    
+        <div class="container-fluid">
+            
+            <div class="header row" th:include="fragments/main :: header"></div>
+            
+            <div class="main row row--equal-columns">
+
+                <!--/* ===== content markup ===== */-->
+                <div class="music-content col-md-9">
+                
+                    <div class="row">
+
+                        <div class="music-content__top-panel">
+                        
+                            <div class="music-info" th:include="fragments/music-content :: music-info"></div>
+                         
+                        </div>
+                    </div>
+
+                    <div class="row" th:include="fragments/shared :: navigation"></div>
+
+                    <!--/* ===== content markup ===== */-->
+                    <div class="row" th:include="fragments/shared :: controls"></div>
+                    
+                    <div class="row">
+                        <div class="thematic-compilations flex-collection" th:include="fragments/thematic-compilations :: thematic-compilations"></div>
+                    </div>
+                    
+                    <div class="row" th:include="fragments/shared :: comments"></div>
+                    <!--/* ========================== */-->
+
+                </div>
+                <!--/* ========================== */-->
+                
+                <div class="news-panel col-md-3" th:include="fragments/main :: news-panel"></div>
+                
+            </div>
         
-        <div class="container-with-background__background-wrapper">
-            <img th:src="@{${thematicCompilation.image}}">
+            <div class="footer row" th:include="fragments/main :: footer"></div>
+        
         </div>
         
-        <div class="container-with-background__foreground-wrapper thematic-collection__content">
-            <a class="show-link show-link--thematic-collection" href="#"><span th:text="${thematicCompilation.name}"></span></a>
-        </div>
+        <script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
+                   data-thymol-load="../static/Static prototyping resources/config/thPath.js,
+                                     ../static/Static prototyping resources/config/thVars.js,
+                                     ../static/Static prototyping resources/config/thMapping.js"></script>
+                                     
+        <th:block th:replace="fragments/main :: main-scripts"></th:block>
         
-    </div>
+        <!--/* ===== scripts ===== */-->
+        <script th:replace="fragments/music-content :: music-content-scripts"></script>
+            <!--/* ===== scripts ===== */-->
+            <script th:replace="fragments/thematic-compilations :: thematic-compilations-scripts"></script>
+            <!--/* =================== */-->
+        <!--/* =================== */-->
+
+    </body>
         
-</div>
+</html>

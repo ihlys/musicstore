@@ -1,0 +1,36 @@
+<div class="music-info" th:fragment="music-info">
+    <div class="container-with-background">
+
+        <div class="container-with-background__background-wrapper">
+            <div class="music-info__background-img-wrapper">
+                <img th:src="@{${currentMusicEntity.imageLgUrl}}">
+                <div class="fade-edge fade-edge--bottom fade-edge--black"></div>
+            </div>
+        </div>
+        
+        <div class="container-with-background__foreground-wrapper music-info__content">
+            <h1 class="music-info__title" th:text="currentMusicEntity.name"></h1>
+            
+            <div class="music-info__details" th:replace="music-details"></div>
+            
+            <div class="music-info__expand-btn-wrapper music-info__expand-btn-wrapper--show-after">
+                <button class="music-info__expand-btn show-link">Прочитать описание</button>
+            </div>
+        </div>
+        
+        <div class="fade-edge fade-edge--bottom fade-edge--white"></div>
+    </div>
+</div>
+
+<th:block th:fragment="music-content-scripts">
+<script src="../static/lib/CSS-Element-Queries/ResizeSensor.js"    th:src="@{/lib/CSS-Element-Queries/ResizeSensor.js}"></script>
+<script src="../static/lib/CSS-Element-Queries/ElementQueries.js"  th:src="@{/lib/CSS-Element-Queries/ElementQueries.js}"></script>
+
+<script src="../static/js/Utils.js"                                th:src="@{/js/Utils.js}"></script>
+<script src="../static/js/jquery.flexbox-last-row-fix.js"          th:src="@{/js/jquery.flexbox-last-row-fix.js}"></script>
+<script src="../static/js/jquery.items-listener.js"                th:src="@{/js/jquery.items-listener.js}"></script>
+<script src="../static/js/jquery.on-scrolled-listener.js"          th:src="@{/js/jquery.on-scrolled-listener.js}"></script>
+<script src="../static/js/main.js"                                 th:src="@{/js/main.js}"></script>
+
+<script src="../static/js/music-content.js" th:src="@{/js/music-content.js}"></script>
+</th:block>

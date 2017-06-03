@@ -31,7 +31,7 @@
                     <div class="row" th:include="fragments/shared :: controls"></div>
                     
                     <div class="row">
-                        <div class="soundtracks flex-collection" th:include="fragments/soundtracks :: soundtracks"></div>
+                        <div class="genres flex-collection" th:include="fragments/genres :: genres"></div>
                     </div>
                     
                     <div class="row" th:include="fragments/shared :: comments"></div>
@@ -58,7 +58,7 @@
         <!--/* ===== scripts ===== */-->
         <script th:replace="fragments/music-content :: music-content-scripts"></script>
             <!--/* ===== scripts ===== */-->
-            <script th:replace="fragments/soundtracks :: soundtracks-scripts"></script>
+            <script th:replace="fragments/genres :: genres-scripts"></script>
             <!--/* =================== */-->
         <!--/* =================== */-->
 

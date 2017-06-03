@@ -2,26 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <th:block th:replace="fragments :: head"></th:block>
+        <th:block th:replace="fragments/main :: head"></th:block>
     </head>
 
     <body>
     
         <div class="container-fluid">
             
-            <div class="header row" th:include="fragments :: header"></div>
+            <div class="header row" th:include="fragments/main :: header"></div>
             
             <div class="main row row--equal-columns">
 
                 <!--/* ===== content markup ===== */-->
-                <div th:replace="fragments :: greetings"></div>
+                <div th:replace="fragments/greetings :: greetings"></div>
                 <!--/* ========================== */-->
                 
-                <div class="news-panel col-md-3" th:include="fragments :: news-panel"></div>
+                <div class="news-panel col-md-3" th:include="fragments/main :: news-panel"></div>
                 
             </div>
         
-            <div class="footer row" th:include="fragments :: footer"></div>
+            <div class="footer row" th:include="fragments/main :: footer"></div>
         
         </div>
         
@@ -30,10 +30,10 @@
                                      ../static/Static prototyping resources/config/thVars.js,
                                      ../static/Static prototyping resources/config/thMapping.js"></script>
                                      
-        <th:block th:replace="fragments :: shared-scripts"></th:block>
+        <th:block th:replace="fragments/main :: main-scripts"></th:block>
         
         <!--/* ===== scripts ===== */-->
-        <script th:replace="base-placeholders :: scripts"></script>
+        <script th:replace="fragments/placeholders :: scripts"></script>
         <!--/* =================== */-->
 
     </body>

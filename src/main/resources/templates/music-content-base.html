@@ -28,13 +28,7 @@
                     <div class="row" th:include="fragments/shared :: navigation"></div>
 
                     <!--/* ===== content markup ===== */-->
-                    <div class="row" th:include="fragments/shared :: controls"></div>
-                    
-                    <div class="row">
-                        <div class="soundtracks flex-collection" th:include="fragments/soundtracks :: soundtracks"></div>
-                    </div>
-                    
-                    <div class="row" th:include="fragments/shared :: comments"></div>
+                    <div th:replace="fragments/placeholders :: content"></div>
                     <!--/* ========================== */-->
 
                 </div>
@@ -58,7 +52,7 @@
         <!--/* ===== scripts ===== */-->
         <script th:replace="fragments/music-content :: music-content-scripts"></script>
             <!--/* ===== scripts ===== */-->
-            <script th:replace="fragments/soundtracks :: soundtracks-scripts"></script>
+            <script th:replace="fragments/placeholders :: scripts"></script>
             <!--/* =================== */-->
         <!--/* =================== */-->
 

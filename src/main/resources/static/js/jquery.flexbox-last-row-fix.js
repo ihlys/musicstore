@@ -26,35 +26,35 @@
   
   var FlexSpaceAroundHelper = (function() {
     
-    var $flexedDiv = Symbol('$flexedDiv');
-    var divChildren = Symbol('divChildren');
-    var lastChild = Symbol('lastChild');
-    var childrenCount = Symbol('childrenCount');
-    var childMarginRight = Symbol('childMarginRight');
-    var childHorizontalSpace = Symbol('childHorizontalSpace');
+    const _$flexedDiv = Symbol('$flexedDiv');
+    var _divChildren = Symbol('divChildren');
+    var _lastChild = Symbol('lastChild');
+    var _childrenCount = Symbol('childrenCount');
+    var _childMarginRight = Symbol('childMarginRight');
+    var _childHorizontalSpace = Symbol('childHorizontalSpace');
     
     function init(instance) {
-      instance[divChildren] = instance[$flexedDiv].children(":not(.resize-sensor)");
-      instance[lastChild] = instance[divChildren].last();
-      instance[childrenCount] = instance[divChildren].length;
-      instance[childMarginRight] = parseInt(instance[lastChild].css("marginRight"));
-      instance[childHorizontalSpace] = parseInt(instance[lastChild].css("width")) + instance[childMarginRight] +
-                  parseInt(instance[lastChild].css("marginLeft"));
+      instance[_divChildren] = instance[_$flexedDiv].children(":not(.resize-sensor)");
+      instance[_lastChild] = instance[_divChildren].last();
+      instance[_childrenCount] = instance[_divChildren].length;
+      instance[_childMarginRight] = parseInt(instance[_lastChild].css("marginRight"));
+      instance[_childHorizontalSpace] = parseInt(instance[_lastChild].css("width")) + instance[_childMarginRight] +
+                  parseInt(instance[_lastChild].css("marginLeft"));
       
       console.log(`FlexSpaceAroundHelper(init):\n` +
-                  `childrenCount = ${instance[childrenCount]};\n` +
-                  `childMarginRight = ${instance[childMarginRight]};\n` +
-                  `childHorizontalSpace = ${instance[childHorizontalSpace]};\n`);
+                  `childrenCount = ${instance[_childrenCount]};\n` +
+                  `childMarginRight = ${instance[_childMarginRight]};\n` +
+                  `childHorizontalSpace = ${instance[_childHorizontalSpace]};\n`);
     }
     
     function restoreMargin(instance) {
-      instance[lastChild].css("marginRight", instance[childMarginRight]);
+      instance[_lastChild].css("marginRight", instance[_childMarginRight]);
     }
     
     class FlexSpaceAroundHelper {
       
-      constructor( $div ) {
-        this[$flexedDiv] = $div;
+      constructor( $flexedDiv ) {
+        this[_$flexedDiv] = $flexedDiv;
         init(this);
       }
      
@@ -65,16 +65,16 @@
       }
       
       squeezeChildrenToLeftInLastRow() {
-        let divWidth = this[$flexedDiv].prop("clientWidth"),
-          childrenInOneRow = Math.floor(divWidth / this[childHorizontalSpace]),
-          missingChildrenInLastRow = childrenInOneRow - this[childrenCount] % childrenInOneRow,
+        let divWidth = this[_$flexedDiv].prop("clientWidth"),
+          childrenInOneRow = Math.floor(divWidth / this[_childHorizontalSpace]),
+          missingChildrenInLastRow = childrenInOneRow - this[_childrenCount] % childrenInOneRow,
           marginRestored = false;
       
         if ( missingChildrenInLastRow < childrenInOneRow ) {
-          let gapsExtraSpacePerChild = (divWidth - childrenInOneRow * this[childHorizontalSpace]) / childrenInOneRow,
-            freeSpaceLeft = missingChildrenInLastRow * (this[childHorizontalSpace] + gapsExtraSpacePerChild);
+          let gapsExtraSpacePerChild = (divWidth - childrenInOneRow * this[_childHorizontalSpace]) / childrenInOneRow,
+            freeSpaceLeft = missingChildrenInLastRow * (this[_childHorizontalSpace] + gapsExtraSpacePerChild);
         
-          this[lastChild].css("marginRight", freeSpaceLeft + this[childMarginRight]);
+          this[_lastChild].css("marginRight", freeSpaceLeft + this[_childMarginRight]);
           
           console.log(`FlexSpaceAroundHelper(run):\n` +
                       `divWidth = ${divWidth};\n` +

@@ -1,0 +1,21 @@
+<div class="artists flex-collection" th:fragment="thematic-compilations">
+    <div class="thematic-compilation flex-collection__item" th:each="thematicCompilation : ${thematicCompilations}">
+
+        <div class="container-with-background">
+            
+            <div class="container-with-background__background-wrapper">
+                <img th:src="@{${thematicCompilation.image}}">
+            </div>
+            
+            <div class="container-with-background__foreground-wrapper thematic-compilation__content">
+                <a class="show-link show-link--thematic-compilation" href="#"><span class="show-link--thematic-compilation__text" th:text="${thematicCompilation.name}"></span></a>
+            </div>
+            
+        </div>
+            
+    </div>
+</div>
+
+<th:block th:fragment="thematic-compilations-scripts">
+<script src="../static/js/thematic-compilations.js" th:src="@{/js/thematic-compilations.js}"></script>
+</th:block>

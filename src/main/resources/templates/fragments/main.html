@@ -1,0 +1,81 @@
+<th:block th:fragment="head">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Music store</title>
+    
+    <link rel="stylesheet" type="text/css" media="all" 
+          href="../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"
+              th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css"
+              th:href="@{/lib/font-awesome-4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="../static/css/main.css" 									
+              th:href="@{/css/main.css}"/>
+    
+</th:block>
+
+
+<div class="header" th:fragment="header">
+    <div class="header__part header__part--left">
+        <form class="form form--search">
+            <div class="form__title-panel">
+                <span class="form__title">Поиск</span>
+            </div>
+            <div class="form__row">
+                <label class="sr-only" for="search-critera">Search critera</label>
+                <input class="form-control form__input" id="search-critera" placeholder="Введите критерий...">
+                <button type="submit" class="btn btn-primary form__button">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="header__part header__part--center">
+        <h1 class="header__title">Music online</h1>
+    </div>
+
+    <div class="header__part header__part--right">
+        <form class="form form--login">
+            <div class="form__title-panel">
+                <span class="form__title">Войти</span>
+                <a class="btn btn-primary form__social-link">
+                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-primary form__social-link">
+                    <i class="fa fa-google-plus-square" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-primary form__social-link">
+                    <i class="fa fa-vk" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="form__row">
+                <input type="email" class="form-control form__input" id="email" placeholder="Enter e-mail address...">
+                <button type="submit" class="btn btn-primary form__button">
+                    <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="news-panel" th:fragment="news-panel">
+    <h1 class="news-panel__title">Новости</h1>
+    <div class="news-panel__news-event border--hover-fade-blue" th:each="newsEvent : ${newsEvents}">
+        <h4 class="" th:text="${newsEvent.title}"></h4>
+        <p class="" th:text="${newsEvent.text}"></p>
+    </div>
+</div>
+
+<div class="footer" th:fragment="footer">
+</div>
+
+
+<th:block th:fragment="main-scripts">
+<script src="../static/lib/jquery-3.1.1/jquery-3.1.1.min.js"         th:src="@{/lib/jquery-3.1.1/jquery-3.1.1.min.js}"></script>
+<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+</th:block>

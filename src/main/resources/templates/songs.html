@@ -1,14 +1,68 @@
-<div class="song" th:each="song,iterStat : ${songs}">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <span class="song__order" th:text="${iterStat.count + '.'}"></span>
-    <span class="song__name" th:text="${song.name}"></span>
-    <audio preload='none' controls="controls">
-      <source src="../static/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3" 
-              th:src="@{${song.url}}"
-              type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+    <head>
+        <th:block th:replace="fragments/main :: head"></th:block>
+    </head>
+
+    <body>
     
-    <a href="#" class="song__btn-purchase">Купить</a>
-</div>
+        <div class="container-fluid">
+            
+            <div class="header row" th:include="fragments/main :: header"></div>
+            
+            <div class="main row row--equal-columns">
 
+                <!--/* ===== content markup ===== */-->
+                <div class="music-content col-md-9">
+                
+                    <div class="row">
+
+                        <div class="music-content__top-panel">
+                        
+                            <div class="music-info" th:include="fragments/music-content :: music-info"></div>
+                         
+                        </div>
+                    </div>
+
+                    <div class="row" th:include="fragments/shared :: navigation"></div>
+
+                    <!--/* ===== content markup ===== */-->
+                    <div class="row" th:include="fragments/shared :: controls"></div>
+                    
+                    <div class="row">
+                        <div class="songs" th:include="fragments/songs :: songs"></div>
+                    </div>
+                    
+                    <div class="row" th:include="fragments/shared :: comments"></div>
+                    <!--/* ========================== */-->
+
+                </div>
+                <!--/* ========================== */-->
+                
+                <div class="news-panel col-md-3" th:include="fragments/main :: news-panel"></div>
+                
+            </div>
+        
+            <div class="footer row" th:include="fragments/main :: footer"></div>
+        
+        </div>
+        
+        <script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
+                   data-thymol-load="../static/Static prototyping resources/config/thPath.js,
+                                     ../static/Static prototyping resources/config/thVars.js,
+                                     ../static/Static prototyping resources/config/thMapping.js,
+                                     ../static/Static prototyping resources/config/thSongsData.js"></script>
+                                     
+        <th:block th:replace="fragments/main :: main-scripts"></th:block>
+        
+        <!--/* ===== scripts ===== */-->
+        <script th:replace="fragments/music-content :: music-content-scripts"></script>
+            <!--/* ===== scripts ===== */-->
+            <script th:replace="fragments/songs :: songs-scripts"></script>
+            <!--/* =================== */-->
+        <!--/* =================== */-->
+
+    </body>
+        
+</html>

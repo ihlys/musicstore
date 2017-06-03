@@ -19,6 +19,42 @@ var genres = [
 	{
 		name: "RnB",
 		image: "/Static prototyping resources/images/sm/Genres/RapMusic-sm.png"
+	},
+	{
+		name: "Genre6",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
+	},
+	{
+		name: "Genre7",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
+	},
+	{
+		name: "Genre8",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
+	},
+	{
+		name: "Genre9",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
+	},
+	{
+		name: "Genre10",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
+	},
+	{
+		name: "Genre11",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
+	},
+	{
+		name: "Genre12",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
+	},
+	{
+		name: "Genre13",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
+	},
+	{
+		name: "Genre14",
+		image: "/Static prototyping resources/images/sm/Genres/Unknown_genre-sm.png"
 	}
 ];
 
@@ -150,6 +186,38 @@ var thematicCompilations = [
 	{
 		name: "Space music",
 		image: "/Static prototyping resources/images/sm/ThematicCompilations/SpaceMusic-sm.png"
+	},
+	{
+		name: "Thematic Compilation7",
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/Unknown_thematic-compilation-sm.png"
+	},
+	{
+		name: "Thematic Compilation8",
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/Unknown_thematic-compilation-sm.png"
+	},
+	{
+		name: "Thematic Compilation9",
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/Unknown_thematic-compilation-sm.png"
+	},
+	{
+		name: "Thematic Compilation10",
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/Unknown_thematic-compilation-sm.png"
+	},
+	{
+		name: "Thematic Compilation11",
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/Unknown_thematic-compilation-sm.png"
+	},
+	{
+		name: "Thematic Compilation12",
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/Unknown_thematic-compilation-sm.png"
+	},
+	{
+		name: "Thematic Compilation13",
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/Unknown_thematic-compilation-sm.png"
+	},
+	{
+		name: "Thematic Compilation14",
+		image: "/Static prototyping resources/images/sm/ThematicCompilations/Unknown_thematic-compilation-sm.png"
 	}
 ];
 
@@ -196,6 +264,41 @@ var soundtracks = [
 		name: "Queen of the damned",
 		released: 2002,
 		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Queen_of_the_damned-sm.png"
+	},
+  {
+		name: "Soundtrack2",
+		released: "-----",
+		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Unknown_soundtrack-sm.png"
+	},
+  {
+		name: "Soundtrack3",
+		released: "-----",
+		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Unknown_soundtrack-sm.png"
+	},
+  {
+		name: "Soundtrack4",
+		released: "-----",
+		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Unknown_soundtrack-sm.png"
+	},
+  {
+		name: "Soundtrack5",
+		released: "-----",
+		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Unknown_soundtrack-sm.png"
+	},
+  {
+		name: "Soundtrack6",
+		released: "-----",
+		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Unknown_soundtrack-sm.png"
+	},
+  {
+		name: "Soundtrack7",
+		released: "-----",
+		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Unknown_soundtrack-sm.png"
+	},
+  {
+		name: "Soundtrack8",
+		released: "-----",
+		image: "/Static prototyping resources/images/sm/Soundtracks/Movies/Unknown_soundtrack-sm.png"
 	}
 ];
 
@@ -259,6 +362,26 @@ var songs = [
 		name: "Nightquest",
 		duration: "4:16",
 		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Song13",
+		duration: "4:16",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Song14",
+		duration: "4:16",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Song15",
+		duration: "4:16",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
+	},
+	{
+		name: "Song16",
+		duration: "4:16",
+		url: "/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3"
 	}
 ];
 
@@ -290,7 +413,7 @@ currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCo
 //currentMusicEntity.imageLg = "/Static prototyping resources/images/lg/ThematicCompilations/SpaceMusic-lg.png";
 */
 
-var musicEntitiesListPage = [
+var musicEntitiesPageViews = [
   "genresPage",
   "artistsPage",
   "albumsPage",
@@ -299,7 +422,7 @@ var musicEntitiesListPage = [
   "thematicCompilationsPage"
 ];
 
-var musicEntitiesListPage = musicEntitiesListPage[1];
+var musicEntitiesPageView = musicEntitiesPageViews[1];
 
 var newsEvents = [
 	{
@@ -358,6 +481,6 @@ var thVars = [
 	["currentMusicEntity", currentMusicEntity],
 	["newsEvents", newsEvents],
 	["navigation", navigation],
-  ["musicEntitiesListPage", musicEntitiesListPage]
+  ["musicEntitiesPageView", musicEntitiesPageView]
 	
 ];
