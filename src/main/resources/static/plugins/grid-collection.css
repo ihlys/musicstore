@@ -1,0 +1,14 @@
+.grid-collection {	
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-content: flex-start;
+}
+
+.grid-collection__item {
+	margin: 10px;
+	
+	overflow: hidden;
+	border-radius: 8px;
+	box-shadow: 0 0 8px rgb(178, 178, 178);	
+}

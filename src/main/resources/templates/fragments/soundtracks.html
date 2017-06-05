@@ -1,5 +1,9 @@
-<div class="soundtracks flex-collection" th:fragment="soundtracks">
-    <div class="soundtrack flex-collection__item border--hover-fade-blue" th:each="soundtrack : ${soundtracks}">
+<th:block th:fragment="soundtracks-content">
+<div class="row" th:include="fragments/shared :: controls"></div>
+
+<div class="soundtracks">
+    <div class="soundtrack border--hover-fade-blue" th:each="soundtrack : ${soundtracks}" 
+                                                    th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${soundtrack.id} + '/songs'}}">
 
         <div class="soundtrack__cover">
             <img th:src="@{${soundtrack.image}}">
@@ -13,6 +17,9 @@
             
     </div>
 </div>
+
+<div class="row" th:include="fragments/shared :: comments"></div>
+</th:block>
 
 <th:block th:fragment="soundtracks-scripts">
 <script src="../static/js/soundtracks.js" th:src="@{/js/soundtracks.js}"></script>

@@ -1,5 +1,8 @@
-<div class="genres flex-collection" th:fragment="genres">
-    <div class="genre flex-collection__item" th:each="genre : ${genres}">
+<th:block th:fragment="genres-content">
+<div class="row" th:include="fragments/shared :: controls"></div>
+
+<div class="genres">
+    <div class="genre" th:each="genre : ${genres}">
 
         <div class="container-with-background">
             
@@ -15,8 +18,10 @@
                     </div>
                 
                     <div class="container-with-background__foreground-wrapper">
-                        <a class="show-link show-link--genre-songs" 	 href="#">Показать</a>
-                        <a class="show-link show-link--genre-subgenres"  href="#">Выбрать поджанры</a>
+                        <button class="btn-show-link btn-show-link--genre-content" 	
+                           th:attr="data-content-url=@{${#request.getRequestURI() + '/' + genre.id + '/artists'}}">Показать</button>
+                        <button class="btn-show-link btn-show-link--genre-subgenres"
+                           th:attr="data-content-url=@{${#request.getRequestURI() + '/' + genre.id + '/subgenres'}}">Выбрать поджанры</button>
                     </div>
 
                 </div>
@@ -26,6 +31,9 @@
             
     </div>
 </div>
+
+<div class="row" th:include="fragments/shared :: comments"></div>
+</th:block>
 
 <th:block th:fragment="genres-scripts">
 <script src="../static/js/genres.js" th:src="@{/js/genres.js}"></script>

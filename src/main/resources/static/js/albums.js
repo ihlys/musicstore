@@ -4,19 +4,13 @@
     
     (function() {
 
-      const $albumsDiv = $(".albums"),
-        nextPageUrl = /*[[${nextPageUrl}]]*/ thJsUrlMapping.get("/genres/1/artists/1/albums?page=0&size=3"),
-        ajaxPagedContentLoader = new Utils.ajaxPagedContentLoader($albumsDiv, nextPageUrl);
+      const $albumsDiv = $(".albums");
       
-      $albumsDiv.onScrolled(function() {
-        ajaxPagedContentLoader.loadNextPage();
-      }, 75);
+      $albumsDiv.gridCollection();
+      
+      Views.loadDataOnScrolled($albumsDiv, 75, /*[[${nextPageUrl}]]*/ thJsUrlMappings.get("/genres/1/artists/1/albums?page=0"));
 
-      $albumsDiv.onItems("click", function() {
-        console.log("PRIVET");
-      });
-
-      $albumsDiv.fixFlexBoxLastRow();
+      Views.onItemClickLoadContent($albumsDiv, "> div");
       
     })();
 

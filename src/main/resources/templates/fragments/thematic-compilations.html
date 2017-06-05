@@ -1,5 +1,8 @@
-<div class="artists flex-collection" th:fragment="thematic-compilations">
-    <div class="thematic-compilation flex-collection__item" th:each="thematicCompilation : ${thematicCompilations}">
+<th:block th:fragment="thematic-compilations-content">
+<div class="row" th:include="fragments/shared :: controls"></div>
+
+<div class="thematic-compilations">
+    <div class="thematic-compilation" th:each="thematicCompilation : ${thematicCompilations}">
 
         <div class="container-with-background">
             
@@ -8,13 +11,19 @@
             </div>
             
             <div class="container-with-background__foreground-wrapper thematic-compilation__content">
-                <a class="show-link show-link--thematic-compilation" href="#"><span th:text="${thematicCompilation.name}"></span></a>
+                <button class="btn-show-link btn-show-link--thematic-compilation"
+                        th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${thematicCompilation.id} + '/songs'}}">
+                    <span th:text="${thematicCompilation.name}"></span>
+                </button>
             </div>
             
         </div>
             
     </div>
 </div>
+
+<div class="row" th:include="fragments/shared :: comments"></div>
+</th:block>
 
 <th:block th:fragment="thematic-compilations-scripts">
 <script src="../static/js/thematic-compilations.js" th:src="@{/js/thematic-compilations.js}"></script>

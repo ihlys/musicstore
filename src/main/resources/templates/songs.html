@@ -3,6 +3,7 @@
 
     <head>
         <th:block th:replace="fragments/main :: head"></th:block>
+        <th:block th:replace="fragments/music-content :: head"></th:block>
     </head>
 
     <body>
@@ -28,13 +29,7 @@
                     <div class="row" th:include="fragments/shared :: navigation"></div>
 
                     <!--/* ===== content markup ===== */-->
-                    <div class="row" th:include="fragments/shared :: controls"></div>
-                    
-                    <div class="row">
-                        <div class="songs" th:include="fragments/songs :: songs"></div>
-                    </div>
-                    
-                    <div class="row" th:include="fragments/shared :: comments"></div>
+                    <div th:replace="fragments/songs :: songs-content"></div>
                     <!--/* ========================== */-->
 
                 </div>
@@ -51,8 +46,7 @@
         <script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
                    data-thymol-load="../static/Static prototyping resources/config/thPath.js,
                                      ../static/Static prototyping resources/config/thVars.js,
-                                     ../static/Static prototyping resources/config/thMapping.js,
-                                     ../static/Static prototyping resources/config/thSongsData.js"></script>
+                                     ../static/Static prototyping resources/config/thMapping.js"></script>
                                      
         <th:block th:replace="fragments/main :: main-scripts"></th:block>
         

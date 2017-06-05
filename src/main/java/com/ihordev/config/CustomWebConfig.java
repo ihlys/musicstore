@@ -6,7 +6,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -18,10 +22,14 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
+import java.util.List;
+
 
 @Configuration
 @EnableSpringDataWebSupport
 public class CustomWebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+
+    public static final Pageable DEFAULT_PAGE_REQUEST = new PageRequest(0, 10);
 
     private ApplicationContext applicationContext;
 
@@ -39,6 +47,14 @@ public class CustomWebConfig extends WebMvcConfigurerAdapter implements Applicat
         if (navigationAddingHandlerInterceptor != null) {
             registry.addInterceptor(navigationAddingHandlerInterceptor);
         }
+    }
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
+        resolver.setFallbackPageable(DEFAULT_PAGE_REQUEST);
+        argumentResolvers.add(resolver);
+        super.addArgumentResolvers(argumentResolvers);
     }
 
     @Bean

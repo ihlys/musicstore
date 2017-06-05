@@ -1,4 +1,7 @@
-<div class="songs" th:fragment="songs">
+<th:block th:fragment="songs-content">
+<div class="row" th:include="fragments/shared :: controls"></div>
+
+<div class="songs">
     <div class="song" th:each="song,iterStat : ${songs}">
 
         <span class="song__order" th:text="${iterStat.count + '.'}"></span>
@@ -14,6 +17,9 @@
         
     </div>
 </div>
+
+<div class="row" th:include="fragments/shared :: comments"></div>
+</th:block>
 
 <th:block th:fragment="songs-scripts">
 <script src="../static/js/songs.js" th:src="@{/js/songs.js}"></script>

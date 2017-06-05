@@ -1,5 +1,10 @@
-<div class="albums flex-collection" th:fragment="albums">
-	<div class="album flex-collection__item border--hover-fade-blue" th:each="album : ${albums}">
+<th:block th:fragment="albums-content">
+<div class="row" th:include="fragments/shared :: controls"></div>
+
+<div class="albums">
+	<div class="album border--hover-fade-blue"
+            th:each="album : ${albums}"
+            th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${album.id} + '/songs'}}">
     
         <div class="album__cover">
             <img th:src="@{${album.image}}">
@@ -13,6 +18,9 @@
         
     </div>
 </div>
+
+<div class="row" th:include="fragments/shared :: comments"></div>
+</th:block>
 
 <th:block th:fragment="albums-scripts">
 <script src="../static/js/albums.js" th:src="@{/js/albums.js}"></script>

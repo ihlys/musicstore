@@ -579,28 +579,28 @@
 				0 0 16px rgba(255, 255, 255, 1);
 }
 
-.show-link--genre-songs, .show-link--genre-subgenres {
+.btn-show-link--genre-content, .btn-show-link--genre-subgenres {
 	width: 100%;
 	height: 50%;
 	font-size: 16px;	
 }
 
-.show-link--genre-songs {
+.btn-show-link--genre-content {
 	padding-bottom: 10px;
 }
 
-.show-link--genre-subgenres {
+.btn-show-link--genre-subgenres {
 	padding-top: 10px;
 }
 
-@keyframes show-link--genre-hover {
+@keyframes btn-show-link--genre-hover {
     to {
         transform: scale(1.2);
     }
 }
 
-.show-link--genre-songs:hover, .show-link--genre-subgenres:hover {
-	animation-name: show-link--genre-hover;
+.btn-show-link--genre-content:hover, .btn-show-link--genre-subgenres:hover {
+	animation-name: btn-show-link--genre-hover;
 	animation-duration: 0.2s;
 	animation-fill-mode: forwards;
 }
@@ -814,7 +814,7 @@
 	background: rgba(0, 0, 0, 0.4);
 }
 
-.show-link--thematic-compilation {
+.btn-show-link--thematic-compilation {
 	width: 100%;
 	height: 100%;
 
@@ -823,14 +823,14 @@
 	font-size: 22px;
 }
 
-@keyframes show-link--thematic-compilation-hover {
+@keyframes btn-show-link--thematic-compilation-hover {
     to {
         transform: scale(1.2);
     }
 }
 
-.show-link--thematic-compilation:hover {
-	animation-name: show-link--thematic-compilation-hover;
+.btn-show-link--thematic-compilation:hover {
+	animation-name: btn-show-link--thematic-compilation-hover;
 	animation-duration: 0.2s;
 	animation-fill-mode: forwards;
 }
@@ -904,52 +904,29 @@
 	z-index: 1;
 }
 
-.flex-collection {	
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-content: flex-start;
-}
-
-.flex-collection__item {
-	margin: 10px;
-	
-	overflow: hidden;
-	border-radius: 8px;
-	box-shadow: 0 0 8px rgb(178, 178, 178);	
-}
-
-.show-link {
+.btn-show-link {
     text-align: center;
-	text-decoration: none;
 	color: white;
 	
 	display: flex;
 	justify-content: center;
     align-items: center;
+    
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
-.show-link:link, 
-.show-link:visited, 
-.show-link:hover, 
-.show-link:active,
-.show-link:focus  {
-	text-decoration: none;
-}
-
-.show-link:link, 
-.show-link:visited, 
-.show-link:focus  {
-	color: white;
-}
-
-.show-link:hover {
+.btn-show-link:hover {
 	text-shadow: 0 0 50px rgb(255, 255, 255),
 				 0 0 40px rgb(255, 255, 255),
 				 0 0 35px rgb(255, 255, 255);
 }
 
-.show-link:active {
+.btn-show-link:active {
     color: #cccccc;
 	text-shadow: 0 0 50px rgb(255, 255, 255),
 				 0 0 40px rgb(255, 255, 255),

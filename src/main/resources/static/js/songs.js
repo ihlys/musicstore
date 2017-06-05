@@ -4,15 +4,11 @@
     
     (function() {
 
-      const $songsDiv = $(".songs"),
-        nextPageUrl = /*[[${nextPageUrl}]]*/ thJsUrlMapping.get("/genres/1/songs?page=0&size=4"),
-        ajaxPagedContentLoader = new Utils.ajaxPagedContentLoader($songsDiv, nextPageUrl);
+      const $songsDiv = $(".songs");
+    
+      Views.loadDataOnScrolled($songsDiv, 0, /*[[${nextPageUrl}]]*/ thJsUrlMappings.get("/genres/1/songs?page=0"));
       
-      $songsDiv.onScrolled(function() {
-        ajaxPagedContentLoader.loadNextPage();
-      });
-      
-    })();
+    }());
     
   });
   

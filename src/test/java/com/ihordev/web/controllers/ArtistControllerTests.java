@@ -8,7 +8,6 @@ import com.ihordev.web.AbstractMockMvcTests;
 import org.junit.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.SliceImpl;
@@ -16,6 +15,7 @@ import org.springframework.data.domain.SliceImpl;
 import java.util.Collections;
 import java.util.Locale;
 
+import static com.ihordev.config.CustomWebConfig.DEFAULT_PAGE_REQUEST;
 import static info.solidsoft.mockito.java8.AssertionMatcher.assertArg;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
@@ -32,7 +32,6 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
     @MockBean
     private SongService songService;
 
-    private final Pageable defaultPageRequest = new PageRequest(0, 20);
     private final Slice<AlbumAsPageItem> albumsOfArtistWithId1 = new SliceImpl<>(Collections.emptyList());
     private final Slice<SongAsPageItem> songsOfArtistWithId1 = new SliceImpl<>(Collections.emptyList());
 
@@ -48,7 +47,7 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldHandleAllRequestsForArtistsWithCustomPrefixes() throws Exception {
-        configureMockAlbumService(defaultPageRequest);
+        configureMockAlbumService(DEFAULT_PAGE_REQUEST);
 
         mockMvc.perform(get("/test/artists/1/albums").locale(Locale.ENGLISH)).andExpect(status().isOk());
         mockMvc.perform(get("/test/21/example-path/artists/1/albums").locale(Locale.ENGLISH)).andExpect(status().isOk());
@@ -57,13 +56,13 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldHandleRequestsWithValidPathParamCorrectly() throws Exception {
-        configureMockAlbumService(defaultPageRequest);
+        configureMockAlbumService(DEFAULT_PAGE_REQUEST);
 
         mockMvc.perform(get("/~/artists/1/albums").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("albums"));
 
-        configureMockSongService(defaultPageRequest);
+        configureMockSongService(DEFAULT_PAGE_REQUEST);
 
         mockMvc.perform(get("/~/artists/1/songs").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
@@ -78,7 +77,7 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldHandleRequestsWithAbsentPathParamAndReturnDefaultView() throws Exception {
-        configureMockAlbumService(defaultPageRequest);
+        configureMockAlbumService(DEFAULT_PAGE_REQUEST);
 
         mockMvc.perform(get("/~/artists/1").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
@@ -87,10 +86,9 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
 
     @Test
     public void shouldShowAlbumsOfConcreteArtist() throws Exception {
-        Pageable expectedPageRequest = new PageRequest(0, 1);
-        configureMockAlbumService(expectedPageRequest);
+        configureMockAlbumService(DEFAULT_PAGE_REQUEST);
 
-        mockMvc.perform(get("/artists/1/albums?page=0&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/artists/1/albums?page=0").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("albums"))
                 .andExpect(model().attributeExists("albumsPage"))
@@ -99,15 +97,14 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
         then(albumService).should(times(1)).findAlbumsByArtistIdProjectedPaginated(
                 assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),
                 assertArg(id -> assertEquals(id.longValue(), 1L)),
-                assertArg(actualPageRequest -> assertEquals(expectedPageRequest, actualPageRequest)));
+                assertArg(actualPageRequest -> assertEquals(DEFAULT_PAGE_REQUEST, actualPageRequest)));
     }
 
     @Test
     public void shouldShowSongsOfConcreteArtist() throws Exception {
-        Pageable expectedPageRequest = new PageRequest(0, 1);
-        configureMockSongService(expectedPageRequest);
+        configureMockSongService(DEFAULT_PAGE_REQUEST);
 
-        mockMvc.perform(get("/artists/1/songs?page=0&size=1").locale(Locale.ENGLISH))
+        mockMvc.perform(get("/artists/1/songs?page=0").locale(Locale.ENGLISH))
                 .andExpect(status().isOk())
                 .andExpect(view().name("songs"))
                 .andExpect(model().attributeExists("songsPage"))
@@ -116,7 +113,7 @@ public class ArtistControllerTests extends AbstractMockMvcTests {
         then(songService).should(times(1)).findSongsByArtistIdProjectedPaginated(
                 assertArg(clientLanguage -> assertEquals(clientLanguage, "en")),
                 assertArg(id -> assertEquals(id.longValue(), 1L)),
-                assertArg(actualPageRequest -> assertEquals(expectedPageRequest, actualPageRequest)));
+                assertArg(actualPageRequest -> assertEquals(DEFAULT_PAGE_REQUEST, actualPageRequest)));
     }
 
 }

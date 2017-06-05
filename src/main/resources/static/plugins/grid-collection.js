@@ -1,28 +1,42 @@
-(function ( $ ) {
-  
-  $.fn.fixFlexBoxLastRow = function() {
+(function( $ ) {
+  $.widget("ihordev.gridCollection", {
     
-    return this.each(function() {
-      const $flexedDiv = $(this);
-      const flexSpaceAroundHelper = new FlexSpaceAroundHelper($flexedDiv);
+    _create: function() {
+      this._addStyles();
       
-      const observer = new MutationObserver(function(mutations) {
+      const flexSpaceAroundHelper = new FlexSpaceAroundHelper(this.element);
+      
+      const $this = this;
+      var observer = new MutationObserver(function(mutations) {
         if (mutations.some(mutation => mutation.type === 'childList')) {
+          $this._addStyles();
           flexSpaceAroundHelper.refresh();
         }
       });
       
-      const flexedDiv = $(this)[0];
-      observer.observe(flexedDiv, { childList: true });
+      observer.observe(this.element[0], { childList: true });
       
-      const sensor = new ResizeSensor(flexedDiv, function() {
+      var sensor = new ResizeSensor(this.element[0], function() {
           flexSpaceAroundHelper.squeezeChildrenToLeftInLastRow();
       });
       
       flexSpaceAroundHelper.squeezeChildrenToLeftInLastRow();
-    });
-  }
-  
+    },
+    
+    _destroy: function() {
+      var observer = new MutationObserver(function(mutations) {});
+      observer.observe(this.element[0], { childList: true });
+      $("resize-sensor").remove();
+    },
+    
+    _addStyles: function() {
+      this.element.addClass("grid-collection");
+      this.element.children("div").each(function() {
+        $(this).addClass("grid-collection__item");
+      });
+    }
+    
+  });
   
   var FlexSpaceAroundHelper = (function() {
     
@@ -41,7 +55,7 @@
       instance[_childHorizontalSpace] = parseInt(instance[_lastChild].css("width")) + instance[_childMarginRight] +
                   parseInt(instance[_lastChild].css("marginLeft"));
       
-      console.log(`FlexSpaceAroundHelper(init):\n` +
+      console.log(`gridCollection.FlexSpaceAroundHelper(init):\n` +
                   `childrenCount = ${instance[_childrenCount]};\n` +
                   `childMarginRight = ${instance[_childMarginRight]};\n` +
                   `childHorizontalSpace = ${instance[_childHorizontalSpace]};\n`);
@@ -76,7 +90,7 @@
         
           this[_lastChild].css("marginRight", freeSpaceLeft + this[_childMarginRight]);
           
-          console.log(`FlexSpaceAroundHelper(run):\n` +
+          console.log(`gridCollection.FlexSpaceAroundHelper(run):\n` +
                       `divWidth = ${divWidth};\n` +
                       `childrenInOneRow = ${childrenInOneRow};\n` +
                       `gapsExtraSpacePerChild = ${gapsExtraSpacePerChild};\n` +
@@ -90,6 +104,6 @@
     }
     
     return FlexSpaceAroundHelper;
-  }());
-      
-}( jQuery ));
+  }())
+  
+})(jQuery);

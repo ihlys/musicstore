@@ -1,4 +1,5 @@
-<div class="thematic-compilation flex-collection__item">
+<div class="thematic-compilation">
+
     <div class="container-with-background">
         
         <div class="container-with-background__background-wrapper">
@@ -6,13 +7,18 @@
         </div>
         
         <div class="container-with-background__foreground-wrapper thematic-compilation__content">
-            <a class="show-link show-link--thematic-compilation" href="#"><span>Thematic Compilation15</span></a>
+            <button class="btn-show-link btn-show-link--thematic-compilation"
+                    th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${thematicCompilation.id} + '/songs'}}">
+                <span>Thematic compilation15</span>
+            </button>
         </div>
         
     </div>
+        
 </div>
 
-<div class="thematic-compilation flex-collection__item">
+<div class="thematic-compilation">
+
     <div class="container-with-background">
         
         <div class="container-with-background__background-wrapper">
@@ -20,13 +26,18 @@
         </div>
         
         <div class="container-with-background__foreground-wrapper thematic-compilation__content">
-            <a class="show-link show-link--thematic-compilation" href="#"><span>Thematic Compilation16</span></a>
+            <button class="btn-show-link btn-show-link--thematic-compilation"
+                    th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${thematicCompilation.id} + '/songs'}}">
+                <span>Thematic compilation16</span>
+            </button>
         </div>
         
     </div>
+        
 </div>
 
-<div class="thematic-compilation flex-collection__item">
+<div class="thematic-compilation">
+
     <div class="container-with-background">
         
         <div class="container-with-background__background-wrapper">
@@ -34,8 +45,12 @@
         </div>
         
         <div class="container-with-background__foreground-wrapper thematic-compilation__content">
-            <a class="show-link show-link--thematic-compilation" href="#"><span>Thematic Compilation17</span></a>
+            <button class="btn-show-link btn-show-link--thematic-compilation"
+                    th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${thematicCompilation.id} + '/songs'}}">
+                <span>Thematic compilation17</span>
+            </button>
         </div>
         
     </div>
+        
 </div>

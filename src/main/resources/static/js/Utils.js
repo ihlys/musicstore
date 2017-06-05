@@ -1,73 +1,75 @@
 var Utils = {}
 
-Utils.ajaxPagedContentLoader = (function() {
+Utils.ajaxContentLoader = (function() {
     
-    const _$containerDiv = Symbol('$containerDiv');
-    var _nextPageUrl = Symbol('nextPageUrl');
-    var _isWaitingForAjaxResults = Symbol('isWaitingForAjaxResults');
+  const _isPaged = Symbol('isPaged');
+  var _contentUrl = Symbol('contentUrl');
+  var _isWaitingForAjaxResults = Symbol('isWaitingForAjaxResults');
+  
+  class ajaxContentLoader {
     
-    class AjaxPagedContentLoader {
-      
-      constructor( $containerDiv, nextPageUrl ) {
-        this[_$containerDiv] = $containerDiv;
-        this[_nextPageUrl] = nextPageUrl;
-        this[_isWaitingForAjaxResults] = false;
-      }
-     
-      loadNextPage() {
-        if (!this[_isWaitingForAjaxResults] && this[_nextPageUrl] != null) {
-          this[_isWaitingForAjaxResults] = true;
-          let promise = fetchMusicContentNextPage(this[_nextPageUrl]);
-          promise
-            .then((response) => {
-              this[_$containerDiv].append(response);
-              
+    constructor( contentUrl, isPaged = false ) {
+      this[_contentUrl] = contentUrl;
+      this[_isPaged] = isPaged;
+      this[_isWaitingForAjaxResults] = false;
+    }
+    
+    loadContent(responseHandler) {
+      if (!this[_isWaitingForAjaxResults] && this[_contentUrl] != null) {
+        this[_isWaitingForAjaxResults] = true;
+        let promise = fetchContent(this[_contentUrl]);
+        promise
+          .then((response) => {
+            responseHandler(response);
+            
+            if (this[_isPaged]) {
               /*[+
-              this[_nextPageUrl] = response.getResponseHeader("Content-Type");
+              this[_contentUrl] = response.getResponseHeader...
               +]*/
               
               /*[- */
-              this[_nextPageUrl] = null;
+              this[_contentUrl] = null;
               /* -]*/
-              
-              this[_isWaitingForAjaxResults] = false;
-            })
-            .catch(console.log);
-        }
+            }
+            
+            this[_isWaitingForAjaxResults] = false;
+          })
+          .catch(console.log);
       }
     }
-    
-    function fetchMusicContentNextPage(contentUrl) {
-      return promise = new Promise(function(resolve, reject) {
+  }
+  
+  function fetchContent(contentUrl) {
+    return promise = new Promise(function(resolve, reject) {
+      
+      const xhr = new XMLHttpRequest(resolve, reject);
+      xhr.open('GET', contentUrl, true);
+      
+      xhr.onload = function() {
         
-        const xhr = new XMLHttpRequest(resolve, reject);
-        xhr.open('GET', contentUrl, true);
-        
-        xhr.onload = function() {
-          
-          /*[+
-          if (this.status == 200) {
-            resolve(this.response);
-          } else {
-            var error = new Error(this.statusText);
-            error.code = this.status;
-            reject(error);
-          }
-          +]*/
-          
-          /*[- */
+        /*[+
+        if (this.status == 200) {
           resolve(this.response);
-          /* -]*/
-          
-        };
+        } else {
+          var error = new Error(this.statusText);
+          error.code = this.status;
+          reject(error);
+        }
+        +]*/
+        
+        /*[- */
+        resolve(this.response);
+        /* -]*/
+        
+      };
 
-        xhr.onerror = function() {
-          reject(new Error("Network Error"));
-        };
+      xhr.onerror = function() {
+        reject(new Error("Network Error"));
+      };
 
-        xhr.send();
-      });
-    }
-    
-    return AjaxPagedContentLoader;
-  }());
+      xhr.send();
+    });
+  }
+  
+  return ajaxContentLoader;
+}());

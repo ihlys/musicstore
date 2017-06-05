@@ -3,6 +3,7 @@
 
     <head>
         <th:block th:replace="fragments/main :: head"></th:block>
+        <th:block th:replace="fragments/shared :: grid-collection-css"></th:block>
     </head>
 
     <body>
@@ -28,13 +29,7 @@
                     <div class="row" th:include="fragments/shared :: navigation"></div>
 
                     <!--/* ===== content markup ===== */-->
-                    <div class="row" th:include="fragments/shared :: controls"></div>
-                    
-                    <div class="row">
-                        <div class="artists flex-collection" th:include="fragments/artists :: artists"></div>
-                    </div>
-                    
-                    <div class="row" th:include="fragments/shared :: comments"></div>
+                    <div th:replace="fragments/artists :: artists-content"></div>
                     <!--/* ========================== */-->
 
                 </div>
@@ -51,7 +46,9 @@
         <script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
                    data-thymol-load="../static/Static prototyping resources/config/thPath.js,
                                      ../static/Static prototyping resources/config/thVars.js,
-                                     ../static/Static prototyping resources/config/thMapping.js"></script>
+                                     ../static/Static prototyping resources/config/thMapping.js,
+                                     ../static/Static prototyping resources/config/thScripts.js,
+                                     ../static/Static prototyping resources/config/thRequests/thArtistsRequest.js"></script>
                                      
         <th:block th:replace="fragments/main :: main-scripts"></th:block>
         
@@ -59,6 +56,7 @@
         <script th:replace="fragments/music-content :: music-content-scripts"></script>
             <!--/* ===== scripts ===== */-->
             <script th:replace="fragments/artists :: artists-scripts"></script>
+            <script th:replace="fragments/shared :: grid-collection-script"></script>
             <!--/* =================== */-->
         <!--/* =================== */-->
 
