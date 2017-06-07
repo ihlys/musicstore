@@ -2,6 +2,10 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 
+**/resources/static/
+**/application/node_modules/
+**/application/scripts/tmp/
+
 ### STS ###
 .apt_generated
 .classpath

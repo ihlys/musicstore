@@ -1,0 +1,34 @@
+.soundtracks {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.soundtrack {
+	flex: 0 1 280px;
+	height: 330px;
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+}
+
+.soundtrack__cover {
+	width: 100%;
+	flex-grow: 1;
+	
+	overflow: hidden;
+}
+
+.soundtrack__cover img {
+	width: 100%;
+	height: auto;
+}
+
+.soundtrack__short-info {
+	width: 100%;
+	padding: 5px 5px;
+	
+	text-align: left;
+	font-weight: bold;
+}

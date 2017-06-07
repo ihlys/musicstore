@@ -2,8 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
     <head>
-        <th:block th:replace="fragments/main :: head"></th:block>
-        <th:block th:replace="fragments/music-content :: head"></th:block>
+        <script th:remove="all" src="../application/prototyping_resources/thymol.js-2.x-master/thymol.js"
+                   data-thymol-load="../application/prototyping_resources/config/thPath.js,
+                                     ../application/prototyping_resources/config/thVars.js,
+                                     ../application/prototyping_resources/config/thMapping.js,
+                                     ../application/prototyping_resources/config/thScripts.js,
+                                     ../application/prototyping_resources/config/thRequests/thSongsRequest.js"></script>
+        <th:block th:replace="fragments/_bundles :: songs"></th:block>
     </head>
 
     <body>
@@ -42,20 +47,6 @@
             <div class="footer row" th:include="fragments/main :: footer"></div>
         
         </div>
-        
-        <script th:remove="all" src="../static/Static prototyping resources/thymol.js-2.x-master/thymol.js"
-                   data-thymol-load="../static/Static prototyping resources/config/thPath.js,
-                                     ../static/Static prototyping resources/config/thVars.js,
-                                     ../static/Static prototyping resources/config/thMapping.js"></script>
-                                     
-        <th:block th:replace="fragments/main :: main-scripts"></th:block>
-        
-        <!--/* ===== scripts ===== */-->
-        <script th:replace="fragments/music-content :: music-content-scripts"></script>
-            <!--/* ===== scripts ===== */-->
-            <script th:replace="fragments/songs :: songs-scripts"></script>
-            <!--/* =================== */-->
-        <!--/* =================== */-->
 
     </body>
         

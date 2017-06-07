@@ -1,0 +1,67 @@
+.songs {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.song {
+	height: 40px;
+	
+	margin: 10px 15px;
+	padding: 0px 15px;
+
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;	
+	
+	border: 1px solid rgb(215, 215, 215);
+	border-radius: 5px;
+	background: rgba(0, 0, 0, 0.05);
+	
+}
+
+.song__order {
+	margin-right: 10px;
+}
+
+.song__name {
+	margin-right: auto;
+	
+}
+
+.song__btn-purchase {
+	height: 100%;
+
+	padding: 0px 10px;
+	
+	display: flex;
+	align-items: center;	
+	
+	border-radius: 0px;
+	
+	color: rgb(75, 75, 75);
+	text-decoration: none;
+		
+	background: rgba(0, 0, 0, 0.06);
+}
+
+.song__btn-purchase:link, 
+.song__btn-purchase:visited, 
+.song__btn-purchase:hover,
+.song__btn-purchase:active, 
+.song__btn-purchase:focus {
+	text-decoration: none;
+}
+
+.song__btn-purchase:hover {
+	color: black;
+	background: rgba(0, 0, 0, 0.12);
+}
+
+.song__btn-purchase:active {
+	color: black;
+	background: rgba(0, 0, 0, 0.18);
+}
+
+.song__btn-purchase:focus {
+	color: rgb(75, 75, 75);
+}

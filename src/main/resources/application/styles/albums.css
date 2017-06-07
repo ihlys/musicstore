@@ -1,0 +1,34 @@
+.albums {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.album {
+	flex: 0 1 280px;
+	height: 330px;
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-content: center;
+}
+
+.album__cover {
+	width: 100%;
+	flex-grow: 1;
+	
+	overflow: hidden;
+}
+
+.album__cover img {
+	width: 100%;
+	height: auto;
+}
+
+.album__short-info {
+	width: 100%;
+	padding: 5px 5px;
+	
+	text-align: left;
+	font-weight: bold;
+}

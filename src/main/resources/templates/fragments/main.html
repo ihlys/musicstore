@@ -7,7 +7,7 @@
     
     <link rel="stylesheet" type="text/css" media="all" 
           href="../static/lib/jquery-ui-1.12.1/jquery-ui.min.css"
-              th:href="@{/lib/jquery-ui-1.12.1/jquery-ui.min.css}">
+              th:href="@{/lib/jquery-ui-1.12.1/jquery-ui.min.css}"/>
     <link rel="stylesheet" type="text/css" media="all" 
           href="../static/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css"
               th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}"/>
@@ -76,12 +76,3 @@
 
 <div class="footer" th:fragment="footer">
 </div>
-
-
-<th:block th:fragment="main-scripts">
-<script src="../static/lib/jquery-3.1.1/jquery-3.1.1.min.js"         th:src="@{/lib/jquery-3.1.1/jquery-3.1.1.min.js}"></script>
-<script src="../static/lib/jquery-ui-1.12.1/jquery-ui.min.js"        th:src="@{/lib/jquery-ui-1.12.1/jquery-ui.min.js}"></script>
-<script src="../static/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js" th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
-<script src="../static/js/Utils.js"                                  th:src="@{/js/Utils.js}"></script>
-<script src="../static/js/Views.js"                                th:src="@{/js/Views.js}"></script>
-</th:block>

@@ -1,0 +1,64 @@
+.genres {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.genre {
+	flex: 0 1 260px;
+	height: 150px;
+    z-index: 1;
+}
+
+.genre__content {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.genre__title-wrapper {
+	height: 100%;
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+	color: white;
+	font-size: 36px;
+}
+
+.genre__title-wrapper:before, .genre__title-wrapper:after  {
+    height: 1px;
+	width: 50%;
+
+	margin: 10px;
+
+	display: inline-block;
+	content: "";
+	
+	background: rgba(255, 255, 255, 0.5);
+	box-shadow: 0 0 3px rgba(255, 255, 255, 0.5),
+				0 0 8px rgba(255, 255, 255, 1),
+				0 0 16px rgba(255, 255, 255, 1);
+}
+
+.btn-show-link--genre-content, .btn-show-link--genre-subgenres {
+	width: 100%;
+	height: 50%;
+	font-size: 16px;	
+}
+
+.btn-show-link--genre-content {
+	padding-bottom: 10px;
+}
+
+.btn-show-link--genre-subgenres {
+	padding-top: 10px;
+}
+
+@keyframes btn-show-link--genre-hover {
+    to {
+        transform: scale(1.2);
+    }
+}
+
+.btn-show-link--genre-content:hover, .btn-show-link--genre-subgenres:hover {
+	animation-name: btn-show-link--genre-hover;
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
+}

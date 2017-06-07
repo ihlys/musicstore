@@ -1,0 +1,35 @@
+.thematic-compilations {
+	height: 600px;
+    overflow-y: auto;
+}
+
+.thematic-compilation {
+	flex: 0 1 260px;
+	height: 150px;
+    z-index: 1;
+}
+
+.thematic-compilation__content {
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.btn-show-link--thematic-compilation {
+	width: 100%;
+	height: 100%;
+
+    padding: 0px 20px;
+
+	font-size: 22px;
+}
+
+@keyframes btn-show-link--thematic-compilation-hover {
+    to {
+        transform: scale(1.2);
+    }
+}
+
+.btn-show-link--thematic-compilation:hover {
+	animation-name: btn-show-link--thematic-compilation-hover;
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
+}

@@ -1,0 +1,13 @@
+.greetings {
+
+}
+
+.greetings__header {
+    padding: 15px 0px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.greetings__text {
+	font-size: 16px;
+}
