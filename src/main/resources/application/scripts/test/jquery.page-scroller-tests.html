@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Page scroller widget tests</title>
+        <link rel="stylesheet" href="../../node_modules/mocha/mocha.css"/>
+    </head>
+    
+    <style>
+    .test-container {
+        margin-top: 20px;
+        
+        background: grey;
+        width: 600px;
+        height: 300px;
+        overflow-y: auto;
+    }
+    .test-content {
+        background: green;
+        width: 600px;
+        height: 500px;
+
+        background: linear-gradient(180deg, rgba(255,255,255,0.5) 50%, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 0), #ccc;
+        background-size:50px auto;
+    }
+    </style>
+    
+    <body>
+        
+        <!-- ===== Html fixture ===== -->
+        <div id="test-container" class="test-container">
+            <div class="test-content"></div>
+        </div>
+        <!-- ======================== -->
+        
+        <div id="mocha"></div>
+        <script src="../../node_modules/mocha/mocha.js"></script>
+        <script src="../../node_modules/sinon/pkg/sinon.js"></script>
+        <script src="../../node_modules/chai/chai.js"></script>
+        <script>
+            mocha.ui('bdd');
+            mocha.reporter('html');
+            var expect = chai.expect;
+        </script>
+        <script src="jquery.page-scroller-tests.bundle.js"></script>
+        <script>
+            if (window.mochaPhantomJS) {
+                mochaPhantomJS.run(); 
+            } else {
+                mocha.run();
+            }
+        </script>
+    </body>
+</html>

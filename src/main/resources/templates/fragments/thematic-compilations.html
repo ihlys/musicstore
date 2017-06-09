@@ -1,26 +1,20 @@
-<th:block th:fragment="thematic-compilations-content">
-<div class="row" th:include="fragments/shared :: controls"></div>
+<th:block th:fragment="thematic-compilations">
+<div class="thematic-compilation" th:each="thematicCompilation : ${thematicCompilations}">
 
-<div class="thematic-compilations">
-    <div class="thematic-compilation" th:each="thematicCompilation : ${thematicCompilations}">
-
-        <div class="container-with-background">
-            
-            <div class="container-with-background__background-wrapper">
-                <img th:src="@{${thematicCompilation.image}}">
-            </div>
-            
-            <div class="container-with-background__foreground-wrapper thematic-compilation__content">
-                <button class="btn-show-link btn-show-link--thematic-compilation"
-                        th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${thematicCompilation.id} + '/songs'}}">
-                    <span th:text="${thematicCompilation.name}"></span>
-                </button>
-            </div>
-            
+    <div class="container-with-background">
+        
+        <div class="container-with-background__background-wrapper">
+            <img th:src="@{${thematicCompilation.image}}">
         </div>
-            
+        
+        <div class="container-with-background__foreground-wrapper thematic-compilation__content">
+            <button class="btn-show-link btn-show-link--thematic-compilation"
+                    th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${thematicCompilation.id} + '/songs'}}">
+                <span th:text="${thematicCompilation.name}"></span>
+            </button>
+        </div>
+        
     </div>
+        
 </div>
-
-<div class="row" th:include="fragments/shared :: comments"></div>
 </th:block>

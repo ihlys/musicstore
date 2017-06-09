@@ -1,8 +1,3 @@
-.genres {
-    height: 600px;
-    overflow-y: auto;
-}
-
 .genre {
 	flex: 0 1 260px;
 	height: 150px;

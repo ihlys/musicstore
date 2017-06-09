@@ -1,22 +1,16 @@
-<th:block th:fragment="soundtracks-content">
-<div class="row" th:include="fragments/shared :: controls"></div>
+<th:block th:fragment="soundtracks">
+<div class="soundtrack border--hover-fade-blue" th:each="soundtrack : ${soundtracks}" 
+                                                th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${soundtrack.id} + '/songs'}}">
 
-<div class="soundtracks">
-    <div class="soundtrack border--hover-fade-blue" th:each="soundtrack : ${soundtracks}" 
-                                                    th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${soundtrack.id} + '/songs'}}">
-
-        <div class="soundtrack__cover">
-            <img th:src="@{${soundtrack.image}}">
-        </div>
-        
-        <div class="soundtrack__short-info">
-            <span>Name: </span><span th:text="${soundtrack.name}"></span>
-            <br>
-            <span>Released: </span><span th:text="${soundtrack.released}"></span>
-        </div>
-            
+    <div class="soundtrack__cover">
+        <img th:src="@{${soundtrack.image}}">
     </div>
+    
+    <div class="soundtrack__short-info">
+        <span>Name: </span><span th:text="${soundtrack.name}"></span>
+        <br>
+        <span>Released: </span><span th:text="${soundtrack.released}"></span>
+    </div>
+        
 </div>
-
-<div class="row" th:include="fragments/shared :: comments"></div>
 </th:block>

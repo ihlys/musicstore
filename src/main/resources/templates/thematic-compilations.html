@@ -23,18 +23,13 @@
                 <div class="music-content col-md-9">
                 
                     <div class="row">
-
-                        <div class="music-content__top-panel">
-                        
-                            <div class="music-info" th:include="fragments/music-content :: music-info"></div>
-                         
-                        </div>
+                        <div class="music-content__top-panel" th:include="fragments/music-content :: music-info"></div>
                     </div>
 
                     <div class="row" th:include="fragments/shared :: navigation"></div>
 
                     <!--/* ===== content markup ===== */-->
-                    <div th:replace="fragments/thematic-compilations :: thematic-compilations-content"></div>
+                    <div class="music-content__collection" th:include="fragments/thematic-compilations :: thematic-compilations"></div>
                     <!--/* ========================== */-->
 
                 </div>

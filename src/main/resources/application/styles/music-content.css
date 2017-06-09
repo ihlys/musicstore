@@ -13,6 +13,11 @@
 	height: 3px;
 }
 
+.music-content__collection {
+    height: 600px;
+    overflow-y: auto;
+}
+
 /**************************************/
 /******* Music entities expanded ******/
 /********** information block *********/

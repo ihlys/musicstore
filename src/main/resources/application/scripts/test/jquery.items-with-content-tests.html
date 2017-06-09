@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Items with content widget tests</title>
+        <link rel="stylesheet" href="../../node_modules/mocha/mocha.css"/>
+    </head>
+    
+    <style>
+    .test-collection {
+        margin-top: 20px;
+        
+        background: grey;
+        width: 600px;
+        height: 300px;
+    }
+    .test-item {
+        background: green;
+        width: 200px;
+        height: 200px;
+    }
+    </style>
+    
+    <body>
+        
+        <!-- ===== Html fixture ===== -->
+        <div id="test-collection" class="test-collection">
+            <div class="test-item" data-content-url="/collection/1/item-content"><h1>Item with content</h1></div>
+        </div>
+        <!-- ======================== -->
+        
+        <div id="mocha"></div>
+        <script src="../../node_modules/mocha/mocha.js"></script>
+        <script src="../../node_modules/sinon/pkg/sinon.js"></script>
+        <script src="../../node_modules/chai/chai.js"></script>
+        <script>
+            mocha.ui('bdd');
+            mocha.reporter('html');
+            var expect = chai.expect;
+        </script>
+        <script src="jquery.items-with-content-tests.bundle.js"></script>
+        <script>
+            if (window.mochaPhantomJS) {
+                mochaPhantomJS.run(); 
+            } else {
+                mocha.run();
+            }
+        </script>
+    </body>
+</html>

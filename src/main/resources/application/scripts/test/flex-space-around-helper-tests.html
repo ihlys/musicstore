@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        <title>FlexSpaceAroundHelper tests</title>
+        <link rel="stylesheet" href="../../node_modules/mocha/mocha.css"/>
+    </head>
+    
+    <style>
+    .test-collection {
+        background: grey;
+        width: 600px;
+        height: 250px;
+    }
+    
+    .test-collection-item1, .test-collection-item2 {
+        background: green;
+        width: 200px;
+        height: 40px;
+        margin: 5px 0;
+    }
+    
+    .test-collection-item2 {
+        margin: 5px 20px;
+    }
+    </style>
+    
+    <body>
+        
+        <!-- ===== Html fixture ===== -->
+        <div id="test-collection1" class="test-collection">
+            <div class="test-collection-item1"></div>
+            <div class="test-collection-item1"></div>
+            <div class="test-collection-item1"></div>
+            <div class="test-collection-item1"></div>
+            <div class="test-collection-item1"></div>
+        </div>
+        <div id="test-collection2" class="test-collection">
+            <div class="test-collection-item2"></div>
+            <div class="test-collection-item2"></div>
+            <div class="test-collection-item2"></div>
+            <div class="test-collection-item2"></div>
+            <div class="test-collection-item2"></div>
+        </div>
+        <!-- ======================== -->
+        
+        <div id="mocha"></div>
+        <script src="../../node_modules/mocha/mocha.js"></script>
+        <script src="../../node_modules/chai/chai.js"></script>
+        <script>
+            mocha.ui('bdd');
+            mocha.reporter('html');
+            var expect = chai.expect;
+        </script>
+        <script src="flex-space-around-helper-tests.bundle.js"></script>
+        <script>
+            if (window.mochaPhantomJS) {
+                mochaPhantomJS.run(); 
+            } else {
+                mocha.run();
+            }
+        </script>
+    </body>
+</html>

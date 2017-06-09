@@ -1,20 +1,12 @@
-<th:block th:fragment="artists-content">
-<div class="row" th:include="fragments/shared :: controls"></div>
-
-<div class="row">
-    <div class="artists">
-        <div class="artist border--hover-fade-blue" th:each="artist : ${artists}" 
-                                                    th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${artist.id} + '/albums'}}">
-            
-            <div class="artist__cover">
-                <img th:src="@{${artist.image}}">
-            </div>
-            
-            <span class="artist__name" th:text="${artist.name}"></span>
-            
-        </div>
+<th:block th:fragment="artists">
+<div class="artist border--hover-fade-blue" th:each="artist : ${artists}" 
+                                            th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${artist.id} + '/albums'}}">
+    
+    <div class="artist__cover">
+        <img th:src="@{${artist.image}}">
     </div>
+    
+    <span class="artist__name" th:text="${artist.name}"></span>
+    
 </div>
-
-<div class="row" th:include="fragments/shared :: comments"></div>
 </th:block>

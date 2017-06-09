@@ -5,7 +5,7 @@ var thJsUrlMappings;
   
   const rootPath = thymol.location + thRelativeRootPath;
   const templatesPath = rootPath + "/" + thPath;
-  const requestResponsesPath = rootPath + thResourcePath + "/responses";
+  const requestResponsesPath = rootPath + "/" + thResourcePath + "/responses";
   
   thMappings = [
     ["/genres/1/artists", requestResponsesPath + "/generic-content-ajax-response.html"],
