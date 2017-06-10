@@ -5,7 +5,7 @@ public interface ArtistAsPageItem {
 
     Long    getId();
 
-    String  getImageSmlUrl();
+    String  getImageSmlUri();
 
     String  getName();
 

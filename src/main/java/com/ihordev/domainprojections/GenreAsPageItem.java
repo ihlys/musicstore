@@ -5,7 +5,7 @@ public interface GenreAsPageItem {
 
     Long    getId();
 
-    String  getImageSmlUrl();
+    String  getImageSmlUri();
 
     String  getName();
 

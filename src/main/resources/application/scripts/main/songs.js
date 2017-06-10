@@ -10,7 +10,7 @@ $(function () {
   const $songsDiv = $('.music-content__collection');
 
   $songsDiv.pageScroller({
-    nextPageUrl: /*[[${nextPageUrl}]]*/ thJsUrlMappings.get('/genres/1/songs?page=0'),
+    nextPageUrl: /*[[${nextPageUrl}]]*/ thJsUrlMappings.get('/genres/1/songs'),
     /*[- */
     prototypingMode: true,
     /* -]*/

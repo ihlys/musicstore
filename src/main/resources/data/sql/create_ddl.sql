@@ -95,17 +95,17 @@ ADD CONSTRAINT ch_songl10n_en_exists CHECK(l10n_en_count > 0);
 -- *****************************************************************************
 CREATE MATERIALIZED VIEW LOG ON genre
 WITH SEQUENCE, ROWID
-(id, image_sml_url, image_lg_url, parent_genre_id)
+(id, image_sml_uri, image_lg_uri, parent_genre_id)
 INCLUDING NEW VALUES;
 
 CREATE MATERIALIZED VIEW LOG ON artist
 WITH SEQUENCE, ROWID
-(id, image_sml_url, image_lg_url, genre_id)
+(id, image_sml_uri, image_lg_uri, genre_id)
 INCLUDING NEW VALUES;
 
 CREATE MATERIALIZED VIEW LOG ON album
 WITH SEQUENCE, ROWID
-(id, image_sml_url, image_lg_url, release_date, album_type, artist_id)
+(id, image_sml_uri, image_lg_uri, release_date, album_type, artist_id)
 INCLUDING NEW VALUES;
 
 CREATE MATERIALIZED VIEW LOG ON song

@@ -7,4 +7,5 @@ public interface AppProfiles {
     String REPOSITORY_TESTS = "repository-tests";
     String SERVICE_TESTS = "service-tests";
     String PRODUCTION = "production";
+    String DEVELOPMENT = "development";
 }

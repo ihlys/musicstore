@@ -17,9 +17,9 @@ public class ThematicCompilation {
             sequenceName = "THEMATIC_COM_L10N_SEQ", allocationSize = 1)
     private Long id;
 
-    private String imageSmlUrl;
+    private String imageSmlUri;
 
-    private String imageLgUrl;
+    private String imageLgUri;
 
     @Size(min = 1)
     @OneToMany(mappedBy = "thematicCompilation", cascade = CascadeType.ALL)
@@ -29,20 +29,20 @@ public class ThematicCompilation {
         return id;
     }
 
-    public String getImageSmlUrl() {
-        return imageSmlUrl;
+    public String getImageSmlUri() {
+        return imageSmlUri;
     }
 
-    public void setImageSmlUrl(String imageSmlUrl) {
-        this.imageSmlUrl = imageSmlUrl;
+    public void setImageSmlUri(String imageSmlUri) {
+        this.imageSmlUri = imageSmlUri;
     }
 
-    public String getImageLgUrl() {
-        return imageLgUrl;
+    public String getImageLgUri() {
+        return imageLgUri;
     }
 
-    public void setImageLgUrl(String imageLgUrl) {
-        this.imageLgUrl = imageLgUrl;
+    public void setImageLgUri(String imageLgUri) {
+        this.imageLgUri = imageLgUri;
     }
 
     public Set<ThematicCompilationL10n> getThematicCompilationL10nSet() {
@@ -55,25 +55,23 @@ public class ThematicCompilation {
 
     protected ThematicCompilation() {}
 
-    public ThematicCompilation(String imageSmlUrl, String imageLgUrl) {
-        this(imageSmlUrl, imageLgUrl, new HashSet<>());
+    public ThematicCompilation(String imageSmlUri, String imageLgUri) {
+        this(imageSmlUri, imageLgUri, new HashSet<>());
     }
 
-    public ThematicCompilation(String imageSmlUrl, String imageLgUrl,
+    public ThematicCompilation(String imageSmlUri, String imageLgUri,
                                Set<ThematicCompilationL10n> thematicCompilationL10nSet) {
-        this.imageSmlUrl = imageSmlUrl;
-        this.imageLgUrl = imageLgUrl;
+        this.imageSmlUri = imageSmlUri;
+        this.imageLgUri = imageLgUri;
         this.thematicCompilationL10nSet = thematicCompilationL10nSet;
     }
-
-    //TODO: should this entity have areEqual and hashcode?
 
     @Override
     public String toString() {
         return "ThematicCompilation{" +
                 "id=" + id +
-                ", imageSmlUrl='" + imageSmlUrl + '\'' +
-                ", imageLgUrl='" + imageLgUrl + '\'' +
+                ", imageSmlUri='" + imageSmlUri + '\'' +
+                ", imageLgUri='" + imageLgUri + '\'' +
                 ", thematicCompilationL10nSet=" + thematicCompilationL10nSet.stream()
                     .map(ThematicCompilationL10n::getLanguage)
                     .map(Language::getName)

@@ -7,7 +7,7 @@ public interface AlbumAsPageItem {
 
     Long      getId();
 
-    String    getImageSmlUrl();
+    String    getImageSmlUri();
 
     LocalDate getReleaseDate();
 

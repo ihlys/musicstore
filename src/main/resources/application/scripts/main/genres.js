@@ -9,15 +9,13 @@ import './jquery.page-scroller';
 import './jquery.items-with-content';
 
 $(function () {
-  const $genresDiv = $('.music-content__collection');
+  $('.music-content').itemsWithContent({ itemsSelector: 'div.genre button[data-content-url]'/*[- */, prototypingMode: true }/* -]*/);
 
-  $genresDiv.gridCollection()
-    .pageScroller({
-      scrollPadding: 65,
-      nextPageUrl: /*[[${nextPageUrl}]]*/ thJsUrlMappings.get('/genres?page=0'),
-      /*[- */
-      prototypingMode: true,
-      /* -]*/
-    })
-    .itemsWithContent({ itemsSelector: "button"/*[- */, prototypingMode: true }/* -]*/);
+  $('.music-content__collection').gridCollection().pageScroller({
+    scrollPadding: 65,
+    nextPageUrl: /*[[${nextPageUrl}]]*/ thJsUrlMappings.get('/genres'),
+    /*[- */
+    prototypingMode: true,
+    /* -]*/
+  });
 });

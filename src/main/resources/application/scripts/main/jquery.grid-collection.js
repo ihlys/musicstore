@@ -8,7 +8,7 @@ import 'Styles/grid-collection.css';
 import { ResizeSensor, ElementQueries } from 'css-element-queries';
 import FlexSpaceAroundHelper from './flex-space-around-helper';
 
-$.widget('ihordev.gridCollection', {
+$.widget('ui.gridCollection', {
 
   _create() {
     this._addStyles();

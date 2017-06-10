@@ -98,12 +98,12 @@ var thJsUrlMappings;
   ];
   
   thJsUrlMappings = new Map([
-    ["/genres?page=0", requestResponsesPath + "/genres.html"],
-    ["/genres/1/artists?page=0", requestResponsesPath + "/artists.html"],
-    ["/genres/1/artists/1/albums?page=0", requestResponsesPath + "/albums.html"],
-    ["/genres/1/songs?page=0", requestResponsesPath + "/songs.html"],
-    ["/soundtracks?page=0", requestResponsesPath + "/soundtracks.html"],
-    ["/thematic-compilations?page=0", requestResponsesPath + "/thematic-compilations.html"]
+    ["/genres", requestResponsesPath + "/genres.html"],
+    ["/genres/1/artists", requestResponsesPath + "/artists.html"],
+    ["/genres/1/artists/1/albums", requestResponsesPath + "/albums.html"],
+    ["/genres/1/songs", requestResponsesPath + "/songs.html"],
+    ["/soundtracks", requestResponsesPath + "/soundtracks.html"],
+    ["/thematic-compilations", requestResponsesPath + "/thematic-compilations.html"]
   ]);
   
 })();

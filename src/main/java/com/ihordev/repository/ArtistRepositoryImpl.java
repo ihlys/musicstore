@@ -35,7 +35,7 @@ public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
 
         String jpql = String.format(
                       " SELECT artist.id AS id,                                      " +
-                      "        artist.imageSmlUrl AS imageSmlUrl,                    " +
+                      "        artist.imageSmlUri AS imageSmlUri,                    " +
                       "        l10n.name AS name,                                    " +
                       "        l10n.description AS description                       " +
                       "     FROM Artist artist                                       " +
@@ -69,6 +69,6 @@ public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
     private ArtistAsPageItem mapRowToArtist(Object[] row) {
         ProjectionFactory projectionFactory = new SpelAwareProxyProjectionFactory();
         return projectionFactory.createProjection(ArtistAsPageItem.class,
-                convertRowToPropertiesMap(row, "id", "imageSmlUrl", "name", "description"));
+                convertRowToPropertiesMap(row, "id", "imageSmlUri", "name", "description"));
     }
 }

@@ -38,7 +38,7 @@ public interface GenreRepository extends JpaRepository<Genre, Long> {
     String FIND_GENRE_ALL_SUBGENRES_QUERY = "findGenreAllSubGenres";
 
     @Query(" SELECT genre.id AS id,                                                " +
-           "        genre.imageSmlUrl AS imageSmlUrl,                              " +
+           "        genre.imageSmlUri AS imageSmlUri,                              " +
            "        l10n.name AS name,                                             " +
            "        l10n.description AS description                                " +
            "     FROM Genre genre                                                  " +

@@ -18,7 +18,7 @@ function init(instance) {
   console.log(dedent`FlexSpaceAroundHelper(init):
     childrenCount = ${instance[childrenCount]};
     childMarginRight = ${instance[childMarginRight]};
-    childHorizontalSpace = ${instance[childHorizontalSpace]};\n`);
+    childHorizontalSpace = ${instance[childHorizontalSpace]};`);
 }
 
 function restoreMargin(instance) {

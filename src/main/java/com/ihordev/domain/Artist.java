@@ -17,9 +17,9 @@ public class Artist {
     @SequenceGenerator(name = "ARTIST_SEQ_GEN", sequenceName = "ARTIST_SEQ", allocationSize = 1)
     private Long id;
 
-    private String imageSmlUrl;
+    private String imageSmlUri;
 
-    private String imageLgUrl;
+    private String imageLgUri;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -36,20 +36,20 @@ public class Artist {
         return id;
     }
 
-    public String getImageSmlUrl() {
-        return imageSmlUrl;
+    public String getImageSmlUri() {
+        return imageSmlUri;
     }
 
-    public void setImageSmlUrl(String imageSmlUrl) {
-        this.imageSmlUrl = imageSmlUrl;
+    public void setImageSmlUri(String imageSmlUri) {
+        this.imageSmlUri = imageSmlUri;
     }
 
-    public String getImageLgUrl() {
-        return imageLgUrl;
+    public String getImageLgUri() {
+        return imageLgUri;
     }
 
-    public void setImageLgUrl(String imageLgUrl) {
-        this.imageLgUrl = imageLgUrl;
+    public void setImageLgUri(String imageLgUri) {
+        this.imageLgUri = imageLgUri;
     }
 
     public Genre getGenre() {
@@ -78,13 +78,13 @@ public class Artist {
 
     protected Artist() {}
 
-    public Artist(String imageSmlUrl, String imageLgUrl, Genre genre) {
-        this(imageSmlUrl, imageLgUrl, genre, new HashSet<>());
+    public Artist(String imageSmlUri, String imageLgUri, Genre genre) {
+        this(imageSmlUri, imageLgUri, genre, new HashSet<>());
     }
 
-    public Artist(String imageSmlUrl, String imageLgUrl, Genre genre, Set<ArtistL10n> artistL10nSet) {
-        this.imageSmlUrl = imageSmlUrl;
-        this.imageLgUrl = imageLgUrl;
+    public Artist(String imageSmlUri, String imageLgUri, Genre genre, Set<ArtistL10n> artistL10nSet) {
+        this.imageSmlUri = imageSmlUri;
+        this.imageLgUri = imageLgUri;
         this.genre = genre;
         this.artistL10nSet = artistL10nSet;
     }
@@ -108,8 +108,8 @@ public class Artist {
     public String toString() {
         return "Artist{" +
                 "id=" + id +
-                ", imageSmlUrl='" + imageSmlUrl + '\'' +
-                ", imageLgUrl='" + imageLgUrl + '\'' +
+                ", imageSmlUri='" + imageSmlUri + '\'' +
+                ", imageLgUri='" + imageLgUri + '\'' +
                 ", artistL10nSet=" + artistL10nSet.stream()
                     .map(ArtistL10n::getLanguage)
                     .map(Language::getName)

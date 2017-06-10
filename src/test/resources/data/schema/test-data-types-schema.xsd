@@ -37,8 +37,8 @@
 
     <xs:complexType name="Album">
         <xs:attribute name="id"            type="xs:long"    use="required"/>
-        <xs:attribute name="image_sml_url" type="xs:string"/>
-        <xs:attribute name="image_lg_url"  type="xs:string"/>
+        <xs:attribute name="image_sml_uri" type="xs:string"/>
+        <xs:attribute name="image_lg_uri"  type="xs:string"/>
         <xs:attribute name="release_date"  type="xs:date"    use="required"/>
         <xs:attribute name="album_type"    type="album_type" use="required"/>
         <xs:attribute name="artist_id"     type="xs:long"    use="required"/>
@@ -54,8 +54,8 @@
 
     <xs:complexType name="Artist">
         <xs:attribute name="id"            type="xs:long" use="required"/>
-        <xs:attribute name="image_sml_url" type="xs:string"/>
-        <xs:attribute name="image_lg_url"  type="xs:string"/>
+        <xs:attribute name="image_sml_uri" type="xs:string"/>
+        <xs:attribute name="image_lg_uri"  type="xs:string"/>
         <xs:attribute name="genre_id"      type="xs:long" use="required"/>
     </xs:complexType>
 
@@ -69,8 +69,8 @@
 
     <xs:complexType name="Genre">
         <xs:attribute name="id"              type="xs:long" use="required"/>
-        <xs:attribute name="image_sml_url"   type="xs:string"/>
-        <xs:attribute name="image_lg_url"    type="xs:string"/>
+        <xs:attribute name="image_sml_uri"   type="xs:string"/>
+        <xs:attribute name="image_lg_uri"    type="xs:string"/>
         <xs:attribute name="parent_genre_id" type="xs:long"/>
     </xs:complexType>
 
@@ -84,8 +84,8 @@
 
     <xs:complexType name="ThematicCompilation">
         <xs:attribute name="id"             type="xs:long" use="required"/>
-        <xs:attribute name="image_sml_url"  type="xs:string"/>
-        <xs:attribute name="image_lg_url"   type="xs:string"/>
+        <xs:attribute name="image_sml_uri"  type="xs:string"/>
+        <xs:attribute name="image_lg_uri"   type="xs:string"/>
     </xs:complexType>
 
     <xs:complexType name="ThematicCompilationL10n">

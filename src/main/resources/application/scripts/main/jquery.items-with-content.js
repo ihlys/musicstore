@@ -1,25 +1,31 @@
+/* global history */
+
 import $ from 'jquery';
 import 'jquery-ui';
 import fetch from './ajax';
 
-$.widget('ihordev.itemsWithContent', {
+$.widget('ui.itemsWithContent', {
 
   options: {
-    itemsSelector: '> div',
+    itemsSelector: null,
     prototypingMode: false,
   },
 
   _create() {
+    if (!this.options.itemsSelector) throw Error('Required parameter itemsSelector must be specified.');
+
     const widget = this;
     let isWaitingForAjaxResults = false;
     this.clickListener = function () {
       if (!isWaitingForAjaxResults) {
         isWaitingForAjaxResults = true;
-        const promise = fetch($(this).data('content-url'), widget.options.prototypingMode);
+        const contentUrl = $(this).data('content-url');
+        const promise = fetch(contentUrl, widget.options.prototypingMode);
         promise
           .then((request) => {
             widget.element.html(request.response);
-            history.pushState(request.url);
+            console.log("contentUrl = " + contentUrl);
+            history.pushState({}, "", contentUrl);
             isWaitingForAjaxResults = false;
           })
           .catch(console.log);

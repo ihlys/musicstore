@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 
     @Query(" SELECT album.id AS id,                                   " +
-           "        album.imageSmlUrl AS imageSmlUrl,                 " +
+           "        album.imageSmlUri AS imageSmlUri,                 " +
            "        album.releaseDate AS releaseDate,                 " +
            "        l10n.name AS name,                                " +
            "        l10n.description AS description                   " +

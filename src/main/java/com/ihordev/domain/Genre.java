@@ -24,9 +24,9 @@ public class Genre {
     @SequenceGenerator(name = "GENRE_SEQ_GEN", sequenceName = "GENRE_SEQ", allocationSize = 1)
     private Long id;
 
-    private String imageSmlUrl;
+    private String imageSmlUri;
 
-    private String imageLgUrl;
+    private String imageLgUri;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Genre parentGenre;
@@ -45,20 +45,20 @@ public class Genre {
         return id;
     }
 
-    public String getImageSmlUrl() {
-        return imageSmlUrl;
+    public String getImageSmlUri() {
+        return imageSmlUri;
     }
 
-    public void setImageSmlUrl(String imageSmlUrl) {
-        this.imageSmlUrl = imageSmlUrl;
+    public void setImageSmlUri(String imageSmlUri) {
+        this.imageSmlUri = imageSmlUri;
     }
 
-    public String getImageLgUrl() {
-        return imageLgUrl;
+    public String getImageLgUri() {
+        return imageLgUri;
     }
 
-    public void setImageLgUrl(String imageLgUrl) {
-        this.imageLgUrl = imageLgUrl;
+    public void setImageLgUri(String imageLgUri) {
+        this.imageLgUri = imageLgUri;
     }
 
     public Genre getParentGenre() {
@@ -95,13 +95,13 @@ public class Genre {
 
     protected Genre() {}
 
-    public Genre(String imageSmlUrl, String imageLgUrl, Genre parentGenre) {
-        this(imageSmlUrl, imageLgUrl, parentGenre, new HashSet<>());
+    public Genre(String imageSmlUri, String imageLgUri, Genre parentGenre) {
+        this(imageSmlUri, imageLgUri, parentGenre, new HashSet<>());
     }
 
-    public Genre(String imageSmlUrl, String imageLgUrl, Genre parentGenre, Set<GenreL10n> genreL10nSet) {
-        this.imageSmlUrl = imageSmlUrl;
-        this.imageLgUrl = imageLgUrl;
+    public Genre(String imageSmlUri, String imageLgUri, Genre parentGenre, Set<GenreL10n> genreL10nSet) {
+        this.imageSmlUri = imageSmlUri;
+        this.imageLgUri = imageLgUri;
         this.parentGenre = parentGenre;
         this.genreL10nSet = genreL10nSet;
     }
@@ -125,8 +125,8 @@ public class Genre {
     public String toString() {
         return "Genre{" +
                 "id=" + id +
-                ", imageSmlUrl='" + imageSmlUrl + '\'' +
-                ", imageLgUrl='" + imageLgUrl + '\'' +
+                ", imageSmlUri='" + imageSmlUri + '\'' +
+                ", imageLgUri='" + imageLgUri + '\'' +
                 ", genreL10nSet=" + genreL10nSet.stream()
                     .map(GenreL10n::getLanguage)
                     .map(Language::getName)

@@ -4,7 +4,7 @@ import $ from 'jquery';
 import 'jquery-ui';
 import fetch from './ajax';
 
-$.widget('ihordev.pageScroller', {
+$.widget('ui.pageScroller', {
 
   options: {
     nextPageUrl: null,

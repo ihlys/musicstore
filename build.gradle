@@ -116,14 +116,14 @@ task checkedCompile() {
     finalizedBy CheckedCompile.getHookTask(project)
 }
 
-import com.ihordev.sql.flatten.SqlSourceFlattener;
+import com.ihordev.sql.SqlSourceFlattener;
 
 task flattenSqlSources {
 
     File resourcesDir = sourceSets.main.resources.srcDirs.first()
 
     String sqlSourcePath = resourcesDir.getAbsolutePath() +
-            "\\data\\sql\\schema_create_additional_ddl.sql"
+            "\\data\\sql\\create_ddl.sql"
 
     SqlSourceFlattener.main("-db", "oracle", "-sources", sqlSourcePath, "-sem")
 }

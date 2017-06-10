@@ -24,9 +24,9 @@ public class Album {
     @SequenceGenerator(name = "ALBUM_SEQ_GEN", sequenceName = "ALBUM_SEQ", allocationSize = 1)
     private Long id;
 
-    private String imageSmlUrl;
+    private String imageSmlUri;
 
-    private String imageLgUrl;
+    private String imageLgUri;
 
     @NotNull
     @Column(nullable = false)
@@ -55,20 +55,20 @@ public class Album {
         return id;
     }
 
-    public String getImageSmlUrl() {
-        return imageSmlUrl;
+    public String getImageSmlUri() {
+        return imageSmlUri;
     }
 
-    public void setImageSmlUrl(String imageSmlUrl) {
-        this.imageSmlUrl = imageSmlUrl;
+    public void setImageSmlUri(String imageSmlUri) {
+        this.imageSmlUri = imageSmlUri;
     }
 
-    public String getImageLgUrl() {
-        return imageLgUrl;
+    public String getImageLgUri() {
+        return imageLgUri;
     }
 
-    public void setImageLgUrl(String imageLgUrl) {
-        this.imageLgUrl = imageLgUrl;
+    public void setImageLgUri(String imageLgUri) {
+        this.imageLgUri = imageLgUri;
     }
 
     public LocalDate getReleaseDate() {
@@ -105,14 +105,14 @@ public class Album {
 
     protected Album() {}
 
-    public Album(String imageSmlUrl, String imageLgUrl, LocalDate releaseDate, AlbumType albumType, Artist artist) {
-        this(imageSmlUrl, imageLgUrl, releaseDate, albumType, artist, new HashSet<>());
+    public Album(String imageSmlUri, String imageLgUri, LocalDate releaseDate, AlbumType albumType, Artist artist) {
+        this(imageSmlUri, imageLgUri, releaseDate, albumType, artist, new HashSet<>());
     }
 
-    public Album(String imageSmlUrl, String imageLgUrl, LocalDate releaseDate,
+    public Album(String imageSmlUri, String imageLgUri, LocalDate releaseDate,
                  AlbumType albumType, Artist artist, Set<AlbumL10n> albumL10nSet) {
-        this.imageSmlUrl = imageSmlUrl;
-        this.imageLgUrl = imageLgUrl;
+        this.imageSmlUri = imageSmlUri;
+        this.imageLgUri = imageLgUri;
         this.releaseDate = releaseDate;
         this.albumType = albumType;
         this.artist = artist;
@@ -138,8 +138,8 @@ public class Album {
     public String toString() {
         return "Album{" +
                 "id=" + id +
-                ", imageSmlUrl='" + imageSmlUrl + '\'' +
-                ", imageLgUrl='" + imageLgUrl + '\'' +
+                ", imageSmlUri='" + imageSmlUri + '\'' +
+                ", imageLgUri='" + imageLgUri + '\'' +
                 ", albumL10nSet=" + albumL10nSet.stream()
                     .map(AlbumL10n::getLanguage)
                     .map(Language::getName)
