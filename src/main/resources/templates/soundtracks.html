@@ -2,13 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
     <head>
+        <script>var thPrototypingMode = false;</script>
         <script th:remove="all" src="../application/prototyping_resources/thymol.js-2.x-master/thymol.js"
                    data-thymol-load="../application/prototyping_resources/config/thPath.js,
                                      ../application/prototyping_resources/config/thVars.js,
-                                     ../application/prototyping_resources/config/thMapping.js,
                                      ../application/prototyping_resources/config/thScripts.js,
-                                     ../application/prototyping_resources/config/thRequests/thSoundtracksRequest.js"></script>
-        <th:block th:replace="fragments/_bundles :: soundtracks"></th:block>
+                                     ../application/prototyping_resources/config/thPages/thMainConfig.js,
+                                     ../application/prototyping_resources/config/thPages/thSoundtracksConfig.js"></script>
+        <script src="../static/application.bundle.js" th:src="@{/application.bundle.js}" data-initial-page-init="soundtracks"></script>
     </head>
 
     <body>
@@ -19,26 +20,21 @@
             
             <div class="main row row--equal-columns">
 
-                <!--/* ===== content markup ===== */-->
-                <div class="music-content col-md-9">
-                
-                    <div class="row">
-
-                        <div class="music-content__top-panel">
+                <div class="col-md-9">
+            
+                    <div class="row" th:include="fragments/menu :: menu"></div>
+            
+                    <div class="main__content" id="main__content">
+                        <!--/* ===== content markup ===== */-->
+                        <div class="navigation row" th:include="fragments/shared :: navigation"></div>
                         
-                            <div class="music-info" th:include="fragments/music-content :: music-info"></div>
-                         
-                        </div>
+                        <div class="music-collection" th:include="fragments/soundtracks :: soundtracks"
+                                data-th-attr="data-initial-next-page-url=${initialNextPageUrl}"></div>
+                        <div class="comments row" th:include="fragments/shared :: comments"></div>
+                        <!--/* ========================== */-->
                     </div>
-
-                    <div class="row" th:include="fragments/shared :: navigation"></div>
-
-                    <!--/* ===== content markup ===== */-->
-                    <div class="music-content__collection" th:include="fragments/soundtracks :: soundtracks"></div>
-                    <!--/* ========================== */-->
-
+                    
                 </div>
-                <!--/* ========================== */-->
                 
                 <div class="news-panel col-md-3" th:include="fragments/main :: news-panel"></div>
                 

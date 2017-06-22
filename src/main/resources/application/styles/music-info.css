@@ -1,0 +1,115 @@
+.music-info {
+	overflow: hidden;
+	background: black;
+	min-height: 180px;
+}
+
+.music-info .fade-edge.fade-edge--bottom.fade-edge--white {
+	height: 3px;
+}
+
+.music-info__background-img-wrapper  {
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+
+.music-info__background-img-wrapper img {
+	width: 100%;
+	height: auto;
+}
+
+.music-info__background-img-wrapper  .fade-edge.fade-edge--bottom.fade-edge--black {
+	height: 100px;
+}
+
+.music-info__content {
+	min-height: 180px;
+	background: rgba(0, 0, 0, 0.4);
+}
+
+.music-info__title {
+	padding: 40px 0px 5px;
+	margin: 0px;
+	text-align: center;
+	color: white;
+}
+
+.music-info__expand-btn {
+	margin: 4px auto 4px;
+	
+	padding: 5px 15px;
+	height: 35px;
+	
+	display: block;
+	
+	color: white;
+	background: rgba(0, 0, 0, 0);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	box-shadow: 	  0 0 8px rgba(255, 255, 255, 0.2),
+				inset 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.music-info__expand-btn-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+    margin-top: 10px;
+	padding: 10px 0px;	
+}
+
+.music-info__expand-btn-wrapper:before, .music-info__expand-btn-wrapper:after {
+	width:  0;
+	height: 0;
+	
+	content: "";
+	
+	display: block;
+
+	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
+}
+
+.music-info__expand-btn-wrapper:before {
+	display: none;
+	border-bottom: 20px solid rgba(255, 255, 255, 0.3);
+}
+
+.music-info__expand-btn-wrapper:after {
+	display: none;
+	border-top: 20px solid rgba(255, 255, 255, 0.3);
+}
+
+.music-info__expand-btn-wrapper--show-before:before {
+	display: block;
+}
+
+.music-info__expand-btn-wrapper--show-after:after {
+	display: block;
+}
+
+@keyframes expand-music-info-btn {
+    from {font-size: 16px;}
+    to {font-size: 17px;}
+}
+
+.music-info__expand-btn:hover {
+	background: rgba(0, 0, 0, 0);
+				 
+	animation-name: expand-music-info-btn;
+	animation-duration: 0.2s;
+	animation-fill-mode: forwards;
+}
+
+.music-info__expand-btn:focus {
+	outline: none;
+}
+
+.music-info__details {
+	padding: 25px 15px 10px;
+	color: white;
+	display: none;
+}

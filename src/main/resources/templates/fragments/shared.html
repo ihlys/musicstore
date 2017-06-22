@@ -1,9 +1,9 @@
 <div class="navigation" th:fragment="navigation">
-    <th:block th:each="navigationPoint : ${navigation}">
-        <a class="navigation__link" th:href="${navigationPoint.navPath}">
-            <span th:text="${navigationPoint.navLabel}"></span>
-        </a>
-        <span class="navigation__divider"><i class="fa fa-caret-right"></i></span>
+    <th:block th:each="navigationPoint, iterStat : ${navigation}">
+        <button class="btn-a btn-a--navigation" data-th-attr="data-item-page-url=@{${navigationPoint.uri}}">
+            <span th:text="${navigationPoint.label}"></span>
+        </button>
+        <span th:if="${!iterStat.last}" class="navigation__divider"><i class="fa fa-caret-right"></i></span>
     </th:block>
 </div>
 

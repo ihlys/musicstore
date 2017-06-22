@@ -1,19 +1,19 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.2.RELEASE'
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
         sqlSourceFlattenerVersion = '1.0'
-	}
-	repositories {
-		mavenCentral()
+    }
+    repositories {
+        mavenCentral()
 
         flatDir {
            dirs 'libs'
         }
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
         classpath("com.ihordev.sql.flatten:SqlSourceFlattener:$sqlSourceFlattenerVersion")
-	}
+    }
 }
 
 apply plugin: 'java'
@@ -21,14 +21,19 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'war'
 
 war {
-	baseName = 'musicstore'
-	version = '0.0.1-SNAPSHOT'
+    baseName = 'musicstore'
+    version = '0.0.1-SNAPSHOT'
+}
+
+processResources{
+    exclude('**/application/node_modules/')
+    exclude('**/application/scripts/tmp/')
 }
 
 sourceCompatibility = 1.8
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 
     flatDir {
        dirs 'libs'
@@ -38,33 +43,35 @@ repositories {
 ext {
     aspectjVersion = '1.8.10'
     mockitoVersion = '2.0.1'
-	nekohtmlVersion = '1.9.21'
+    nekohtmlVersion = '1.9.21'
     thymeleafVersion = '3.0.6.RELEASE'
     thymeleafSpringVersion = '3.0.6.RELEASE'
     thymeleafLayoutDialectVersion = '2.2.2'
-	reflectionsVersion = '0.9.10'
+    reflectionsVersion = '0.9.10'
     fastClasspathScannerVersion = '2.0.19'
     durianVersion = '3.4.0'
     springTestDbUnit = '1.3.0'
     dbUnitVersion = '2.5.3'
     oracleDriverVersion = '12.1.0.1.0'
+    commonsVersion = '3.5'
+    hibernateVersion = '5.2.10.Final'
 
     targetJavaVersion = JavaVersion.VERSION_1_8
     checkerFrameworkVersion = '2.1.10'
-   	jdkVersion = JavaVersion.current().isJava7() ? 'jdk7' : 'jdk8'
+    jdkVersion = JavaVersion.current().isJava7() ? 'jdk7' : 'jdk8'
 }
 
 configurations {
-	providedRuntime
+    providedRuntime
 
     // ***** Checker framework configurations *****
-   	checkerFrameworkAnnotatedJDK {
-   		description = 'a copy of JDK classes with Checker Framework type qualifers inserted'
-   	}
+    checkerFrameworkAnnotatedJDK {
+        description = 'a copy of JDK classes with Checker Framework type qualifers inserted'
+    }
 
-   	checkerFramework {
-   		description = 'The Checker Framework: custom pluggable types for Java'
-   	}
+    checkerFramework {
+        description = 'The Checker Framework: custom pluggable types for Java'
+    }
 
     all {
         resolutionStrategy.dependencySubstitution {
@@ -72,42 +79,44 @@ configurations {
             substitute module("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect") with module("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutDialectVersion")
             substitute module('org.thymeleaf:thymeleaf') with module("org.thymeleaf:thymeleaf:$thymeleafVersion")
             substitute module('org.thymeleaf:thymeleaf-spring4') with module("org.thymeleaf:thymeleaf-spring4:$thymeleafSpringVersion")
+            substitute module('org.hibernate:hibernate-core') with module("org.hibernate:hibernate-core:$hibernateVersion")
+            substitute module('org.hibernate:hibernate-entitymanager') with module("org.hibernate:hibernate-entitymanager:$hibernateVersion")
         }
     }
 }
-
 
 bootRun {
     addResources = true
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-test')
-	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-devtools')
 
-	testCompile('org.springframework.boot:spring-boot-starter-tomcat')
+    testCompile('org.springframework.boot:spring-boot-starter-tomcat')
     testCompile("com.github.springtestdbunit:spring-test-dbunit:$springTestDbUnit")
     compile("org.dbunit:dbunit:$dbUnitVersion")
 
-	compile("net.sourceforge.nekohtml:nekohtml:$nekohtmlVersion")
-	compile("info.solidsoft.mockito:mockito-java8:$mockitoVersion")
-	compile("org.aspectj:aspectjrt:$aspectjVersion")
-	compile("org.aspectj:aspectjweaver:$aspectjVersion")
-	compile("org.reflections:reflections:$reflectionsVersion")
+    compile("net.sourceforge.nekohtml:nekohtml:$nekohtmlVersion")
+    compile("info.solidsoft.mockito:mockito-java8:$mockitoVersion")
+    compile("org.aspectj:aspectjrt:$aspectjVersion")
+    compile("org.aspectj:aspectjweaver:$aspectjVersion")
+    compile("org.reflections:reflections:$reflectionsVersion")
+    compile("org.apache.commons:commons-lang3:$commonsVersion")
 
     // ***** local libraries dependencies *****
-    compile("io.github.lukehutch:fast-classpath-scanner:${fastClasspathScannerVersion}")
-    compile("com.diffplug.durian:durian:${durianVersion}")
-	compile("com.oracle:ojdbc7:$oracleDriverVersion")
+    compile("io.github.lukehutch:fast-classpath-scanner:$fastClasspathScannerVersion")
+    compile("com.diffplug.durian:durian:$durianVersion")
+    compile("com.oracle:ojdbc7:$oracleDriverVersion")
 
     // ***** Checker framework dependencies *****
-   	checkerFrameworkAnnotatedJDK("org.checkerframework:${jdkVersion}:${checkerFrameworkVersion}")
-   	checkerFramework("org.checkerframework:checker:${checkerFrameworkVersion}")
-   	compile("org.checkerframework:checker-qual:${checkerFrameworkVersion}")
+    checkerFrameworkAnnotatedJDK("org.checkerframework:$jdkVersion:$checkerFrameworkVersion")
+    checkerFramework("org.checkerframework:checker:$checkerFrameworkVersion")
+    compile("org.checkerframework:checker-qual:$checkerFrameworkVersion")
 }
 
 import com.ihordev.CheckedCompile
@@ -122,10 +131,29 @@ task flattenSqlSources {
 
     File resourcesDir = sourceSets.main.resources.srcDirs.first()
 
-    String sqlSourcePath = resourcesDir.getAbsolutePath() +
+    String createDDLSourcePath = resourcesDir.getAbsolutePath() +
             "\\data\\sql\\create_ddl.sql"
 
-    SqlSourceFlattener.main("-db", "oracle", "-sources", sqlSourcePath, "-sem")
+    String loadDataSourcePath = resourcesDir.getAbsolutePath() +
+            "\\data\\sql\\load_data.sql"
+
+    SqlSourceFlattener.main("-db", "oracle", "-sources", createDDLSourcePath, "-sem")
+    SqlSourceFlattener.main("-db", "oracle", "-sources", loadDataSourcePath, "-sem")
+}
+
+task createJavadoc(type:Exec) {
+    args = [
+            '-d', 'musicstore_docs\\javadoc',
+            '-sourcepath', 'src\\main\\java',
+            '-subpackages', 'com',
+            '-classpath', sourceSets.main.compileClasspath.asPath,
+            '-link', 'http://docs.spring.io/spring/docs/4.3.7.RELEASE/javadoc-api/',
+            '-link', 'http://docs.spring.io/spring-data/jpa/docs/1.11.1.RELEASE/api/',
+            '-link', 'http://docs.spring.io/spring-data/data-commons/docs/1.13.1.RELEASE/api/',
+            '-link', 'https://docs.oracle.com/javaee/7/api/',
+            '-link', 'https://docs.oracle.com/javase/8/docs/api/'
+    ]
+    executable 'javadoc'
 }
 
 

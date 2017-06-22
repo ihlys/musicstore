@@ -1,16 +1,15 @@
 <th:block th:fragment="albums">
-<div class="album border--hover-fade-blue"
-        th:each="album : ${albums}"
-        th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${album.id} + '/songs'}}">
+<div class="album border--hover-fade-blue" th:each="album : ${albums}"
+        data-th-attr="data-item-page-url=@{${#request.getRequestURI() + '/' + album.id + '/songs'}}">
 
     <div class="album__cover">
-        <img th:src="@{${album.image}}">
+        <img th:src="@{${'/' + album.imageSmName}}">
     </div>
     
     <div class="album__short-info">
-        <span>Name: </span><span th:text="${album.name}"></span>
+        <span th:text="#{album.name}"></span><span th:text="${album.name}"></span>
         <br>
-        <span>Released: </span><span th:text="${album.released}"></span>
+        <span th:text="#{album.released}"></span><span th:text="${album.releaseDate}"></span>
     </div>
     
 </div>

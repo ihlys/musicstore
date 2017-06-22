@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <LANGUAGE id="1" name="en"/>
+    <LANGUAGE id="2" name="ru"/>
+
+    <GENRE id="1"/>
+        <GENRE id="2" parent_genre_id="1"/>
+            <GENRE id="3" parent_genre_id="2"/>
+                <ARTIST id="1" genre_id="3"/>
+                    <ALBUM id="1" artist_id="1" release_date="2017-05-25" album_type="STUDIO_ALBUM"/>
+                        <SONG id="1" album_id="1" artist_id="1"/>
+                        <SONG id="2" album_id="1" artist_id="1"/>
+                    <ALBUM id="2" artist_id="1" release_date="2017-05-25" album_type="STUDIO_ALBUM"/>
+                        <SONG id="3" album_id="2" artist_id="1"/>
+                        <SONG id="4" album_id="2" artist_id="1"/>
+                    <SONG id="5" artist_id="1"/>
+            <GENRE id="4" parent_genre_id="2"/>
+                <ARTIST id="2" genre_id="4"/>
+                    <ALBUM id="3" artist_id="2" release_date="2017-05-25" album_type="STUDIO_ALBUM"/>
+                        <SONG id="6" album_id="3" artist_id="2"/>
+                        <SONG id="7" album_id="3" artist_id="2"/>
+                        <SONG id="8" album_id="3" artist_id="2"/>
+                <ARTIST id="3" genre_id="4"/>
+                    <ALBUM id="4" artist_id="3" release_date="2017-05-25" album_type="STUDIO_ALBUM"/>
+                        <SONG id="9" album_id="4" artist_id="3"/>
+
+    <SONGL10N id="1" song_id="1" language_id="1" name="Song One"/>
+    <SONGL10N id="2" song_id="2" language_id="1" name="Song Two"/>
+    <SONGL10N id="3" song_id="3" language_id="1" name="Song Three"/>
+    <SONGL10N id="4" song_id="4" language_id="1" name="Song Four"/>
+    <SONGL10N id="5" song_id="5" language_id="1" name="Song Five"/>
+    <SONGL10N id="6" song_id="6" language_id="1" name="Song Six"/>
+    <SONGL10N id="7" song_id="7" language_id="1" name="Song Seven"/>
+    <SONGL10N id="8" song_id="8" language_id="1" name="Song Eight"/>
+    <SONGL10N id="9" song_id="9" language_id="1" name="Song Nine"/>
+
+</dataset>

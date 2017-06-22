@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <LANGUAGE id="1" name="en"/>
+    <LANGUAGE id="2" name="ru"/>
+
+    <SOUNDTRACK id="1" release_date="2017-01-01" image_sm_name="SoundtrackOne-sm.jpg"/>
+    <SOUNDTRACK id="2" release_date="2017-01-01" image_sm_name="SoundtrackTwo-sm.jpg"/>
+    <SOUNDTRACK id="3" release_date="2017-01-01" image_sm_name="SoundtrackThree-sm.jpg"/>
+    <SOUNDTRACK id="4" release_date="2017-01-01" image_sm_name="SoundtrackFour-sm.jpg"/>
+
+    <SOUNDTRACKL10N id="1" soundtrack_id="1" language_id="1"
+               name="Soundtrack One" description="This is Soundtrack One"/>
+    <SOUNDTRACKL10N id="2" soundtrack_id="2" language_id="1"
+               name="Soundtrack Two" description="This is Soundtrack Two"/>
+    <SOUNDTRACKL10N id="3" soundtrack_id="3" language_id="1"
+               name="Soundtrack Three" description="This is Soundtrack Three"/>
+    <SOUNDTRACKL10N id="4" soundtrack_id="4" language_id="1"
+               name="Soundtrack Four" description="This is Soundtrack Four"/>
+
+</dataset>

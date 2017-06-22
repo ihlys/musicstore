@@ -28,7 +28,7 @@ public class AlbumL10n {
     private Language language;
 
     @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Album album;
 
     @NotNull
@@ -99,11 +99,11 @@ public class AlbumL10n {
     @Override
     public String toString() {
         return "AlbumL10n{" +
-                "id=" + id +
-                ", language=" + language +
-                ", album=" + album +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+                "\n id: " + id +
+                ";\n language: " + language +
+                ";\n album: " + album +
+                ";\n name: " + name +
+                ";\n description: " + description +
+                "}";
     }
 }

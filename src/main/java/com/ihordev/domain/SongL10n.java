@@ -1,9 +1,10 @@
 package com.ihordev.domain;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
 
 
 @Entity
@@ -62,7 +63,7 @@ public class SongL10n {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (!(o instanceof SongL10n)) return false;
 
@@ -82,10 +83,10 @@ public class SongL10n {
     @Override
     public String toString() {
         return "SongL10n{" +
-                "id=" + id +
-                ", song=" + song +
-                ", language=" + language +
-                ", name='" + name + '\'' +
-                '}';
+                "\n id: " + id +
+                ";\n song: " + song +
+                ";\n language: " + language +
+                ";\n name: " + name +
+                "}";
     }
 }

@@ -1,5 +1,7 @@
 package com.ihordev.domain;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,7 +24,7 @@ public class GenreL10n {
     private Long id;
 
     @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Genre genre;
 
     @NotNull
@@ -77,7 +79,7 @@ public class GenreL10n {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (!(o instanceof GenreL10n)) return false;
 
@@ -97,11 +99,11 @@ public class GenreL10n {
     @Override
     public String toString() {
         return "GenreL10n{" +
-                "id=" + id +
-                ", genre=" + genre +
-                ", language=" + language +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+                "\n id: " + id +
+                ";\n genre: " + genre +
+                ";\n language: " + language +
+                ";\n name: " + name +
+                ";\n description: " + description +
+                "}";
     }
 }

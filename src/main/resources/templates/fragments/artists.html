@@ -1,12 +1,14 @@
 <th:block th:fragment="artists">
 <div class="artist border--hover-fade-blue" th:each="artist : ${artists}" 
-                                            th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${artist.id} + '/albums'}}">
+        data-th-attr="data-item-page-url=@{${#request.getRequestURI() + '/' + artist.id + '/albums'}}">
     
     <div class="artist__cover">
-        <img th:src="@{${artist.image}}">
+        <img th:src="@{${'/' + artist.imageSmName}}">
     </div>
     
-    <span class="artist__name" th:text="${artist.name}"></span>
+    <div class="artist__name-wrapper">
+        <span th:text="${artist.name}"></span>
+    </div>
     
 </div>
 </th:block>

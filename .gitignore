@@ -3,9 +3,10 @@
 /buildSrc/build
 !gradle/wrapper/gradle-wrapper.jar
 
-**/resources/static/
 **/application/node_modules/
 **/application/scripts/tmp/
+/src/main/resources/templates/chrome.bat
+/src/main/resources/templates/opera.bat
 
 ### STS ###
 .apt_generated

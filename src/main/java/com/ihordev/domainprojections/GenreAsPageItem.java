@@ -1,13 +1,6 @@
 package com.ihordev.domainprojections;
 
 
-public interface GenreAsPageItem {
+public interface GenreAsPageItem extends AbstractPageItem {
 
-    Long    getId();
-
-    String  getImageSmlUri();
-
-    String  getName();
-
-    String  getDescription();
 }

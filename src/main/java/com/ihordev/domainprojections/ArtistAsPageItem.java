@@ -1,13 +1,6 @@
 package com.ihordev.domainprojections;
 
 
-public interface ArtistAsPageItem {
+public interface ArtistAsPageItem extends AbstractPageItem {
 
-    Long    getId();
-
-    String  getImageSmlUri();
-
-    String  getName();
-
-    String  getDescription();
 }

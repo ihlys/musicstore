@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <SOUNDTRACK id="1" release_date="2011-01-01" image_lg_name="SoundtrackOne-lg.jpg"/>
+    <SOUNDTRACK id="2" release_date="2011-01-01" image_lg_name="SoundtrackTwo-lg.jpg"/>
+
+    <SOUNDTRACKL10N id="1" soundtrack_id="1" language_id="1"
+               name="Soundtrack One" description="This is Soundtrack One"/>
+    <SOUNDTRACKL10N id="2" soundtrack_id="2" language_id="1"
+               name="Soundtrack Two" description="This is Soundtrack Two"/>
+
+</dataset>

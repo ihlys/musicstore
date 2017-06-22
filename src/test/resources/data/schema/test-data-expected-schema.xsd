@@ -11,7 +11,7 @@
     <xs:complexType name="LanguageNoRestrictions">
         <xs:complexContent>
             <xs:restriction base="Language">
-                <xs:attribute name="id" type="xs:long"/>
+                <xs:attribute name="id"   type="xs:long"/>
                 <xs:attribute name="name" type="xs:string"/>
             </xs:restriction>
         </xs:complexContent>
@@ -21,7 +21,7 @@
         <xs:complexContent>
             <xs:restriction base="Song">
                 <xs:attribute name="id"       type="xs:long"/>
-                <xs:attribute name="album_id" type="xs:long"/>
+                <xs:attribute name="artist_id" type="xs:long"/>
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
@@ -84,7 +84,7 @@
     <xs:complexType name="GenreNoRestrictions">
         <xs:complexContent>
             <xs:restriction base="Genre">
-                <xs:attribute name="id"       type="xs:long"/>
+                <xs:attribute name="id"              type="xs:long"/>
                 <xs:attribute name="parent_genre_id" type="xs:long"/>
             </xs:restriction>
         </xs:complexContent>
@@ -102,6 +102,31 @@
         </xs:complexContent>
     </xs:complexType>
 
+    <xs:complexType name="SoundtrackNoRestrictions">
+        <xs:attribute name="id"                 type="xs:long"/>
+        <xs:attribute name="release_date"       type="xs:date"/>
+    </xs:complexType>
+
+    <xs:complexType name="SoundtrackL10nNoRestrictions">
+        <xs:attribute name="id"            type="xs:long"/>
+        <xs:attribute name="soundtrack_id" type="xs:long"/>
+        <xs:attribute name="language_id"   type="xs:long"/>
+        <xs:attribute name="name"          type="notEmptyString"/>
+        <xs:attribute name="description"   type="notEmptyString"/>
+    </xs:complexType>
+
+    <xs:complexType name="Soundtrack_SongNoRestrictions">
+        <xs:attribute name="soundtrack_id" type="xs:long"/>
+        <xs:attribute name="song_id"       type="xs:long"/>
+    </xs:complexType>
+
+    <xs:complexType name="ThematicallyCompiledSongNoRestrictions">
+        <xs:attribute name="thematic_compilation_id" type="xs:long"/>
+        <xs:attribute name="song_id"                 type="xs:long"/>
+        <xs:attribute name="rotation_start"          type="xs:date"/>
+        <xs:attribute name="rotation_end"            type="xs:date"/>
+    </xs:complexType>
+
     <xs:complexType name="ThematicCompilationNoRestrictions">
         <xs:complexContent>
             <xs:restriction base="ThematicCompilation">
@@ -116,8 +141,8 @@
                 <xs:attribute name="id"                      type="xs:long"/>
                 <xs:attribute name="thematic_compilation_id" type="xs:long"/>
                 <xs:attribute name="language_id"             type="xs:long"/>
-                <xs:attribute name="name"        type="notEmptyString"/>
-                <xs:attribute name="description" type="notEmptyString"/>
+                <xs:attribute name="name"                    type="notEmptyString"/>
+                <xs:attribute name="description"             type="notEmptyString"/>
             </xs:restriction>
         </xs:complexContent>
     </xs:complexType>
@@ -135,6 +160,10 @@
                 <xs:element name="ARTIST_LOCALIZED_DATA" type="ArtistL10nNoRestrictions"/>
                 <xs:element name="GENRE" type="GenreNoRestrictions"/>
                 <xs:element name="GENRE_LOCALIZED_DATA" type="GenreL10nNoRestrictions"/>
+                <xs:element name="SOUNDTRACK" type="SoundtrackNoRestrictions"/>
+                <xs:element name="SOUNDTRACKL10N" type="SoundtrackL10nNoRestrictions"/>
+                <xs:element name="SOUNDTRACK_SONG" type="Soundtrack_SongNoRestrictions"/>
+                <xs:element name="THEMATICALLY_COMPILED_SONG" type="ThematicallyCompiledSongNoRestrictions"/>
                 <xs:element name="THEMATIC_COMPILATION" type="ThematicCompilationNoRestrictions"/>
                 <xs:element name="THEMATIC_COMPILATION_LOC_DATA" type="ThematicCompilationL10nNoRestrictions"/>
             </xs:choice>

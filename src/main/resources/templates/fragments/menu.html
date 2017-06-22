@@ -1,0 +1,10 @@
+<th:block th:fragment="menu">
+<div class="container-with-foreground menu" th:style="${currentMusicEntity != null} ? 'display: none;' : 'display: block;'">
+    <div class="container-with-foreground__foreground-wrapper menu__buttons">
+        <button class="btn-a--menu" data-th-attr="data-item-page-url=@{/genres}" th:text="#{menu.btn.genres}"></button>
+        <button class="btn-a--menu" data-th-attr="data-item-page-url=@{/thematic-compilations}" th:text="#{menu.btn.thematic-compilations}"></button>
+        <button class="btn-a--menu" data-th-attr="data-item-page-url=@{/soundtracks}" th:text="#{menu.btn.soundtracks}"></button>
+    </div>
+    <div class="menu__background"></div>
+</div>
+</th:block>

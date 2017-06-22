@@ -1,12 +1,13 @@
 package com.ihordev.domain;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
 import static com.ihordev.domain.Genre.FIND_GENRE_ALL_SUBGENRES_RESULT_MAPPING;
-import static java.util.stream.Collectors.toList;
 
 
 @SqlResultSetMappings({
@@ -22,11 +23,12 @@ public class Genre {
     @Id
     @GeneratedValue(generator = "GENRE_SEQ_GEN", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "GENRE_SEQ_GEN", sequenceName = "GENRE_SEQ", allocationSize = 1)
+    @Access(AccessType.PROPERTY)
     private Long id;
 
-    private String imageSmlUri;
+    private String imageSmName;
 
-    private String imageLgUri;
+    private String imageLgName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Genre parentGenre;
@@ -45,20 +47,24 @@ public class Genre {
         return id;
     }
 
-    public String getImageSmlUri() {
-        return imageSmlUri;
+    protected void setId(Long id) {
+        this.id = id;
     }
 
-    public void setImageSmlUri(String imageSmlUri) {
-        this.imageSmlUri = imageSmlUri;
+    public String getImageSmName() {
+        return imageSmName;
     }
 
-    public String getImageLgUri() {
-        return imageLgUri;
+    public void setImageSmName(String imageSmName) {
+        this.imageSmName = imageSmName;
     }
 
-    public void setImageLgUri(String imageLgUri) {
-        this.imageLgUri = imageLgUri;
+    public String getImageLgName() {
+        return imageLgName;
+    }
+
+    public void setImageLgName(String imageLgName) {
+        this.imageLgName = imageLgName;
     }
 
     public Genre getParentGenre() {
@@ -95,19 +101,19 @@ public class Genre {
 
     protected Genre() {}
 
-    public Genre(String imageSmlUri, String imageLgUri, Genre parentGenre) {
-        this(imageSmlUri, imageLgUri, parentGenre, new HashSet<>());
+    public Genre(String imageSmName, String imageLgName, Genre parentGenre) {
+        this(imageSmName, imageLgName, parentGenre, new HashSet<>());
     }
 
-    public Genre(String imageSmlUri, String imageLgUri, Genre parentGenre, Set<GenreL10n> genreL10nSet) {
-        this.imageSmlUri = imageSmlUri;
-        this.imageLgUri = imageLgUri;
+    public Genre(String imageSmName, String imageLgName, Genre parentGenre, Set<GenreL10n> genreL10nSet) {
+        this.imageSmName = imageSmName;
+        this.imageLgName = imageLgName;
         this.parentGenre = parentGenre;
         this.genreL10nSet = genreL10nSet;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (!(o instanceof Genre)) return false;
 
@@ -124,13 +130,9 @@ public class Genre {
     @Override
     public String toString() {
         return "Genre{" +
-                "id=" + id +
-                ", imageSmlUri='" + imageSmlUri + '\'' +
-                ", imageLgUri='" + imageLgUri + '\'' +
-                ", genreL10nSet=" + genreL10nSet.stream()
-                    .map(GenreL10n::getLanguage)
-                    .map(Language::getName)
-                    .collect(toList()) +
-                '}';
+                "\n id: " + id +
+                ";\n imageSmName: " + imageSmName +
+                ";\n imageLgName: " + imageLgName +
+                "}";
     }
 }

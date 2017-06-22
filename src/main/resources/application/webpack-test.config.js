@@ -9,7 +9,8 @@ module.exports = {
       Main : path.resolve(__dirname, './scripts/main'),
       Test : path.resolve(__dirname, './scripts/test'),
       Styles  : path.resolve(__dirname, './styles'),
-      Images  : path.resolve(__dirname, './images')
+      Images  : path.resolve(__dirname, './images'),
+      './application'  : path.resolve(__dirname, './scripts/test/jquery.items-with-content.application-mock')
     }
   },
   entry: {

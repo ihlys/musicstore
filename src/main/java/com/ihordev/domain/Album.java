@@ -1,13 +1,13 @@
 package com.ihordev.domain;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
-import static java.util.stream.Collectors.toList;
 
 
 @Entity
@@ -22,11 +22,12 @@ public class Album {
     @Id
     @GeneratedValue(generator = "ALBUM_SEQ_GEN", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "ALBUM_SEQ_GEN", sequenceName = "ALBUM_SEQ", allocationSize = 1)
+    @Access(AccessType.PROPERTY)
     private Long id;
 
-    private String imageSmlUri;
+    private String imageSmName;
 
-    private String imageLgUri;
+    private String imageLgName;
 
     @NotNull
     @Column(nullable = false)
@@ -35,9 +36,9 @@ public class Album {
     @NotNull
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition =
-            "VARCHAR2(30) CONSTRAINT album_type_ch CHECK(                       " +
-            "   album_type IN ('STUDIO_ALBUM', 'CONCERT_ALBUM', 'COLLECTION')   " +
-            ")                                                                  ")
+            "VARCHAR2(30) CONSTRAINT album_type_ch CHECK(                     " +
+            "   album_type IN ('STUDIO_ALBUM', 'CONCERT_ALBUM', 'COLLECTION') " +
+            ")                                                                ")
     private AlbumType albumType = AlbumType.STUDIO_ALBUM;
 
     @NotNull
@@ -55,20 +56,24 @@ public class Album {
         return id;
     }
 
-    public String getImageSmlUri() {
-        return imageSmlUri;
+    protected void setId(Long id) {
+        this.id = id;
     }
 
-    public void setImageSmlUri(String imageSmlUri) {
-        this.imageSmlUri = imageSmlUri;
+    public String getImageSmName() {
+        return imageSmName;
     }
 
-    public String getImageLgUri() {
-        return imageLgUri;
+    public void setImageSmName(String imageSmName) {
+        this.imageSmName = imageSmName;
     }
 
-    public void setImageLgUri(String imageLgUri) {
-        this.imageLgUri = imageLgUri;
+    public String getImageLgName() {
+        return imageLgName;
+    }
+
+    public void setImageLgName(String imageLgName) {
+        this.imageLgName = imageLgName;
     }
 
     public LocalDate getReleaseDate() {
@@ -105,14 +110,14 @@ public class Album {
 
     protected Album() {}
 
-    public Album(String imageSmlUri, String imageLgUri, LocalDate releaseDate, AlbumType albumType, Artist artist) {
-        this(imageSmlUri, imageLgUri, releaseDate, albumType, artist, new HashSet<>());
+    public Album(String imageSmName, String imageLgName, LocalDate releaseDate, AlbumType albumType, Artist artist) {
+        this(imageSmName, imageLgName, releaseDate, albumType, artist, new HashSet<>());
     }
 
-    public Album(String imageSmlUri, String imageLgUri, LocalDate releaseDate,
+    public Album(String imageSmName, String imageLgName, LocalDate releaseDate,
                  AlbumType albumType, Artist artist, Set<AlbumL10n> albumL10nSet) {
-        this.imageSmlUri = imageSmlUri;
-        this.imageLgUri = imageLgUri;
+        this.imageSmName = imageSmName;
+        this.imageLgName = imageLgName;
         this.releaseDate = releaseDate;
         this.albumType = albumType;
         this.artist = artist;
@@ -120,7 +125,7 @@ public class Album {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (!(o instanceof Album)) return false;
 
@@ -137,13 +142,9 @@ public class Album {
     @Override
     public String toString() {
         return "Album{" +
-                "id=" + id +
-                ", imageSmlUri='" + imageSmlUri + '\'' +
-                ", imageLgUri='" + imageLgUri + '\'' +
-                ", albumL10nSet=" + albumL10nSet.stream()
-                    .map(AlbumL10n::getLanguage)
-                    .map(Language::getName)
-                    .collect(toList()) +
+                "\n id: " + id +
+                ";\n imageSmName: " + imageSmName +
+                ";\n imageLgName: " + imageLgName +
                 '}';
     }
 }

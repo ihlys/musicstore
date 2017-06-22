@@ -1,0 +1,11 @@
+com.ihordev
+com.ihordev.config
+com.ihordev.core.navigation
+com.ihordev.core.repositories
+com.ihordev.core.util
+com.ihordev.domain
+com.ihordev.domainprojections
+com.ihordev.repository
+com.ihordev.service
+com.ihordev.service.impl
+com.ihordev.web

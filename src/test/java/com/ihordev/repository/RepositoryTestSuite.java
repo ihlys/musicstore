@@ -10,6 +10,8 @@ import org.junit.runners.Suite;
     AlbumRepositoryTests.class,
     GenreRepositoryTests.class,
     ArtistRepositoryTests.class,
-    SongRepositoryTests.class
+    SongRepositoryTests.class,
+    SoundtrackRepositoryTests.class,
+    ThematicCompilationRepositoryTests.class
 })
 public class RepositoryTestSuite {}

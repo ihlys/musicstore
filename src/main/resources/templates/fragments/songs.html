@@ -4,13 +4,13 @@
     <span class="song__order" th:text="${iterStat.count + '.'}"></span>
     <span class="song__name" th:text="${song.name}"></span>
     <audio preload='none' controls="controls">
-      <source src="../static/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3" 
-              th:src="@{${song.url}}"
+        <source src="../static/Static prototyping resources/audio/looperman-classic-electric-piano-magic-world.mp3" 
+              th:src="@{${'/' + song.url}}"
               type="audio/mpeg">
-      Your browser does not support the audio element.
+        <span th:utext="#{song.audio.not-supported}"></span>
     </audio>
     
-    <a href="#" class="song__btn-purchase">Purchase</a>
+    <a href="#" class="song__btn-purchase" th:text="#{song.btn.purchase}"></a>
     
 </div>
 </th:block>

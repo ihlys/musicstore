@@ -1,19 +1,15 @@
 <th:block th:fragment="thematic-compilations">
-<div class="thematic-compilation" th:each="thematicCompilation : ${thematicCompilations}">
+<div class="thematic-compilation container-with-background" th:each="thematicCompilation : ${thematicCompilations}">
 
-    <div class="container-with-background">
-        
-        <div class="container-with-background__background-wrapper">
-            <img th:src="@{${thematicCompilation.image}}">
-        </div>
-        
-        <div class="container-with-background__foreground-wrapper thematic-compilation__content">
-            <button class="btn-show-link btn-show-link--thematic-compilation"
-                    th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${thematicCompilation.id} + '/songs'}}">
-                <span th:text="${thematicCompilation.name}"></span>
-            </button>
-        </div>
-        
+    <div class="container-with-background__background-wrapper">
+        <img th:src="@{${'/' + thematicCompilation.imageSmName}}">
+    </div>
+    
+    <div class="container-with-background__foreground-wrapper thematic-compilation__content">
+        <button class="btn-a btn-a--glow btn-a--thematic-compilation"
+                data-th-attr="data-item-page-url=@{${#request.getRequestURI() + '/' + thematicCompilation.id + '/songs'}}">
+            <span th:text="${thematicCompilation.name}"></span>
+        </button>
     </div>
         
 </div>

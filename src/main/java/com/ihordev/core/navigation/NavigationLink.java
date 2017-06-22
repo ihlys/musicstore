@@ -2,23 +2,27 @@ package com.ihordev.core.navigation;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+/**
+ * A class representing navigation point in navigation structure.
+ */
 
 public class NavigationLink {
 
-    private String href;
+    private String uri;
     private String label;
 
-    public String getHref() {
-        return href;
+
+    public NavigationLink(String uri, String label) {
+        this.uri = uri;
+        this.label = label;
+    }
+
+    public String getUri() {
+        return uri;
     }
 
     public String getLabel() {
         return label;
-    }
-
-    public NavigationLink(String href, String label) {
-        this.href = href;
-        this.label = label;
     }
 
     @Override
@@ -28,20 +32,23 @@ public class NavigationLink {
 
         NavigationLink that = (NavigationLink) o;
 
-        if (!href.equals(that.href)) return false;
+        if (!uri.equals(that.uri)) return false;
         return label.equals(that.label);
 
     }
 
     @Override
     public int hashCode() {
-        int result = href.hashCode();
+        int result = uri.hashCode();
         result = 31 * result + label.hashCode();
         return result;
     }
 
     @Override
     public String toString() {
-        return "NavigationLink{href=" + href + ", label=" + label + "}";
+        return "NavigationLink{" +
+                "uri='" + uri + '\'' +
+                ", label='" + label + '\'' +
+                '}';
     }
 }

@@ -5,8 +5,6 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.stream.Collectors.toList;
-
 
 @Entity
 public class ThematicCompilation {
@@ -15,11 +13,15 @@ public class ThematicCompilation {
     @GeneratedValue(generator = "THEMATIC_COM_L10N_SEQ_GEN", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "THEMATIC_COM_L10N_SEQ_GEN",
             sequenceName = "THEMATIC_COM_L10N_SEQ", allocationSize = 1)
+    @Access(AccessType.PROPERTY)
     private Long id;
 
-    private String imageSmlUri;
+    private String imageSmName;
 
-    private String imageLgUri;
+    private String imageLgName;
+
+    @OneToMany(mappedBy = "thematicCompilation", cascade = CascadeType.ALL)
+    private Set<ThematicallyCompiledSong> thematicallyCompiledSongSet = new HashSet<>();
 
     @Size(min = 1)
     @OneToMany(mappedBy = "thematicCompilation", cascade = CascadeType.ALL)
@@ -29,20 +31,32 @@ public class ThematicCompilation {
         return id;
     }
 
-    public String getImageSmlUri() {
-        return imageSmlUri;
+    protected void setId(Long id) {
+        this.id = id;
     }
 
-    public void setImageSmlUri(String imageSmlUri) {
-        this.imageSmlUri = imageSmlUri;
+    public String getImageSmName() {
+        return imageSmName;
     }
 
-    public String getImageLgUri() {
-        return imageLgUri;
+    public void setImageSmName(String imageSmName) {
+        this.imageSmName = imageSmName;
     }
 
-    public void setImageLgUri(String imageLgUri) {
-        this.imageLgUri = imageLgUri;
+    public String getImageLgName() {
+        return imageLgName;
+    }
+
+    public void setImageLgName(String imageLgName) {
+        this.imageLgName = imageLgName;
+    }
+
+    public Set<ThematicallyCompiledSong> getThematicallyCompiledSongSet() {
+        return thematicallyCompiledSongSet;
+    }
+
+    public void setThematicallyCompiledSongSet(Set<ThematicallyCompiledSong> thematicallyCompiledSongSet) {
+        this.thematicallyCompiledSongSet = thematicallyCompiledSongSet;
     }
 
     public Set<ThematicCompilationL10n> getThematicCompilationL10nSet() {
@@ -55,27 +69,23 @@ public class ThematicCompilation {
 
     protected ThematicCompilation() {}
 
-    public ThematicCompilation(String imageSmlUri, String imageLgUri) {
-        this(imageSmlUri, imageLgUri, new HashSet<>());
+    public ThematicCompilation(String imageSmName, String imageLgName) {
+        this(imageSmName, imageLgName, new HashSet<>());
     }
 
-    public ThematicCompilation(String imageSmlUri, String imageLgUri,
+    public ThematicCompilation(String imageSmName, String imageLgName,
                                Set<ThematicCompilationL10n> thematicCompilationL10nSet) {
-        this.imageSmlUri = imageSmlUri;
-        this.imageLgUri = imageLgUri;
+        this.imageSmName = imageSmName;
+        this.imageLgName = imageLgName;
         this.thematicCompilationL10nSet = thematicCompilationL10nSet;
     }
 
     @Override
     public String toString() {
         return "ThematicCompilation{" +
-                "id=" + id +
-                ", imageSmlUri='" + imageSmlUri + '\'' +
-                ", imageLgUri='" + imageLgUri + '\'' +
-                ", thematicCompilationL10nSet=" + thematicCompilationL10nSet.stream()
-                    .map(ThematicCompilationL10n::getLanguage)
-                    .map(Language::getName)
-                    .collect(toList()) +
-                '}';
+                "\n id: " + id +
+                ";\n imageSmName: " + imageSmName +
+                ";\n imageLgName: " + imageLgName +
+                "}";
     }
 }

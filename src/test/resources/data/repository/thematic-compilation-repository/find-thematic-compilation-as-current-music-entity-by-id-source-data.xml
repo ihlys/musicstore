@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <THEMATIC_COMPILATION id="1" image_lg_name="ThematicCompilationOne-lg.jpg"/>
+    <THEMATIC_COMPILATION id="2" image_lg_name="ThematicCompilationTwo-lg.jpg"/>
+
+    <THEMATIC_COMPILATIONL10N id="1" thematic_compilation_id="1" language_id="1"
+               name="ThematicCompilation One" description="This is ThematicCompilation One"/>
+    <THEMATIC_COMPILATIONL10N id="2" thematic_compilation_id="2" language_id="1"
+               name="ThematicCompilation Two" description="This is ThematicCompilation Two"/>
+
+</dataset>

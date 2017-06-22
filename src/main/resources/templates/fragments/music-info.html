@@ -1,0 +1,23 @@
+<div class="music-info" th:fragment="music-info">
+    <div class="container-with-background">
+
+        <div class="container-with-background__background-wrapper">
+            <div class="music-info__background-img-wrapper">
+                <img th:src="@{${'/' + currentMusicEntity.imageLgName}}">
+                <div class="fade-edge fade-edge--bottom fade-edge--black"></div>
+            </div>
+        </div>
+        
+        <div class="container-with-background__foreground-wrapper music-info__content">
+            <h1 class="music-info__title" th:text="${currentMusicEntity.name}"></h1>
+            
+            <div class="music-info__details" th:replace="music-details"></div>
+            
+            <div class="music-info__expand-btn-wrapper music-info__expand-btn-wrapper--show-after">
+                <button class="music-info__expand-btn btn-show-link" th:text="#{music-info.btn.expand}"></button>
+            </div>
+        </div>
+        
+        <div class="fade-edge fade-edge--bottom fade-edge--white"></div>
+    </div>
+</div>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: FlexSpaceAroundHelper</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: FlexSpaceAroundHelper</h1>
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-flex-space-around-helper.html">flex-space-around-helper</a>~</span>FlexSpaceAroundHelper</h2>
+        
+            <div class="class-description"><p>A helper class that can be used on div that has css styles:
+<ul>
+  <li>display: flex;</li>
+  <li>flex-wrap: wrap;</li>
+  <li>justify-content: space-around;</li>
+  <li>align-content: flex-start.</li>
+</ul>
+
+<p> It fixes items align in last row to move them to left edge of the container.
+<p>For example, flexed elements that looks like follows:
+<table>
+  <tr>
+    <td>[]</td> <td>[]</td> <td>[]</td>
+  </tr>
+  <tr>
+    <td>  </td> <td>[]</td> <td>  </td>
+  </tr>
+</table>
+<p>Will be like this:
+<table>
+  <tr>
+    <td>[]</td> <td>[]</td> <td>[]</td>
+  </tr>
+  <tr>
+    <td>[]</td> <td>  </td> <td>  </td>
+  </tr>
+</table></div>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="FlexSpaceAroundHelper"><span class="type-signature"></span>new FlexSpaceAroundHelper<span class="signature">(_$flexedDiv)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Creates a FlexSpaceAroundHelper instance.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>_$flexedDiv</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">jQuery</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The div container that is flexed and must be fixed</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="flex-space-around-helper.js.html">flex-space-around-helper.js</a>, <a href="flex-space-around-helper.js.html#line65">line 65</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="refresh"><span class="type-signature"></span>refresh<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Reconfigures itself like if it were newly added to container. It can be used
+after new elements is added to container.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="flex-space-around-helper.js.html">flex-space-around-helper.js</a>, <a href="flex-space-around-helper.js.html#line81">line 81</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="squeezeChildrenToLeftInLastRow"><span class="type-signature"></span>squeezeChildrenToLeftInLastRow<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Moves all items in last row to left edge of the container.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="flex-space-around-helper.js.html">flex-space-around-helper.js</a>, <a href="flex-space-around-helper.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ajax.html">ajax</a></li><li><a href="module-application.html">application</a></li><li><a href="module-browser-history.html">browser-history</a></li><li><a href="module-flex-space-around-helper.html">flex-space-around-helper</a></li></ul><h3>Externals</h3><ul><li><a href="external-_jQuery.fn_.html">jQuery.fn</a></li></ul><h3>Classes</h3><ul><li><a href="module-flex-space-around-helper-FlexSpaceAroundHelper.html">FlexSpaceAroundHelper</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jul 11 2017 01:12:54 GMT+0300 (RTZ 2 (зима))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

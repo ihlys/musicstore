@@ -5,8 +5,6 @@ import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.util.stream.Collectors.toList;
-
 
 @Entity
 public class Song {
@@ -14,10 +12,19 @@ public class Song {
     @Id
     @GeneratedValue(generator = "SONG_SEQ_GEN", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "SONG_SEQ_GEN", sequenceName = "SONG_SEQ", allocationSize = 1)
+    @Access(AccessType.PROPERTY)
     private Long id;
+
+    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Album album;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Artist artist;
+
+    @ManyToMany(mappedBy = "songs")
+    private Set<Soundtrack> soundtracks;
 
     @Size(min = 1)
     @OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
@@ -25,6 +32,18 @@ public class Song {
 
     public Long getId() {
         return id;
+    }
+
+    protected void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Album getAlbum() {
@@ -56,12 +75,6 @@ public class Song {
 
     @Override
     public String toString() {
-        return "Song{" +
-                "id=" + id +
-                ", songL10nSet=" + songL10nSet.stream()
-                    .map(SongL10n::getLanguage)
-                    .map(Language::getName)
-                    .collect(toList()) +
-                '}';
+        return "Song{id: " + id + "}";
     }
 }

@@ -2,42 +2,46 @@ package com.ihordev.core.navigation;
 
 import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.checkerframework.dataflow.qual.Pure;
 
 import java.util.Map;
 
 
-public class RequestMatchingResult {
+/**
+ * A class representing information about request matching result in
+ * {@link RequestMapping}.
+ */
 
-    private boolean isRequestHasMatch;
+public class RequestMatchingResult {
 
     private @Nullable String matchedPattern;
     private @Nullable Map<String, String> matchedPathParams;
 
-    public RequestMatchingResult(boolean isRequestHasMatch,
-                                 @Nullable String matchedPattern,
+    public RequestMatchingResult(@Nullable String matchedPattern,
                                  @Nullable Map<String, String> matchedPathParams) {
-        this.isRequestHasMatch = isRequestHasMatch;
-        if (isRequestHasMatch) {
-            assert matchedPattern != null : "matchedPattern cannot be null if isRequestHasMatch is true";
-            this.matchedPattern = matchedPattern;
-        }
+        this.matchedPattern = matchedPattern;
         this.matchedPathParams = matchedPathParams;
     }
 
-    @SuppressWarnings("nullness") // expression already checked during object creation in constructor
-    @EnsuresNonNullIf(result = true, expression = "getMatchedPattern()")
+    @EnsuresNonNullIf(result = true, expression = {"this.matchedPattern", "this.matchedPathParams"})
+    @SuppressWarnings("contracts.conditional.postcondition.not.satisfied")
+    // if matchedPattern != null (request has match), then matchedPathParams is always not null (at least empty)
     public boolean isRequestHasMatch() {
-        return isRequestHasMatch;
+        return matchedPattern != null;
     }
 
-    @Pure
-    public @Nullable String getMatchedPattern() {
-        return matchedPattern;
+    public String getMatchedPattern() {
+        if (isRequestHasMatch()) {
+            return matchedPattern;
+        } else {
+            throw new IllegalStateException("Cannot get matchedPattern: request has not match in request mapping.");
+        }
     }
 
-    public @Nullable Map<String, String> getMatchedPathParams() {
-        return matchedPathParams;
+    public Map<String, String> getMatchedPathParams() {
+        if (isRequestHasMatch()) {
+            return matchedPathParams;
+        } else {
+            throw new IllegalStateException("Cannot get matchedPathParams: request has not match in request mapping.");
+        }
     }
-
 }

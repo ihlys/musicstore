@@ -15,7 +15,7 @@
           href="../static/lib/font-awesome-4.7.0/css/font-awesome.min.css"
               th:href="@{/lib/font-awesome-4.7.0/css/font-awesome.min.css}"/>
     <link rel="stylesheet" type="text/css" media="all"
-          href="../static/css/main.css" 									
+          href="../static/css/main.css"
               th:href="@{/css/main.css}"/>
     
 </th:block>
@@ -25,11 +25,11 @@
     <div class="header__part header__part--left">
         <form class="form form--search">
             <div class="form__title-panel">
-                <span class="form__title">Поиск</span>
+                <span class="form__title" th:text="#{form-search.title}"></span>
             </div>
             <div class="form__row">
-                <label class="sr-only" for="search-critera">Search critera</label>
-                <input class="form-control form__input" id="search-critera" placeholder="Введите критерий...">
+                <label class="sr-only" for="search-critera" th:text="#{form-search.label}"></label>
+                <input class="form-control form__input" id="search-critera" th:placeholder="#{form-search.placeholder}">
                 <button type="submit" class="btn btn-primary form__button">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
@@ -38,13 +38,13 @@
     </div>
 
     <div class="header__part header__part--center">
-        <h1 class="header__title">Music online</h1>
+        <h1 class="header__title" th:text="#{header.title}"></h1>
     </div>
 
     <div class="header__part header__part--right">
         <form class="form form--login">
             <div class="form__title-panel">
-                <span class="form__title">Войти</span>
+                <span class="form__title" th:text="#{form-login.title}"></span>
                 <a class="btn btn-primary form__social-link">
                     <i class="fa fa-facebook" aria-hidden="true"></i>
                 </a>
@@ -56,7 +56,7 @@
                 </a>
             </div>
             <div class="form__row">
-                <input type="email" class="form-control form__input" id="email" placeholder="Enter e-mail address...">
+                <input type="email" class="form-control form__input" id="email" th:placeholder="#{form-login.placeholder}">
                 <button type="submit" class="btn btn-primary form__button">
                     <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                 </button>
@@ -67,7 +67,7 @@
 
 
 <div class="news-panel" th:fragment="news-panel">
-    <h1 class="news-panel__title">Новости</h1>
+    <h1 class="news-panel__title" th:text="#{news-panel.title}"></h1>
     <div class="news-panel__news-event border--hover-fade-blue" th:each="newsEvent : ${newsEvents}">
         <h4 class="" th:text="${newsEvent.title}"></h4>
         <p class="" th:text="${newsEvent.text}"></p>

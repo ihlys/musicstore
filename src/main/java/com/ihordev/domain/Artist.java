@@ -1,12 +1,12 @@
 package com.ihordev.domain;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
-
-import static java.util.stream.Collectors.toList;
 
 
 @Entity
@@ -15,11 +15,12 @@ public class Artist {
     @Id
     @GeneratedValue(generator = "ARTIST_SEQ_GEN", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "ARTIST_SEQ_GEN", sequenceName = "ARTIST_SEQ", allocationSize = 1)
+    @Access(AccessType.PROPERTY)
     private Long id;
 
-    private String imageSmlUri;
+    private String imageSmName;
 
-    private String imageLgUri;
+    private String imageLgName;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -36,20 +37,24 @@ public class Artist {
         return id;
     }
 
-    public String getImageSmlUri() {
-        return imageSmlUri;
+    protected void setId(Long id) {
+        this.id = id;
     }
 
-    public void setImageSmlUri(String imageSmlUri) {
-        this.imageSmlUri = imageSmlUri;
+    public String getImageSmName() {
+        return imageSmName;
     }
 
-    public String getImageLgUri() {
-        return imageLgUri;
+    public void setImageSmName(String imageSmName) {
+        this.imageSmName = imageSmName;
     }
 
-    public void setImageLgUri(String imageLgUri) {
-        this.imageLgUri = imageLgUri;
+    public String getImageLgName() {
+        return imageLgName;
+    }
+
+    public void setImageLgName(String imageLgName) {
+        this.imageLgName = imageLgName;
     }
 
     public Genre getGenre() {
@@ -78,19 +83,19 @@ public class Artist {
 
     protected Artist() {}
 
-    public Artist(String imageSmlUri, String imageLgUri, Genre genre) {
-        this(imageSmlUri, imageLgUri, genre, new HashSet<>());
+    public Artist(String imageSmName, String imageLgName, Genre genre) {
+        this(imageSmName, imageLgName, genre, new HashSet<>());
     }
 
-    public Artist(String imageSmlUri, String imageLgUri, Genre genre, Set<ArtistL10n> artistL10nSet) {
-        this.imageSmlUri = imageSmlUri;
-        this.imageLgUri = imageLgUri;
+    public Artist(String imageSmName, String imageLgName, Genre genre, Set<ArtistL10n> artistL10nSet) {
+        this.imageSmName = imageSmName;
+        this.imageLgName = imageLgName;
         this.genre = genre;
         this.artistL10nSet = artistL10nSet;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (!(o instanceof Artist)) return false;
 
@@ -107,13 +112,9 @@ public class Artist {
     @Override
     public String toString() {
         return "Artist{" +
-                "id=" + id +
-                ", imageSmlUri='" + imageSmlUri + '\'' +
-                ", imageLgUri='" + imageLgUri + '\'' +
-                ", artistL10nSet=" + artistL10nSet.stream()
-                    .map(ArtistL10n::getLanguage)
-                    .map(Language::getName)
-                    .collect(toList()) +
-                '}';
+                "\n id=" + id +
+                ";\n imageSmName: " + imageSmName +
+                ";\n imageLgName: " + imageLgName +
+                "}";
     }
 }

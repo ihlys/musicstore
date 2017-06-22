@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import $ from "jquery";
-import FlexSpaceAroundHelper from 'Main/flex-space-around-helper.js';
+import { FlexSpaceAroundHelper } from 'Main/flex-space-around-helper.js';
 
 describe("FlexSpaceAroundHelper tests", function() {
  

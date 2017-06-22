@@ -2,43 +2,38 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
+const BomPlugin = require('webpack-utf8-bom');
+
 module.exports = {
   resolve: {
     alias: {
       Main : path.resolve(__dirname, './scripts/main'),
       Styles  : path.resolve(__dirname, './styles'),
-      Images  : path.resolve(__dirname, './images')
+      Images  : path.resolve(__dirname, './images'),
+      Node_modules: path.resolve(__dirname, './node_modules')
     }
   },
   entry: {
-    main: 'Main/main.js',
-    'music-content': 'Main/music-content.js',
-    genres: 'Main/genres.js',
-    artists: 'Main/artists.js',
-    albums: 'Main/albums.js',
-    songs: 'Main/songs.js',
-    soundtracks: 'Main/soundtracks.js',
-    'thematic-compilations': 'Main/thematic-compilations.js',
-    greetings: 'Main/greetings.js'
+    'application': 'Main/application.js'
   },
   output: {
     path: path.resolve(__dirname, '../static'),
     filename: '[name].bundle.js',
-    publicPath: '../static/'
+    publicPath: '/'
   },
   module: {
     loaders: [
       {
-        test   : /\.png$/,
+        test   : /\.(jpg|png)$/,
         loader : 'file-loader?name=[name].[ext]'
       },
       {
         test   : /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader : "url-loader?limit=10000&mimetype=application/font-woff"
+        loader : "url-loader?limit=10000&mimetype=application/font-woff&name=[name].[ext]"
       },
       { 
         test   : /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader : "file-loader"
+        loader : "file-loader?name=[name].[ext]"
       },
       { 
         test   : /\.scss$/,
@@ -60,7 +55,9 @@ module.exports = {
     new webpack.ProvidePlugin({
         jQuery: 'jquery',
         $: 'jquery',
-        jquery: 'jquery'
-    })
+        jquery: 'jquery',
+        'window.jQuery': 'jquery'
+    }),
+    new BomPlugin(true)
   ]
 };

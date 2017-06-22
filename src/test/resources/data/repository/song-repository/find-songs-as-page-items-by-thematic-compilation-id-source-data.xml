@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <THEMATIC_COMPILATION id="1"/>
+
+    <GENRE id="1"/>
+        <ARTIST id="1" genre_id="1"/>
+            <SONG id="1" artist_id="1"/>
+            <SONG id="2" artist_id="1"/>
+            <SONG id="3" artist_id="1"/>
+            <SONG id="4" artist_id="1"/>
+
+    <THEMATICALLY_COMPILED_SONG thematic_compilation_id="1" song_id="1"
+                                rotation_start="2017-01-01" rotation_end="2017-01-14"/>
+    <THEMATICALLY_COMPILED_SONG thematic_compilation_id="1" song_id="2"
+                                rotation_start="2017-01-01" rotation_end="2017-01-14"/>
+    <THEMATICALLY_COMPILED_SONG thematic_compilation_id="1" song_id="3"
+                                rotation_start="2017-01-01" rotation_end="2017-01-14"/>
+    <THEMATICALLY_COMPILED_SONG thematic_compilation_id="1" song_id="4"
+                                rotation_start="2017-01-01" rotation_end="2017-01-14"/>
+
+    <SONGL10N id="1" song_id="1" language_id="1" name="Song One"/>
+    <SONGL10N id="2" song_id="2" language_id="1" name="Song Two"/>
+    <SONGL10N id="3" song_id="3" language_id="1" name="Song Three"/>
+    <SONGL10N id="4" song_id="4" language_id="1" name="Song Four"/>
+
+</dataset>

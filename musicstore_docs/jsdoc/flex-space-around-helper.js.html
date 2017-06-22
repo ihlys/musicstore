@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: flex-space-around-helper.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: flex-space-around-helper.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable import/prefer-default-export */
+
+/** @module flex-space-around-helper */
+
+import dedent from 'dedent-js';
+
+const $flexedDiv = Symbol('$flexedDiv');
+const divChildren = Symbol('divChildren');
+const lastChild = Symbol('lastChild');
+const childrenCount = Symbol('childrenCount');
+const childMarginRight = Symbol('childMarginRight');
+const childHorizontalSpace = Symbol('childHorizontalSpace');
+
+function init(instance) {
+  instance[divChildren] = instance[$flexedDiv].children(':not(.resize-sensor)');
+  instance[lastChild] = instance[divChildren].last();
+  instance[childrenCount] = instance[divChildren].length;
+  instance[childMarginRight] = parseInt(instance[lastChild].css('marginRight'));
+  instance[childHorizontalSpace] = parseInt(instance[lastChild].css('width')) + instance[childMarginRight] +
+              parseInt(instance[lastChild].css('marginLeft'));
+
+  console.log(dedent`FlexSpaceAroundHelper(init):
+    childrenCount = ${instance[childrenCount]};
+    childMarginRight = ${instance[childMarginRight]};
+    childHorizontalSpace = ${instance[childHorizontalSpace]};`);
+}
+
+function restoreMargin(instance) {
+  instance[lastChild].css('marginRight', instance[childMarginRight]);
+}
+
+/**
+ * &lt;p>A helper class that can be used on div that has css styles:
+ * &lt;ul>
+ *   &lt;li>display: flex;&lt;/li>
+ *   &lt;li>flex-wrap: wrap;&lt;/li>
+ *   &lt;li>justify-content: space-around;&lt;/li>
+ *   &lt;li>align-content: flex-start.&lt;/li>
+ * &lt;/ul>
+ *
+ * &lt;p> It fixes items align in last row to move them to left edge of the container.
+ * &lt;p>For example, flexed elements that looks like follows:
+ * &lt;table>
+ *   &lt;tr>
+ *     &lt;td>[]&lt;/td> &lt;td>[]&lt;/td> &lt;td>[]&lt;/td>
+ *   &lt;/tr>
+ *   &lt;tr>
+ *     &lt;td>  &lt;/td> &lt;td>[]&lt;/td> &lt;td>  &lt;/td>
+ *   &lt;/tr>
+ * &lt;/table>
+ * &lt;p>Will be like this:
+ * &lt;table>
+ *   &lt;tr>
+ *     &lt;td>[]&lt;/td> &lt;td>[]&lt;/td> &lt;td>[]&lt;/td>
+ *   &lt;/tr>
+ *   &lt;tr>
+ *     &lt;td>[]&lt;/td> &lt;td>  &lt;/td> &lt;td>  &lt;/td>
+ *   &lt;/tr>
+ * &lt;/table>
+ */
+// can be export default, but then JsDoc can't properly document it
+// to workaround, it is exported separately, see below
+// it still marks class as inner member tough it is public
+// see https://github.com/jsdoc3/jsdoc/issues/1272
+class FlexSpaceAroundHelper {
+
+  /**
+   * Creates a FlexSpaceAroundHelper instance.
+   *
+   * @param {jQuery} _$flexedDiv - The div container that is flexed and must be fixed
+   */
+  constructor(_$flexedDiv) {
+    this[$flexedDiv] = _$flexedDiv;
+    init(this);
+  }
+
+  /**
+   * Reconfigures itself like if it were newly added to container. It can be used
+   * after new elements is added to container.
+   */
+  refresh() {
+    restoreMargin(this);
+    init(this);
+    this.squeezeChildrenToLeftInLastRow();
+  }
+
+  /**
+   * Moves all items in last row to left edge of the container.
+   */
+  squeezeChildrenToLeftInLastRow() {
+    const divWidth = this[$flexedDiv].prop('clientWidth');
+    const childrenInOneRow = Math.floor(divWidth / this[childHorizontalSpace]);
+    const missingChildrenInLastRow = childrenInOneRow - (this[childrenCount] % childrenInOneRow);
+    let marginRestored = false;
+
+    if (missingChildrenInLastRow &lt; childrenInOneRow) {
+      const gapsExtraSpacePerChild = (divWidth - (childrenInOneRow * this[childHorizontalSpace]))
+        / childrenInOneRow;
+      const freeSpaceLeft = missingChildrenInLastRow * (this[childHorizontalSpace]
+        + gapsExtraSpacePerChild);
+
+      this[lastChild].css('marginRight', freeSpaceLeft + this[childMarginRight]);
+
+      console.log(dedent`FlexSpaceAroundHelper(run):
+        divWidth = ${divWidth};
+        childrenInOneRow = ${childrenInOneRow};
+        gapsExtraSpacePerChild = ${gapsExtraSpacePerChild};
+        missingChildrenInLastRow = ${missingChildrenInLastRow};
+        freeSpaceLeft = ${freeSpaceLeft}`);
+    } else if (!marginRestored) {
+      restoreMargin(this);
+      marginRestored = true;
+    }
+  }
+}
+
+export { FlexSpaceAroundHelper };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-ajax.html">ajax</a></li><li><a href="module-application.html">application</a></li><li><a href="module-browser-history.html">browser-history</a></li><li><a href="module-flex-space-around-helper.html">flex-space-around-helper</a></li></ul><h3>Externals</h3><ul><li><a href="external-_jQuery.fn_.html">jQuery.fn</a></li></ul><h3>Classes</h3><ul><li><a href="module-flex-space-around-helper-FlexSpaceAroundHelper.html">FlexSpaceAroundHelper</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a> on Tue Jul 11 2017 01:12:54 GMT+0300 (RTZ 2 (зима))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,3 +1,7 @@
+/* eslint-disable import/prefer-default-export */
+
+/** @module flex-space-around-helper */
+
 import dedent from 'dedent-js';
 
 const $flexedDiv = Symbol('$flexedDiv');
@@ -25,19 +29,64 @@ function restoreMargin(instance) {
   instance[lastChild].css('marginRight', instance[childMarginRight]);
 }
 
-export default class FlexSpaceAroundHelper {
+/**
+ * <p>A helper class that can be used on div that has css styles:
+ * <ul>
+ *   <li>display: flex;</li>
+ *   <li>flex-wrap: wrap;</li>
+ *   <li>justify-content: space-around;</li>
+ *   <li>align-content: flex-start.</li>
+ * </ul>
+ *
+ * <p> It fixes items align in last row to move them to left edge of the container.
+ * <p>For example, flexed elements that looks like follows:
+ * <table>
+ *   <tr>
+ *     <td>[]</td> <td>[]</td> <td>[]</td>
+ *   </tr>
+ *   <tr>
+ *     <td>  </td> <td>[]</td> <td>  </td>
+ *   </tr>
+ * </table>
+ * <p>Will be like this:
+ * <table>
+ *   <tr>
+ *     <td>[]</td> <td>[]</td> <td>[]</td>
+ *   </tr>
+ *   <tr>
+ *     <td>[]</td> <td>  </td> <td>  </td>
+ *   </tr>
+ * </table>
+ */
+// can be export default, but then JsDoc can't properly document it
+// to workaround, it is exported separately, see below
+// it still marks class as inner member tough it is public
+// see https://github.com/jsdoc3/jsdoc/issues/1272
+class FlexSpaceAroundHelper {
 
+  /**
+   * Creates a FlexSpaceAroundHelper instance.
+   *
+   * @param {jQuery} _$flexedDiv - The div container that is flexed and must be fixed
+   */
   constructor(_$flexedDiv) {
     this[$flexedDiv] = _$flexedDiv;
     init(this);
   }
 
+  /**
+   * Reconfigures itself like if it were newly added to container. It can be used
+   * after new elements is added to container.
+   */
   refresh() {
     restoreMargin(this);
     init(this);
     this.squeezeChildrenToLeftInLastRow();
   }
 
+  /**
+   * Moves all items in last row to left edge of the container.
+   */
   squeezeChildrenToLeftInLastRow() {
     const divWidth = this[$flexedDiv].prop('clientWidth');
     const childrenInOneRow = Math.floor(divWidth / this[childHorizontalSpace]);
@@ -64,3 +113,5 @@ export default class FlexSpaceAroundHelper {
     }
   }
 }
+
+export { FlexSpaceAroundHelper };

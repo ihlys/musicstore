@@ -64,7 +64,6 @@
 .header__part--left {
 	flex: 0 0 500px; 	/* this flex attributes belongs to container */
 						/* with class 'header' (not 'header__part')  */
-						
 	background-image: url(~Images/header_left.png);
 	background-size: cover;
 	padding-left: 15px;
@@ -263,6 +262,10 @@
 	
 }
 
+.main__content {
+    
+}
+
 /**************************************/
 /*********** News panel block *********/
 /**************************************/
@@ -285,68 +288,6 @@
 	/* border: 1px solid rgb(215, 215, 230); */
 	border-radius: 3px;
 	box-shadow: 0 0 0px 1px rgb(215, 215, 230);
-}
-
-
-/**************************************/
-/************* Menu block *************/
-/**************************************/
-.menu {
-	color: grey;
-	height: 100%;
-}
-
-.menu--center {
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.menu--left {
-	height: 100%;
-	color: grey;
-}
-
-.menu__background {
-	height: 120px;
-	width: 100%;
-
-	/* background-image: url(Main-content__menu-background.png); */
-	/*background: rgb(25, 12, 53);*/
-	background: rgb(25, 12, 53);
-}
-
-.menu__link:link,
-.menu__link:visited,
-.menu__link:hover,
-.menu__link:active,
-.menu__link:focus {
-	text-decoration: none;
-}
-
-.menu__link:hover {
-	background: rgba(255, 255, 255, 0.9);
-	border: 1px solid rgba(225, 225, 225, 0.9);
-}
-
-.menu__link {
-	display: flex;
-	justify-content: center;
-    align-items: center;
-	
-	width: 200px;
-	height: 65px;
-	
-	margin: 15px;
-	padding: 5px;
-	
-	background: rgba(255, 255, 255, 0.9);
-	border: 1px solid rgba(255, 255, 255, 0.9);
-	border-radius: 30px;
-	
-	font-size: 20px;
-	color: rgb(102, 122, 155);
 }
 
 

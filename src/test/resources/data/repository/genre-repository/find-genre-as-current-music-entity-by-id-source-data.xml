@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <GENRE id="1" image_lg_name="GenreOne-lg.jpg"/>
+    <GENRE id="2" image_lg_name="GenreTwo-lg.jpg"/>
+
+    <GENREL10N id="1" genre_id="1" language_id="1"
+               name="Genre One" description="This is Genre One"/>
+    <GENREL10N id="2" genre_id="2" language_id="1"
+               name="Genre Two" description="This is Genre Two"/>
+
+</dataset>

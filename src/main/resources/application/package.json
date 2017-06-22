@@ -4,6 +4,7 @@
   "description": "",
   "main": null,
   "scripts": {
+    "prototyping-build": "webpack --config webpack-prototyping.config.js",
     "build": "webpack --config webpack.config.js",
     "tests-build-run": "npm run tests-build && npm run tests-run",
     "tests-run": "npm run tests-run-flex-space-around-helper && npm run tests-run-grid-collection && npm run tests-run-page-scroller && npm run tests-run-items-with-content",
@@ -36,9 +37,10 @@
     "file-loader": "^0.11.2",
     "font-awesome": "^4.7.0",
     "font-awesome-webpack": "0.0.5-beta.2",
-    "grid-collection": "file:widgets\\grid-collection",
     "imports-loader": "^0.7.1",
+    "inject-loader": "^3.0.0",
     "jquery": "^3.2.1",
+    "jquery-textfill": "^0.6.0",
     "jquery-ui": "^1.12.1",
     "less": "^2.7.2",
     "less-loader": "^4.0.4",
@@ -55,6 +57,7 @@
     "uglifyjs-webpack-plugin": "^0.4.3",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
-    "webpack-uglify-js-plugin": "^1.1.9"
+    "webpack-uglify-js-plugin": "^1.1.9",
+    "webpack-utf8-bom": "^1.0.3"
   }
 }

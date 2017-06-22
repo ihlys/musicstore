@@ -1,9 +1,11 @@
 package com.ihordev.service.impl;
 
 import com.ihordev.domain.Genre;
+import com.ihordev.domainprojections.GenreAsCurrentMusicEntity;
 import com.ihordev.domainprojections.GenreAsPageItem;
 import com.ihordev.repository.GenreRepository;
 import com.ihordev.service.GenreService;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -24,11 +26,15 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public Slice<GenreAsPageItem> findSubGenresByParentGenreIdProjectedPaginated(String clientLanguage,
-                                                                                 Long parentGenreId,
-                                                                                 Pageable pageRequest) {
-        return genreRepository.findSubGenresByParentGenreIdProjectedPaginated(clientLanguage,
-                parentGenreId, pageRequest);
+    public Slice<GenreAsPageItem> findGenresAsPageItemsByParentGenreId(@Nullable Long parentGenreId,
+                                                                       String clientLanguage,
+                                                                       Pageable pageRequest) {
+        return genreRepository.findGenresAsPageItemsByParentGenreId(parentGenreId, clientLanguage, pageRequest);
+    }
+
+    @Override
+    public GenreAsCurrentMusicEntity findGenreAsCurrentMusicEntityById(Long genreId, String clientLanguage) {
+        return genreRepository.findGenreAsCurrentMusicEntityById(genreId, clientLanguage);
     }
 
     @Override

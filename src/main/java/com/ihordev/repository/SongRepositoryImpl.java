@@ -1,77 +1,113 @@
 package com.ihordev.repository;
 
-import com.ihordev.domainprojections.ArtistAsPageItem;
+import com.ihordev.core.repositories.RepositoryQueries;
+import com.ihordev.domain.Song;
+import com.ihordev.domain.SongL10n;
 import com.ihordev.domainprojections.SongAsPageItem;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
-import org.springframework.data.projection.ProjectionFactory;
-import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static com.ihordev.core.util.JpaUtils.convertRowToPropertiesMap;
-import static com.ihordev.core.util.JpaUtils.getOrderByClauseFromSort;
-import static com.ihordev.repository.GenreRepository.FIND_GENRE_ALL_SUBGENRES_QUERY;
-import static java.util.stream.Collectors.toList;
+import static com.ihordev.repository.GenreRepository.FIND_GENRE_ALL_SUBGENRES_IDS_QUERY;
 
 
 public class SongRepositoryImpl implements SongRepositoryCustom {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
+
+    private RepositoryQueries repositoryQueries;
+
+    @PostConstruct
+    public void init() {
+        this.repositoryQueries = new RepositoryQueries(entityManager);
+    }
+
+    @Override
+    public Slice<SongAsPageItem> findSongsAsPageItemsByAlbumId(Long albumId, String language,
+                                                               Pageable pageRequest) {
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("albumId", albumId);
+        queryArgsMap.put("language", language);
+
+        Map<String, String> customClausesMap = new HashMap<>();
+        customClausesMap.put("whereClause", "song.album.id = :albumId");
+        return repositoryQueries.findEntitiesAsPageItems(SongAsPageItem.class, Song.class, SongL10n.class,
+                customClausesMap, queryArgsMap, pageRequest);
+    }
+
+    @Override
+    public Slice<SongAsPageItem> findSongsAsPageItemsByArtistId(Long artistId, String language,
+                                                                Pageable pageRequest) {
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("artistId", artistId);
+        queryArgsMap.put("language", language);
+
+        Map<String, String> customClausesMap = new HashMap<>();
+        customClausesMap.put("whereClause", "song.artist.id  = :artistId");
+        return repositoryQueries.findEntitiesAsPageItems(SongAsPageItem.class, Song.class, SongL10n.class,
+                customClausesMap, queryArgsMap, pageRequest);
+    }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Slice<SongAsPageItem> findSongsByGenreIdProjectedPaginated(String clientLanguage, Long genreId,
-                                                                      Pageable pageRequest) {
-
-        Query findGenreSubGenres = em.createNamedQuery(FIND_GENRE_ALL_SUBGENRES_QUERY);
+    public Slice<SongAsPageItem> findSongsAsPageItemsByGenreId(Long genreId, String language,
+                                                               Pageable pageRequest) {
+        Query findGenreSubGenres = entityManager.createNamedQuery(FIND_GENRE_ALL_SUBGENRES_IDS_QUERY);
         findGenreSubGenres.setParameter("genreId", genreId);
         List<Long> genresIds = findGenreSubGenres.getResultList();
 
-        String jpql = String.format(
-                      " SELECT song.id AS id,                                                 " +
-                      "        l10n.name AS name                                              " +
-                      "     FROM Song song                                                    " +
-                      "     JOIN song.songL10nSet l10n                                        " +
-                      "     JOIN l10n.language lang                                           " +
-                      "     WHERE song.album.id IN (                                          " +
-                      "                             SELECT album.id AS id                     " +
-                      "                                 FROM Artist artist                    " +
-                      "                                 JOIN artist.albums album              " +
-                      "                                 WHERE artist.genre.id IN (:genresIds) " +
-                      "                            )                                          " +
-                      "           AND (lang.name = :clientLanguage                            " +
-                      "                OR lang.name = function('DEFAULT_LANGUAGE',))          " +
-                      "     ORDER BY %s                                                       ",
-                getOrderByClauseFromSort(pageRequest.getSort(), ArtistAsPageItem.class));
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("genresIds", genresIds);
+        queryArgsMap.put("language", language);
 
-        Query query = em.createQuery(jpql);
-        query.setParameter("clientLanguage", clientLanguage);
-        query.setParameter("genresIds", genresIds);
-        query.setFirstResult(pageRequest.getOffset());
-        // +1 result is used to determine if there are next slice without additional count query
-        int pageSizePlusOne = pageRequest.getPageSize() + 1;
-        query.setMaxResults(pageSizePlusOne);
-
-        List<Object[]> resultList = query.getResultList();
-        boolean hasNextSliceOfData = resultList.size() == pageSizePlusOne;
-
-        List<SongAsPageItem> songAsPageItemList = resultList.stream()
-                .limit(pageRequest.getPageSize())
-                .map(this::mapRowToSong)
-                .collect(toList());
-
-        return new SliceImpl<>(songAsPageItemList, pageRequest, hasNextSliceOfData);
+        Map<String, String> customClausesMap = new HashMap<>();
+        customClausesMap.put("whereClause",
+                "song.artist.id IN (                                         " +
+                "                   SELECT artist.id AS id                   " +
+                "                       FROM Artist artist                   " +
+                "                       WHERE artist.genre.id IN (:genresIds)" +
+                "                  )                                         ");
+        return repositoryQueries.findEntitiesAsPageItems(SongAsPageItem.class, Song.class, SongL10n.class,
+                customClausesMap, queryArgsMap, pageRequest);
     }
 
-    private SongAsPageItem mapRowToSong(Object[] row) {
-        ProjectionFactory projectionFactory = new SpelAwareProxyProjectionFactory();
-        return projectionFactory.createProjection(SongAsPageItem.class,
-                convertRowToPropertiesMap(row, "id", "name"));
+    @Override
+    public Slice<SongAsPageItem> findSongsAsPageItemsBySoundtrackId(Long soundtrackId, String language,
+                                                                    Pageable pageRequest) {
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("soundtrackId", soundtrackId);
+        queryArgsMap.put("language", language);
+
+        Map<String, String> customClausesMap = new HashMap<>();
+        customClausesMap.put("fromClauseEnd", "JOIN song.soundtracks soundtrack");
+        customClausesMap.put("whereClause", "soundtrack.id = :soundtrackId");
+
+        return repositoryQueries.findEntitiesAsPageItems(SongAsPageItem.class, Song.class, SongL10n.class,
+                customClausesMap, queryArgsMap, pageRequest);
+    }
+
+    @Override
+    public Slice<SongAsPageItem> findSongsAsPageItemsByThematicCompilationId(Long thematicCompilationId,
+                                                                             String language,
+                                                                             Pageable pageRequest) {
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("thematicCompilationId", thematicCompilationId);
+        queryArgsMap.put("language", language);
+
+        Map<String, String> customClausesMap = new HashMap<>();
+        customClausesMap.put("fromClauseStart", " ThematicallyCompiledSong thSong " +
+                                                " JOIN thSong.song song           ");
+        customClausesMap.put("whereClause", "thSong.thematicCompilation.id = :thematicCompilationId");
+
+        return repositoryQueries.findEntitiesAsPageItems(SongAsPageItem.class, Song.class, SongL10n.class,
+                customClausesMap, queryArgsMap, pageRequest);
     }
 }

@@ -25,21 +25,35 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public Slice<SongAsPageItem> findSongsByGenreIdProjectedPaginated(String clientLanguage, Long genreId,
-                                                                      Pageable pageRequest) {
-        return songRepository.findSongsByGenreIdProjectedPaginated(clientLanguage, genreId, pageRequest);
+    public Slice<SongAsPageItem> findSongsAsPageItemsByGenreId(Long genreId, String clientLanguage,
+                                                               Pageable pageRequest) {
+        return songRepository.findSongsAsPageItemsByGenreId(genreId, clientLanguage, pageRequest);
     }
 
     @Override
-    public Slice<SongAsPageItem> findSongsByArtistIdProjectedPaginated(String clientLanguage, Long artistId,
-                                                                       Pageable pageRequest) {
-        return songRepository.findSongsByArtistIdProjectedPaginated(clientLanguage, artistId, pageRequest);
+    public Slice<SongAsPageItem> findSongsAsPageItemsByArtistId(Long artistId, String clientLanguage,
+                                                                Pageable pageRequest) {
+        return songRepository.findSongsAsPageItemsByArtistId(artistId, clientLanguage, pageRequest);
     }
 
     @Override
-    public Slice<SongAsPageItem> findSongsByAlbumIdProjectedPaginated(String clientLanguage, Long albumId,
-                                                                      Pageable pageRequest) {
-        return songRepository.findSongsByAlbumIdProjectedPaginated(clientLanguage, albumId, pageRequest);
+    public Slice<SongAsPageItem> findSongsAsPageItemsByAlbumId(Long albumId, String clientLanguage,
+                                                               Pageable pageRequest) {
+        return songRepository.findSongsAsPageItemsByAlbumId(albumId, clientLanguage, pageRequest);
+    }
+
+    @Override
+    public Slice<SongAsPageItem> findSongsAsPageItemsBySoundtrackId(Long soundtrackId, String language,
+                                                                    Pageable pageRequest) {
+        return songRepository.findSongsAsPageItemsBySoundtrackId(soundtrackId, language, pageRequest);
+    }
+
+    @Override
+    public Slice<SongAsPageItem> findSongsAsPageItemsByThematicCompilationId(Long thematicCompilationId,
+                                                                             String language,
+                                                                             Pageable pageRequest) {
+        return songRepository
+                .findSongsAsPageItemsByThematicCompilationId(thematicCompilationId, language, pageRequest);
     }
 
     @Override

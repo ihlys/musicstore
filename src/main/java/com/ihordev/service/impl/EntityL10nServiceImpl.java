@@ -1,67 +1,93 @@
 package com.ihordev.service.impl;
 
-import com.ihordev.domain.AlbumL10n;
-import com.ihordev.domain.ArtistL10n;
-import com.ihordev.domain.GenreL10n;
-import com.ihordev.domain.SongL10n;
+import com.ihordev.core.repositories.RepositoryQueries;
+import com.ihordev.domain.*;
 import com.ihordev.service.EntityL10nService;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static java.lang.String.format;
+import static com.ihordev.repository.GenreRepository.FIND_GENRE_ALL_SUPERGENRES_IDS_QUERY;
+import static java.util.stream.Collectors.toList;
 
 
 @Service
 public class EntityL10nServiceImpl implements EntityL10nService {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
 
-    private final String baseQuery =
-            " SELECT l10n                                            " +
-            "     FROM %1$s l10n                                     " +
-            "     JOIN l10n.language lang                            " +
-            "     WHERE l10n.%2$s.id = :%3$s                         " +
-            "           AND lang.name = :language                    " +
-            "           OR lang.name = function('DEFAULT_LANGUAGE',) ";
+    private RepositoryQueries repositoryQueries;
 
-    private <T> TypedQuery<T> prepareQuery(String entityName, String entityProperty, String entityIdJpql,
-                                           Class<T> entityClass, Long entityIdParam, String language) {
-        String jpql = format(baseQuery, entityName, entityProperty, entityIdJpql);
-        TypedQuery<T> query = em.createQuery(jpql, entityClass);
-        query.setParameter(entityIdJpql, entityIdParam);
-        query.setParameter("language", language);
-        return query;
+    @PostConstruct
+    public void init() {
+        this.repositoryQueries = new RepositoryQueries(entityManager);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<GenreL10n> getAllSuperGenresL10n(Long genreId, String language) {
+        Query findGenreSuperGenres = entityManager.createNamedQuery(FIND_GENRE_ALL_SUPERGENRES_IDS_QUERY);
+        findGenreSuperGenres.setParameter("genreId", genreId);
+        List<Long> genresIds = findGenreSuperGenres.getResultList();
+
+        return genresIds.stream()
+                .map(superGenreId -> getGenreL10n(superGenreId, language))
+                .collect(toList());
     }
 
     @Override
     public GenreL10n getGenreL10n(Long genreId, String language) {
-        TypedQuery<GenreL10n> query = prepareQuery("GenreL10n", "genre", "genreId",
-                GenreL10n.class, genreId, language);
-        return query.getSingleResult();
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("genreId", genreId);
+        queryArgsMap.put("language", language);
+        return repositoryQueries.findEntityL10n(GenreL10n.class, Genre.class, queryArgsMap);
     }
 
     @Override
     public ArtistL10n getArtistL10n(Long artistId, String language) {
-        TypedQuery<ArtistL10n> query = prepareQuery("ArtistL10n", "artist", "artistId",
-                ArtistL10n.class, artistId, language);
-        return query.getSingleResult();
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("artistId", artistId);
+        queryArgsMap.put("language", language);
+        return repositoryQueries.findEntityL10n(ArtistL10n.class, Artist.class, queryArgsMap);
     }
 
     @Override
     public AlbumL10n getAlbumL10n(Long albumId, String language) {
-        TypedQuery<AlbumL10n> query = prepareQuery("AlbumL10n", "album", "albumId",
-                AlbumL10n.class, albumId, language);
-        return query.getSingleResult();
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("albumId", albumId);
+        queryArgsMap.put("language", language);
+        return repositoryQueries.findEntityL10n(AlbumL10n.class, Album.class, queryArgsMap);
     }
 
     @Override
     public SongL10n getSongL10n(Long songId, String language) {
-        TypedQuery<SongL10n> query = prepareQuery("SongL10n", "song", "songId",
-                SongL10n.class, songId, language);
-        return query.getSingleResult();
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("songId", songId);
+        queryArgsMap.put("language", language);
+        return repositoryQueries.findEntityL10n(SongL10n.class, Song.class, queryArgsMap);
+    }
+
+    @Override
+    public SoundtrackL10n getSoundtrackL10n(Long soundtrackId, String language) {
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("soundtrackId", soundtrackId);
+        queryArgsMap.put("language", language);
+        return repositoryQueries.findEntityL10n(SoundtrackL10n.class, Soundtrack.class, queryArgsMap);
+    }
+
+    @Override
+    public ThematicCompilationL10n getThematicCompilationL10n(Long thematicCompilationId, String language) {
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("thematicCompilationId", thematicCompilationId);
+        queryArgsMap.put("language", language);
+        return repositoryQueries.findEntityL10n(ThematicCompilationL10n.class,
+                ThematicCompilation.class, queryArgsMap);
     }
 }

@@ -1,5 +1,7 @@
 package com.ihordev.domain;
 
+import org.checkerframework.checker.nullness.qual.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,7 +25,7 @@ public class ThematicCompilationL10n {
     private Long id;
 
     @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private ThematicCompilation thematicCompilation;
 
     @NotNull
@@ -79,7 +81,7 @@ public class ThematicCompilationL10n {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (!(o instanceof ThematicCompilationL10n)) return false;
 
@@ -99,11 +101,11 @@ public class ThematicCompilationL10n {
     @Override
     public String toString() {
         return "ThematicCompilationL10n{" +
-                "id=" + id +
-                ", thematicCompilation=" + thematicCompilation +
-                ", language=" + language +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+                "\n id: " + id +
+                ";\n thematicCompilation: " + thematicCompilation +
+                ",\n language: " + language +
+                ",\n name: " + name +
+                ",\n description: " + description +
+                "}";
     }
 }

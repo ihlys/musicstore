@@ -1,74 +1,62 @@
 package com.ihordev.repository;
 
+import com.ihordev.core.repositories.RepositoryQueries;
+import com.ihordev.domain.Artist;
+import com.ihordev.domain.ArtistL10n;
+import com.ihordev.domainprojections.ArtistAsCurrentMusicEntity;
 import com.ihordev.domainprojections.ArtistAsPageItem;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.SliceImpl;
-import org.springframework.data.projection.ProjectionFactory;
-import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static com.ihordev.core.util.JpaUtils.convertRowToPropertiesMap;
-import static com.ihordev.core.util.JpaUtils.getOrderByClauseFromSort;
-import static com.ihordev.repository.GenreRepository.FIND_GENRE_ALL_SUBGENRES_QUERY;
-import static java.util.stream.Collectors.toList;
+import static com.ihordev.repository.GenreRepository.FIND_GENRE_ALL_SUBGENRES_IDS_QUERY;
 
 
 @Repository
 public class ArtistRepositoryImpl implements ArtistRepositoryCustom {
 
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
+
+    private RepositoryQueries repositoryQueries;
+
+    @PostConstruct
+    public void init() {
+        this.repositoryQueries = new RepositoryQueries(entityManager);
+    }
 
     @SuppressWarnings("unchecked")
     @Override
-    public Slice<ArtistAsPageItem> findArtistsByGenreIdProjectedPaginated(String clientLanguage, Long genreId,
-                                                                          Pageable pageRequest) {
-        Query findGenreSubGenres = em.createNamedQuery(FIND_GENRE_ALL_SUBGENRES_QUERY);
-        findGenreSubGenres.setParameter("genreId", genreId);
-        List<Long> genresIds = findGenreSubGenres.getResultList();
+    public Slice<ArtistAsPageItem> findArtistsAsPageItemsByGenreId(Long genreId, String language,
+                                                                   Pageable pageRequest) {
+        Query findGenreSubGenresIds = entityManager.createNamedQuery(FIND_GENRE_ALL_SUBGENRES_IDS_QUERY);
+        findGenreSubGenresIds.setParameter("genreId", genreId);
+        List<Long> genresIds = findGenreSubGenresIds.getResultList();
 
-        String jpql = String.format(
-                      " SELECT artist.id AS id,                                      " +
-                      "        artist.imageSmlUri AS imageSmlUri,                    " +
-                      "        l10n.name AS name,                                    " +
-                      "        l10n.description AS description                       " +
-                      "     FROM Artist artist                                       " +
-                      "     JOIN artist.artistL10nSet l10n                           " +
-                      "     JOIN l10n.language lang                                  " +
-                      "     WHERE artist.genre.id IN (:genresIds)                    " +
-                      "           AND (lang.name = :clientLanguage                   " +
-                      "                OR lang.name = function('DEFAULT_LANGUAGE',)) " +
-                      "     ORDER BY %s                                              ",
-                getOrderByClauseFromSort(pageRequest.getSort(), ArtistAsPageItem.class));
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("genresIds", genresIds);
+        queryArgsMap.put("language", language);
 
-        Query query = em.createQuery(jpql);
-        query.setParameter("clientLanguage", clientLanguage);
-        query.setParameter("genresIds", genresIds);
-        query.setFirstResult(pageRequest.getOffset());
-        // +1 result is used to determine if there are next slice without additional count query
-        int pageSizePlusOne = pageRequest.getPageSize() + 1;
-        query.setMaxResults(pageSizePlusOne);
-
-        List<Object[]> resultList = query.getResultList();
-        boolean hasNextSliceOfData = resultList.size() == pageSizePlusOne;
-
-        List<ArtistAsPageItem> artistAsPageItemList = resultList.stream()
-                .limit(pageRequest.getPageSize())
-                .map(this::mapRowToArtist)
-                .collect(toList());
-
-        return new SliceImpl<>(artistAsPageItemList, pageRequest, hasNextSliceOfData);
+        Map<String, String> customClausesMap = new HashMap<>();
+        customClausesMap.put("whereClause" , "artist.genre.id IN (:genresIds)");
+        return repositoryQueries.findEntitiesAsPageItems(ArtistAsPageItem.class, Artist.class, ArtistL10n.class,
+                customClausesMap, queryArgsMap, pageRequest);
     }
 
-    private ArtistAsPageItem mapRowToArtist(Object[] row) {
-        ProjectionFactory projectionFactory = new SpelAwareProxyProjectionFactory();
-        return projectionFactory.createProjection(ArtistAsPageItem.class,
-                convertRowToPropertiesMap(row, "id", "imageSmlUri", "name", "description"));
+    public ArtistAsCurrentMusicEntity findArtistAsCurrentMusicEntityById(Long artistId, String language) {
+        Map<String, Object> queryArgsMap = new HashMap<>();
+        queryArgsMap.put("artistId", artistId);
+        queryArgsMap.put("language", language);
+
+        return repositoryQueries.findCurrentMusicEntityById(ArtistAsCurrentMusicEntity.class,
+                Artist.class, ArtistL10n.class, queryArgsMap);
     }
 }

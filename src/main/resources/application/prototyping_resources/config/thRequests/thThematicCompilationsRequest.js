@@ -1,1 +1,0 @@
-Requests.setRequestObject(new RequestObject("/thematic-compilations"));

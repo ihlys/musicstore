@@ -16,7 +16,11 @@
    limitations under the License.
 
  *---------------------------------------------------------------------------*/
-
+ 
+// thymolJs executes configuration scripts specified in 'data-thymol-load' attribute
+// after scripts declared on html page below, so this variable must be set there to avoid risking of undefined state.
+thPrototypingMode = true;
+ 
 (function() {
     var thymolConfiguration = {
         thScriptName: "thymol-full.js",

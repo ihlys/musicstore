@@ -26,7 +26,10 @@ import static com.ihordev.config.AppProfiles.SERVICE_TESTS;
 
 @RunWith(SpringRunner.class)
 @ActiveProfiles(SERVICE_TESTS)
-@DataJpaTest(includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Service.class))
+@DataJpaTest(includeFilters = {
+        @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Service.class),
+        @ComponentScan.Filter(type = FilterType.REGEX, pattern = "com.ihordev.core.repositories.+")
+})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
        DirtiesContextTestExecutionListener.class,
@@ -37,8 +40,7 @@ public class EntityL10nServiceTests {
     private EntityL10nService entityL10nService;
 
     @Test
-    @DatabaseSetup("classpath:data/service/entityl10n-service/" +
-            "get-genrel10n-source-data.xml")
+    @DatabaseSetup("classpath:data/service/entityl10n-service/get-genrel10n-source-data.xml")
     public void getGenreL10nTest() {
         GenreL10n genreL10nEn = entityL10nService.getGenreL10n(1L, "en");
 
@@ -52,8 +54,7 @@ public class EntityL10nServiceTests {
     }
 
     @Test
-    @DatabaseSetup("classpath:data/service/entityl10n-service/" +
-            "get-artistl10n-source-data.xml")
+    @DatabaseSetup("classpath:data/service/entityl10n-service/get-artistl10n-source-data.xml")
     public void getArtistL10nTest() {
         ArtistL10n artistL10n = entityL10nService.getArtistL10n(1L, "en");
 
@@ -67,8 +68,7 @@ public class EntityL10nServiceTests {
     }
 
     @Test
-    @DatabaseSetup("classpath:data/service/entityl10n-service/" +
-            "get-albuml10n-source-data.xml")
+    @DatabaseSetup("classpath:data/service/entityl10n-service/get-albuml10n-source-data.xml")
     public void getAlbumL10nTest() {
         AlbumL10n albumL10n = entityL10nService.getAlbumL10n(1L, "en");
 
@@ -82,8 +82,7 @@ public class EntityL10nServiceTests {
     }
 
     @Test
-    @DatabaseSetup("classpath:data/service/entityl10n-service/" +
-            "get-songl10n-source-data.xml")
+    @DatabaseSetup("classpath:data/service/entityl10n-service/get-songl10n-source-data.xml")
     public void getSongL10nTest() {
         SongL10n songL10n = entityL10nService.getSongL10n(1L, "en");
 

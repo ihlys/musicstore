@@ -1,6 +1,7 @@
 package com.ihordev.service.impl;
 
 import com.ihordev.domain.Album;
+import com.ihordev.domainprojections.AlbumAsCurrentMusicEntity;
 import com.ihordev.domainprojections.AlbumAsPageItem;
 import com.ihordev.repository.AlbumRepository;
 import com.ihordev.service.AlbumService;
@@ -24,8 +25,14 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
-    public Slice<AlbumAsPageItem> findAlbumsByArtistIdProjectedPaginated(String clientLanguage, Long artistId, Pageable pageRequest) {
-        return albumRepository.findAlbumsByArtistIdProjectedPaginated(clientLanguage, artistId, pageRequest);
+    public Slice<AlbumAsPageItem> findAlbumsAsPageItemsByArtistId(Long artistId, String clientLanguage,
+                                                                  Pageable pageRequest) {
+        return albumRepository.findAlbumsAsPageItemsByArtistId(artistId, clientLanguage, pageRequest);
+    }
+
+    @Override
+    public AlbumAsCurrentMusicEntity findAlbumAsCurrentMusicEntityById(Long albumId, String clientLanguage) {
+        return albumRepository.findAlbumAsCurrentMusicEntityById(albumId, clientLanguage);
     }
 
     @Override

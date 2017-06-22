@@ -28,7 +28,7 @@ public class ArtistL10n {
     private Language language;
 
     @NotNull
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Artist artist;
 
     @NotNull
@@ -99,10 +99,10 @@ public class ArtistL10n {
     @Override
     public String toString() {
         return "ArtistL10n{" +
-                "language=" + language.getId() +
-                ", artist=" + artist.getId() +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+                "\n language: " + language.getId() +
+                ";\n artist: " + artist.getId() +
+                ";\n name: " + name +
+                ";\n description: " + description +
+                "}";
     }
 }

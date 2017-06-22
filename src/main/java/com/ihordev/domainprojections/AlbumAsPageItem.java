@@ -3,15 +3,7 @@ package com.ihordev.domainprojections;
 import java.time.LocalDate;
 
 
-public interface AlbumAsPageItem {
-
-    Long      getId();
-
-    String    getImageSmlUri();
+public interface AlbumAsPageItem extends AbstractPageItem{
 
     LocalDate getReleaseDate();
-
-    String    getName();
-
-    String    getDescription();
 }

@@ -10,14 +10,21 @@ public interface SongService {
 
     Song findById(Long id);
 
-    Slice<SongAsPageItem> findSongsByGenreIdProjectedPaginated(String clientLanguage, Long genreId,
-                                                               Pageable pageRequest);
+    Slice<SongAsPageItem> findSongsAsPageItemsByGenreId(Long genreId, String clientLanguage,
+                                                        Pageable pageRequest);
 
-    Slice<SongAsPageItem> findSongsByArtistIdProjectedPaginated(String clientLanguage, Long artistId,
-                                                                Pageable pageRequest);
+    Slice<SongAsPageItem> findSongsAsPageItemsByArtistId(Long artistId, String clientLanguage,
+                                                         Pageable pageRequest);
 
-    Slice<SongAsPageItem> findSongsByAlbumIdProjectedPaginated(String clientLanguage, Long albumId,
-                                                               Pageable pageRequest);
+    Slice<SongAsPageItem> findSongsAsPageItemsByAlbumId(Long albumId, String clientLanguage,
+                                                        Pageable pageRequest);
+
+    Slice<SongAsPageItem> findSongsAsPageItemsBySoundtrackId(Long soundtrackId, String language,
+                                                             Pageable pageRequest);
+
+    Slice<SongAsPageItem> findSongsAsPageItemsByThematicCompilationId(Long thematicCompilationId,
+                                                                      String language,
+                                                                      Pageable pageRequest);
 
     void saveSong(Song song);
 

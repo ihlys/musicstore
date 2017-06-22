@@ -1,15 +1,15 @@
 <th:block th:fragment="soundtracks">
 <div class="soundtrack border--hover-fade-blue" th:each="soundtrack : ${soundtracks}" 
-                                                th:attr="data-content-url=@{${#request.getRequestURI() + '/' + ${soundtrack.id} + '/songs'}}">
+        data-th-attr="data-item-page-url=@{${#request.getRequestURI() + '/' + soundtrack.id + '/songs'}}">
 
     <div class="soundtrack__cover">
-        <img th:src="@{${soundtrack.image}}">
+        <img th:src="@{${'/' + soundtrack.imageSmName}}">
     </div>
     
     <div class="soundtrack__short-info">
-        <span>Name: </span><span th:text="${soundtrack.name}"></span>
+        <span th:text="#{soundtrack.name}"></span><span th:text="${soundtrack.name}"></span>
         <br>
-        <span>Released: </span><span th:text="${soundtrack.released}"></span>
+        <span th:text="#{soundtrack.released}"></span><span th:text="${soundtrack.releaseDate}"></span>
     </div>
         
 </div>

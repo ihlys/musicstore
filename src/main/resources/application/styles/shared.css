@@ -9,31 +9,19 @@
 	padding: 0 3px;
 }
 
-.navigation__link:link, 
-.navigation__link:visited, 
-.navigation__link:hover, 
-.navigation__link:active,
-.navigation__link:focus {
-	text-decoration: none;
-}
-
-.navigation__link:link,
-.navigation__link:visited,
-.navigation__link:focus {
-	color: grey;
-}
-
-.navigation__link:hover {
-	color: black;
-}
-
-.navigation__link:active {
-	color: rgb(200, 200, 200);
-}
-
-.navigation__link {
+.btn-a--navigation {
 	font-size: 14px;
+    color: black;
 }
+
+.btn-a--navigation :hover {
+	color: rgb(120, 120, 120);
+}
+
+.btn-a--navigation :active {
+	color: rgb(190, 190, 190);
+}
+
 
 /**************************************/
 /*********** Comments block ***********/
@@ -52,6 +40,14 @@
 }
 
 /**************************************/
+/******* Music collection block *******/
+/**************************************/
+.music-collection {
+    height: 600px;
+    overflow-y: auto;
+}
+
+/**************************************/
 /*************** Others ***************/
 /**************************************/
 
@@ -62,8 +58,6 @@
 }
 
 .container-with-background {
-	width: 100%;
-	height: 100%;
 	
 	position: relative;
 }
@@ -94,29 +88,31 @@
 	z-index: 1;
 }
 
-.btn-show-link {
+.btn-a {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.btn-a--glow {
     text-align: center;
 	color: white;
 	
 	display: flex;
 	justify-content: center;
     align-items: center;
-    
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
 }
 
-.btn-show-link:hover {
+.btn-a--glow:hover {
 	text-shadow: 0 0 50px rgb(255, 255, 255),
 				 0 0 40px rgb(255, 255, 255),
 				 0 0 35px rgb(255, 255, 255);
 }
 
-.btn-show-link:active {
+.btn-a--glow:active {
     color: #cccccc;
 	text-shadow: 0 0 50px rgb(255, 255, 255),
 				 0 0 40px rgb(255, 255, 255),

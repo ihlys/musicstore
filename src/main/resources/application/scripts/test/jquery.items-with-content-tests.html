@@ -5,26 +5,12 @@
         <link rel="stylesheet" href="../../node_modules/mocha/mocha.css"/>
     </head>
     
-    <style>
-    .test-collection {
-        margin-top: 20px;
-        
-        background: grey;
-        width: 600px;
-        height: 300px;
-    }
-    .test-item {
-        background: green;
-        width: 200px;
-        height: 200px;
-    }
-    </style>
-    
     <body>
         
         <!-- ===== Html fixture ===== -->
-        <div id="test-collection" class="test-collection">
-            <div class="test-item" data-content-url="/collection/1/item-content"><h1>Item with content</h1></div>
+        <div id="test-collection">
+            <div id="test-item-one" data-item-page-url="/collection/1/item-one-content"><h1>Item one with content</h1></div>
+            <div id="test-item-two" data-item-page-url="/collection/1/item-two-content"><h1>Item two with content</h1></div>
         </div>
         <!-- ======================== -->
         

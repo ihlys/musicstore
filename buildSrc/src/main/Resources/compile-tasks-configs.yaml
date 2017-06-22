@@ -3,9 +3,9 @@ compileTasksConfigs:
     - name         : Container managed classes
       compilerArgs :
           -AassumeAssertionsAreEnabled :
-          -AsuppressWarnings   : uninitialized
+          -AsuppressWarnings   : initialization.fields.uninitialized
           -AonlyDefs           : &container_managed |-
-                Controller|Interceptor|^com.ihordev.domain\..+|^com.ihordev.config\..+
+                ^com.ihordev.web\..+|^com.ihordev.repository\..+|^com.ihordev.service\..+|^com.ihordev.domain\..+|^com.ihordev.config\..+
 
     - name         : All others
       compilerArgs :

@@ -1,6 +1,7 @@
 package com.ihordev.service.impl;
 
 import com.ihordev.domain.Artist;
+import com.ihordev.domainprojections.ArtistAsCurrentMusicEntity;
 import com.ihordev.domainprojections.ArtistAsPageItem;
 import com.ihordev.repository.ArtistRepository;
 import com.ihordev.service.ArtistService;
@@ -24,9 +25,14 @@ public class ArtistServiceImpl implements ArtistService {
     }
 
     @Override
-    public Slice<ArtistAsPageItem> findArtistsByGenreIdProjectedPaginated(String clientLanguage, Long genreId,
-                                                                          Pageable pageRequest) {
-        return artistRepository.findArtistsByGenreIdProjectedPaginated(clientLanguage, genreId, pageRequest);
+    public Slice<ArtistAsPageItem> findArtistsAsPageItemsByGenreId(Long genreId, String clientLanguage,
+                                                                   Pageable pageRequest) {
+        return artistRepository.findArtistsAsPageItemsByGenreId(genreId, clientLanguage, pageRequest);
+    }
+
+    @Override
+    public ArtistAsCurrentMusicEntity findArtistAsCurrentMusicEntityById(Long artistId, String clientLanguage) {
+        return artistRepository.findArtistAsCurrentMusicEntityById(artistId, clientLanguage);
     }
 
     @Override

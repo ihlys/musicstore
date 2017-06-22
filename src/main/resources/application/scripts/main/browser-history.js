@@ -1,18 +1,23 @@
-/* eslint spaced-comment: 0 */
-/* global window, $ */
+/* global window */
+/* global thPrototypingMode */
 
-import fetch from './ajax';
+/**
+ * <p>Manages browsers history object states when user clicks back or forward
+ * button by listening to {@link onpopstate} events. If event has null state
+ * then it loads content with constant URL address equal to "/".
+ *
+ * @module browser-history
+ */
 
-window.onpopstate = function (event) {
-  console.log("onpop: " + event.url);
-  const promise = fetch(event.url/*[- */, true /* -]*/);
-  promise
-    .then((request) => {
-      if (event.url.contains('/genres')) {
-        $('music-content').html(request.response);
-      } else {
-        $('main').html(request.response);
-      }
-    })
-    .catch(console.log);
-};
+import { loadPage } from './application';
+
+if (!thPrototypingMode) {
+  const INITIAL_STATE = {
+    pageUrl: '/',
+  };
+
+  window.onpopstate = function (event) {
+    const poppedState = (event.state == null) ? INITIAL_STATE : event.state;
+    loadPage(poppedState.pageUrl);
+  };
+}

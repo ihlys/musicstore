@@ -19,6 +19,10 @@
                 <xs:element name="ARTISTL10N" type="ArtistL10n"/>
                 <xs:element name="GENRE" type="Genre"/>
                 <xs:element name="GENREL10N" type="GenreL10n"/>
+                <xs:element name="SOUNDTRACK" type="Soundtrack"/>
+                <xs:element name="SOUNDTRACKL10N" type="SoundtrackL10n"/>
+                <xs:element name="SOUNDTRACK_SONG" type="Soundtrack_Song"/>
+                <xs:element name="THEMATICALLY_COMPILED_SONG" type="ThematicallyCompiledSong"/>
                 <xs:element name="THEMATIC_COMPILATION" type="ThematicCompilation"/>
                 <xs:element name="THEMATIC_COMPILATIONL10N" type="ThematicCompilationL10n"/>
             </xs:choice>

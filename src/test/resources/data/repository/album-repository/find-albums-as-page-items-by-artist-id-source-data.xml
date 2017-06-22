@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset xmlns="https://www.musicstore.com"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://www.musicstore.com ../../schema/test-data-schema.xsd">
+
+    <LANGUAGE id="1" name="en"/>
+    <LANGUAGE id="2" name="ru"/>
+
+    <GENRE id="1"/>
+        <ARTIST id="1" genre_id="1"/>
+            <ALBUM id="1" artist_id="1" image_sm_name="AlbumOne-sm.jpg"   release_date="2017-05-25" album_type="STUDIO_ALBUM"/>
+            <ALBUM id="2" artist_id="1" image_sm_name="AlbumTwo-sm.jpg"   release_date="2017-05-25" album_type="STUDIO_ALBUM"/>
+            <ALBUM id="3" artist_id="1" image_sm_name="AlbumThree-sm.jpg" release_date="2017-05-25" album_type="STUDIO_ALBUM"/>
+            <ALBUM id="4" artist_id="1" image_sm_name="AlbumFour-sm.jpg"  release_date="2017-05-25" album_type="STUDIO_ALBUM"/>
+
+    <ALBUML10N id="1" album_id="1" language_id="1"
+               name="Album One" description="This is Album One"/>
+    <ALBUML10N id="2" album_id="2" language_id="1"
+               name="Album Two" description="This is Album Two"/>
+    <ALBUML10N id="3" album_id="3" language_id="1"
+               name="Album Three" description="This is Album Three"/>
+    <ALBUML10N id="4" album_id="4" language_id="1"
+               name="Album Four" description="This is Album Four"/>
+
+</dataset>
